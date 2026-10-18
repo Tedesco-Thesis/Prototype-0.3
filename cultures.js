@@ -630,6 +630,8 @@
     if (S.flags.askedWhy) extras.push('you asked why the rooms were ranked that way. the answer was your own clicks, and you could not turn it off.');
     if (S.flags.showedAll) extras.push('you opened the full list. most people take the three they are shown.');
     if (S.flags.autoplayed) extras.push('you let the next room queue itself ' + S.flags.autoplayed + ' time' + (S.flags.autoplayed > 1 ? 's' : '') + '. a system reads that as consent.');
+    if (S.flags.usedAI) extras.push('you asked the assistant ' + (S.acts.askedAI || 1) + ' time' + ((S.acts.askedAI || 1) > 1 ? 's' : '') + '. an answer arrived before you had read the room.');
+    if (S.flags.sharedWrapped) extras.push('you shared your wrapped. what was kept about you became something you gave away.');
     if (S.flags.cookie === 'read') extras.push('you read what the cookies take before answering.');
 
     const bars = AXES.map((a) => {
