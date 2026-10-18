@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+/* era2016.css — 2016–19, the algorithmic feed. Scoped to body.era-2016.
+   References: spotify's duotone gradients (hot pink, orange, lime) and black footer, flickr's "find your inspiration"
+   photo hero with a centred pill, facebook / dell's clean white cards, winamp's bold diagonal colour blocks,
+   ELLE's long scroll, dexus's thin outlined frames. Soft shadows, rounded cards, geometric sans, pills.
+   (2014 is flat + condensed caps; this era is rounder, softer and more colourful.) "html body" beats the legibility pass. */
+
+:root { --geo: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; --pk: #f037a5; --or: #ff6a2b; --lm: #c8f560; --tl: #1ed7b5; --bk: #121212; }
+
+.fx-chrome, .fx-foot { display: none; }
+body.era-2016 .fx-chrome, body.era-2016 .fx-foot { display: block; }
+
+/* ground: warm off-white with three big soft colour blobs */
+html:has(body.era-2016), html body.era-2016 { background: #f6f6f8; }
+body.era-2016 #desktop {
+  background:
+    radial-gradient(ellipse 38% 46% at 12% 85%, rgba(240,55,165,.28), transparent 70%),
+    radial-gradient(ellipse 34% 44% at 88% 18%, rgba(255,106,43,.26), transparent 70%),
+    radial-gradient(ellipse 30% 40% at 62% 100%, rgba(200,245,96,.40), transparent 70%),
+    #f6f6f8;
+}
+body.era-2016 .ghost { color: rgba(0,0,0,.18); font-family: var(--geo); }
+body.era-2016 .icon { background: #fff; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.10); padding: 8px 6px 6px; }
+body.era-2016 .icon .label { color: #222; text-shadow: none; font: 600 11px var(--geo); }
+body.era-2016 .icon:hover { box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+
+/* era bar + note: white, black pill when active */
+body.era-2016 #eraBar { background: #fff; color: #111; border-bottom: 1px solid #e4e4e8; font-family: var(--geo); }
+body.era-2016 .era-btn { background: #f1f1f4; border: 0; border-radius: 999px; color: #333; font: 600 10px var(--geo); padding: 4px 11px; }
+body.era-2016 .era-btn.active { background: var(--bk); color: #fff; }
+body.era-2016 #eraNote { background: linear-gradient(90deg, var(--pk), var(--or)); color: #fff; border: 0; font: 500 12px var(--geo); }
+
+/* windows: white cards, big soft shadow */
+html body.era-2016 .window { background: #fff; border: 0; border-radius: 16px; box-shadow: 0 18px 50px rgba(20,20,40,.22), 0 2px 6px rgba(0,0,0,.08); overflow: hidden; }
+html body.era-2016 .window .titlebar { background: #fff; color: #888; text-shadow: none; border: 0; font: 600 10px var(--geo); letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px 4px 16px; }
+html body.era-2016 .window .titlebar button { background: #f1f1f4; border: 0; border-radius: 50%; width: 20px; height: 20px; color: #555; font-size: 10px; }
+html body.era-2016 .window .titlebar button:last-child { background: var(--bk); color: #fff; }
+html body.era-2016 .window .winbody { background: #fff; color: #1a1a1a; font-family: var(--geo); font-weight: 400; }
+html body.era-2016 .window h2.roomtitle { font: 800 calc(var(--t) + 6px) var(--geo); letter-spacing: -.5px; color: #111; border: 0; }
+html body.era-2016 .window a.retro, html body.era-2016 .window .winbody a { color: var(--pk); text-decoration: none; font-weight: 600; }
+html body.era-2016 .window .winbody .btn-95 { background: var(--bk); color: #fff; border: 0; border-radius: 999px; padding: 7px 18px; font: 700 12px var(--geo); }
+html body.era-2016 .window .winbody .btn-95:hover { background: var(--pk); }
+html body.era-2016 .window .winbody .field, html body.era-2016 .window .winbody textarea { border: 1.5px solid #dcdce2; border-radius: 10px; padding: 8px 10px; }
+
+/* header + duotone strip + ranked rail */
+.fx-head { display: flex; align-items: center; gap: 10px; padding: 8px 16px; font: 12px var(--geo); }
+.fx-logo { font-weight: 800; letter-spacing: -.3px; }
+.fx-search { flex: 1; background: #f1f1f4; border-radius: 999px; padding: 6px 14px; color: #8a8a94; }
+.fx-cta { background: var(--bk); color: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 700; }
+.fx-burger { font-style: normal; color: #555; }
+.fx-duo { height: 8px; background: linear-gradient(90deg, var(--pk), var(--or) 55%, var(--lm)); }
+.fx-railhead { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px 4px; font: 800 12px var(--geo); text-transform: uppercase; letter-spacing: 1px; }
+.fx-why { font: 600 10px var(--geo); color: #8a8a94 !important; text-transform: none; letter-spacing: 0; text-decoration: underline; cursor: pointer; }
+.fx-whybox { display: none; margin: 0 16px 6px; padding: 8px 12px; background: #fff7d6; border-radius: 10px; font: 11px/1.5 var(--geo); color: #6b5a10; }
+.fx-whybox em { display: block; font-style: normal; color: #9a8630; }
+.fx-rail { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 16px; }
+.fx-card { flex: 1 1 28%; min-width: 120px; text-align: left; border: 0; border-radius: 12px; padding: 10px 12px; cursor: pointer; font: 700 12px var(--geo); color: #fff;
+  background: linear-gradient(135deg, var(--pk), var(--or)); }
+.fx-card:nth-child(2n) { background: linear-gradient(135deg, var(--tl), #2a7be4); }
+.fx-card:nth-child(3n) { background: linear-gradient(135deg, #7a3cff, var(--pk)); }
+.fx-card:nth-child(4n) { background: linear-gradient(135deg, #f5b800, var(--or)); }
+.fx-card b { display: block; margin-top: 4px; font-size: 13px; }
+.fx-pct { font: 600 9px var(--geo); opacity: .85; text-transform: uppercase; letter-spacing: .6px; }
+.fx-all { display: block; padding: 2px 16px 8px; font: 700 11px var(--geo); color: var(--pk) !important; cursor: pointer; }
+
+/* footer: autoplay bar + black link block */
+.fx-next { display: flex; align-items: center; gap: 10px; padding: 8px 16px; background: #f6f6f8; font: 600 11px var(--geo); color: #333; }
+.fx-next.off { opacity: .6; }
+.fx-bar { flex: 1; height: 4px; background: #dcdce2; border-radius: 2px; overflow: hidden; } .fx-bar i { display: block; height: 100%; width: 0; background: var(--pk); transition: width 1s linear; }
+.fx-cancel { color: #111 !important; text-decoration: underline; cursor: pointer; }
+.fx-links { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; padding: 10px 16px; background: var(--bk); color: #aaa; font: 10px var(--geo); }
+.fx-links b { color: #fff; margin-left: 6px; } .fx-links a { color: #aaa !important; font-weight: 400 !important; cursor: default; }
+
+/* taskbar + pop-ups */
+body.era-2016 #taskbar { background: #fff; border-top: 1px solid #e4e4e8; box-shadow: 0 -4px 16px rgba(0,0,0,.06); font-family: var(--geo); }
+body.era-2016 #taskbar .btn-95, body.era-2016 .tab { background: #f1f1f4; border: 0; border-radius: 999px; font: 600 10px var(--geo); color: #333; }
+body.era-2016 .tab.focused { background: var(--bk); color: #fff; }
+body.era-2016 #clock { background: transparent; border: 0; font-family: var(--geo); color: #666; }
+body.era-2016 .popup-ad { border: 0; border-radius: 14px; box-shadow: 0 14px 40px rgba(0,0,0,.28); font-family: var(--geo); overflow: hidden; }
+body.era-2016 .popup-head { background: linear-gradient(90deg, var(--pk), var(--or)); color: #fff; font-family: var(--geo); }
+body.era-2016 .popup-x { background: transparent; border: 0; color: #fff; }
+body.era-2016 .popup-accept { background: var(--bk); color: #fff; border: 0; border-radius: 999px; font: 700 11px var(--geo); }
+
+/* keep the whole window on screen */
+html body.era-2016 .window .winbody { max-height: max(160px, calc(100vh - 560px)); }
+.fx-rail { max-height: 132px; overflow-y: auto; }

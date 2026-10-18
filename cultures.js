@@ -627,6 +627,9 @@
     if (S.flags.cookie === 'blind') extras.push('you accepted the cookies without opening the list of what they take.');
     if (S.flags.feed === 'recent') extras.push('you switched the feed to most recent. you chose the order yourself.');
     if (S.acts && S.acts.ratings) extras.push('you rated ' + S.acts.ratings + ' room' + (S.acts.ratings > 1 ? 's' : '') + '. a system reads a star as taste, not as the reason you liked it.');
+    if (S.flags.askedWhy) extras.push('you asked why the rooms were ranked that way. the answer was your own clicks, and you could not turn it off.');
+    if (S.flags.showedAll) extras.push('you opened the full list. most people take the three they are shown.');
+    if (S.flags.autoplayed) extras.push('you let the next room queue itself ' + S.flags.autoplayed + ' time' + (S.flags.autoplayed > 1 ? 's' : '') + '. a system reads that as consent.');
     if (S.flags.cookie === 'read') extras.push('you read what the cookies take before answering.');
 
     const bars = AXES.map((a) => {
