@@ -625,6 +625,8 @@
     if (S.flags.lookOnly) extras.push('you kept the look of the old web, not the practice.');
     if (S.flags.skipped) extras.push('you let a pop-up answer for you. part of this was generated without asking.');
     if (S.flags.cookie === 'blind') extras.push('you accepted the cookies without opening the list of what they take.');
+    if (S.flags.feed === 'recent') extras.push('you switched the feed to most recent. you chose the order yourself.');
+    if (S.acts && S.acts.ratings) extras.push('you rated ' + S.acts.ratings + ' room' + (S.acts.ratings > 1 ? 's' : '') + '. a system reads a star as taste, not as the reason you liked it.');
     if (S.flags.cookie === 'read') extras.push('you read what the cookies take before answering.');
 
     const bars = AXES.map((a) => {

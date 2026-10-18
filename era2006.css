@@ -69,3 +69,6 @@ html body.era-2006 #taskbar { background: linear-gradient(#e8eef8, #c3d1e8); bor
 body.era-2006 .popup-ad.pp-social { border: 1px solid #5b74a8; border-radius: 6px; background: #fff; }
 body.era-2006 .popup-ad.pp-social .popup-head { background: linear-gradient(#7d9bd0, #3b5998); border-radius: 5px 5px 0 0; }
 body.era-2006 .popup-ad.pp-social .popup-accept { border-radius: 4px; background: linear-gradient(#6d84b4, #3b5998); color: #fff; border: 1px solid #29447e; }
+
+/* keep the whole window (banner + status + body + footer) on screen */
+html body.era-2006 .window .winbody { max-height: max(180px, calc(100vh - 400px)); }

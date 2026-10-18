@@ -105,3 +105,6 @@ body.era-2004 .popup-ad { border: 1px solid #b4bcc3; box-shadow: 0 3px 8px rgba(
 body.era-2004 .popup-head { background: #e9ecef; color: #6b747c; font-family: var(--px); font-size: 8px; text-transform: uppercase; border-bottom: 2px solid var(--pink); }
 body.era-2004 .popup-x { border: 0; background: transparent; }
 body.era-2004 .popup-accept { background: #f3f5f7; border: 1px solid var(--pink); color: var(--pink); font-family: var(--px); font-size: 9px; text-transform: uppercase; }
+
+/* keep the whole window (masthead + body + footer) on screen */
+html body.era-2004 .window .winbody { max-height: max(180px, calc(100vh - 410px)); }

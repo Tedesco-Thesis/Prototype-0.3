@@ -578,6 +578,12 @@
     BEATS['2006'] = E6.beat; TAGS['2006'] = E6.tag; TIER['2006'] = E6.tier; CONTEXT_CHANCE[2006] = E6.chance;
     Object.keys(E6.copy).forEach((room) => { (POP[room] = POP[room] || {}).social = E6.copy[room]; });
   }
+  // 2008-09 (era2008.js) registers its beat, tier, tag, odds and copy the same way
+  const E8 = window.__era2008;
+  if (E8) {
+    BEATS['2008'] = E8.beat; TAGS['2008'] = E8.tag; TIER[2008] = E8.tier; CONTEXT_CHANCE[2008] = E8.chance;
+    Object.keys(E8.copy).forEach((room) => { (POP[room] = POP[room] || {})[E8.tier] = E8.copy[room]; });
+  }
   // 2014 (era2014.js) registers its beat, tier, tag, odds and copy the same way
   const E14 = window.__era2014;
   if (E14) {
