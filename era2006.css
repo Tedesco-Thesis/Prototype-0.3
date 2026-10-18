@@ -1,0 +1,71 @@
+/* era2006.css — 2005–07, the social media boom. Everything is scoped to body.era-2006.
+   Palette from the references: thefacebook blue (#3b5998), pale-blue page, glossy web 2.0 buttons,
+   Digg-style vote box, Twitter-style status row. "html body" prefix beats the legibility pass. */
+
+.sb-chrome, .sb-foot { display: none; }
+body.era-2006 .sb-chrome { display: block; }
+body.era-2006 .sb-foot { display: block; }
+
+/* desktop */
+body.era-2006 { background: #dfe7f2; }
+body.era-2006 #desktop, html body.era-2006 .desktop {
+  background: radial-gradient(ellipse at 30% 20%, #ffffff 0%, #dfe7f2 45%, #b9c8e0 100%);
+}
+body.era-2006 .ghost { display: none; }
+body.era-2006 .icon .label { color: #1d2f55; text-shadow: 0 1px 0 #fff; }
+
+/* windows: rounded, glossy */
+html body.era-2006 .window {
+  border: 1px solid #5b74a8; border-radius: 8px 8px 4px 4px; background: #fff;
+  box-shadow: 0 6px 18px rgba(30, 50, 100, .28);
+}
+html body.era-2006 .window .titlebar {
+  background: linear-gradient(#7d9bd0 0%, #4f72b8 48%, #3b5998 52%, #4b6bab 100%);
+  color: #fff; border-radius: 7px 7px 0 0; text-shadow: 0 -1px 0 rgba(0,0,0,.35);
+  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+}
+html body.era-2006 .window .titlebar button {
+  border-radius: 4px; border: 1px solid #7d1d1d; color: #fff;
+  background: linear-gradient(#f59b8f, #d6473a 50%, #b82a1d 52%, #d9503f);
+}
+html body.era-2006 .window .winbody {
+  background: #fff; color: #222;
+  font-family: "Lucida Grande", Verdana, Trebuchet MS, sans-serif;
+}
+html body.era-2006 .window .winbody .btn-95 {
+  border: 1px solid #5b74a8; border-radius: 4px; color: #1d2f55;
+  background: linear-gradient(#fff, #dde6f5 50%, #c6d4ec 52%, #e4ecf8);
+}
+html body.era-2006 #taskbar { background: linear-gradient(#e8eef8, #c3d1e8); border-top: 1px solid #5b74a8; }
+
+/* per-window profile chrome */
+.sb-banner { display: flex; align-items: center; gap: 8px; background: #3b5998; color: #fff; padding: 5px 10px; font: 700 14px "Lucida Grande", Tahoma, sans-serif; }
+.sb-logo { letter-spacing: .3px; text-transform: lowercase; }
+.sb-beta { font: 700 9px Verdana; background: #fff; color: #3b5998; border-radius: 3px; padding: 0 4px; }
+.sb-nav { margin-left: auto; display: flex; gap: 10px; font: 400 11px Tahoma, sans-serif; }
+.sb-nav a, .sb-bar a, .sb-foot a { color: #d8dfea; text-decoration: none; cursor: default; }
+.sb-bar { display: flex; justify-content: space-between; background: #d8dfea; border-bottom: 1px solid #b0bcd6; padding: 4px 10px; font: 12px Tahoma, sans-serif; color: #3b5998; }
+.sb-bar a, .sb-foot a { color: #3b5998; }
+.sb-status { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; background: #f7f7f7; border-bottom: 1px solid #ddd; font: 12px Tahoma, sans-serif; }
+.sb-status label { font-weight: 700; color: #333; }
+.sb-in { flex: 1; min-width: 120px; border: 1px solid #bdc7d8; padding: 3px 5px; font: 12px Tahoma, sans-serif; }
+.sb-post, .sb-up { border: 1px solid #29447e; border-radius: 3px; color: #fff; font: 700 11px Tahoma, sans-serif; cursor: pointer;
+  background: linear-gradient(#6d84b4, #3b5998); padding: 3px 8px; }
+.sb-last { flex-basis: 100%; color: #666; font-style: italic; min-height: 0; }
+.sb-last:empty { display: none; }
+.sb-vote { order: 3; flex: 0 0 38px; width: 38px; text-align: center; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 2px 0; font: 700 14px Verdana, sans-serif; color: #3b5998; }
+.sb-vote i { display: block; font: 400 9px Verdana; color: #888; font-style: normal; }
+.sb-up { display: block; margin: 0 auto 1px; padding: 0 6px; background: linear-gradient(#e8eef8, #c3d1e8); color: #3b5998; border-color: #9aa9c9; }
+.sb-up.on { background: linear-gradient(#f3a05a, #d9731c); color: #fff; border-color: #a85a10; }
+.sb-foot { border-top: 1px solid #ccd5e6; background: #f2f5fa; padding: 5px 10px; font: 11px Tahoma, sans-serif; color: #555; }
+.sb-meter { display: flex; align-items: center; gap: 8px; }
+.sb-track { flex: 1; height: 8px; background: #dfe3ec; border: 1px solid #b0bcd6; border-radius: 4px; overflow: hidden; }
+.sb-fill { height: 100%; width: 15%; background: linear-gradient(#9fd06b, #5aa22a); transition: width .4s; }
+.sb-pct { font-style: normal; font-weight: 700; color: #3b5998; min-width: 32px; text-align: right; }
+.sb-meta { display: flex; justify-content: space-between; margin-top: 3px; }
+.sb-fr { font-weight: 700; color: #3b5998; }
+
+/* pop-ups in this era: friendly, not shouty */
+body.era-2006 .popup-ad.pp-social { border: 1px solid #5b74a8; border-radius: 6px; background: #fff; }
+body.era-2006 .popup-ad.pp-social .popup-head { background: linear-gradient(#7d9bd0, #3b5998); border-radius: 5px 5px 0 0; }
+body.era-2006 .popup-ad.pp-social .popup-accept { border-radius: 4px; background: linear-gradient(#6d84b4, #3b5998); color: #fff; border: 1px solid #29447e; }
