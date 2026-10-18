@@ -1,7 +1,7 @@
 /* =====================================================================
-   eras.css — one clearly marked block per era. Load AFTER style.css.
+   early-eras.css — one clearly marked block per era. Load AFTER style.css.
    style.css = rooms + window mechanics (unchanged).
-   eras.css  = what each era looks like.
+   early-eras.css  = what each era looks like.
    Base look in style.css is the 1996 teal desktop, so 1996 needs no block.
    ===================================================================== */
 

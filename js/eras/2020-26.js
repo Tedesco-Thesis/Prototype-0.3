@@ -1,5 +1,5 @@
 /* =====================================================================
-   era2024.js — 2020–26, optimized, monetized & automated. Load AFTER era2016.js, BEFORE guide.js.
+   2020-26.js — 2020–26, optimized, monetized & automated. Load AFTER 2016-19.js, BEFORE guide.js.
    Additive, like the other eras: it renames the existing 2024 entry "2020–26" (the guide's 2024 beat, the late-tier
    pop-ups and the cookie bar are unchanged) and adds, to every window:
      - a greeting bar that already knows your name, and an "ask anything" box with suggestion chips.

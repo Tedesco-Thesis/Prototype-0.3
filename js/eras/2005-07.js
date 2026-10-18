@@ -1,6 +1,6 @@
 /* =====================================================================
-   era2006.js — 2005–2007, the social media boom. Load AFTER eras.js and
-   BEFORE guide.js (index.html: script.js, cultures.js, eras.js, era2006.js, guide.js).
+   2005-07.js — 2005–2007, the social media boom. Load AFTER early-eras.js and
+   BEFORE guide.js (index.html: script.js, cultures.js, early-eras.js, 2005-07.js, guide.js).
 
    Adds, without editing the base files:
      - the era itself (spliced into the timeline after 2004, with its button)

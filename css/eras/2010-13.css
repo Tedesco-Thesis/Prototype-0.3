@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-/* era2010.css — 2010–13, social & mobile.
+/* 2010-13.css — 2010–13, social & mobile.
    Two looks in one era, switched by body.flat-13:
      2010 (default) — gloss: facebook blue, glossy buttons, a chrome-style browser frame, a pale twitter-blue ground,
                       orange call-to-action buttons (office 365), a "what's on your mind?" box and a sponsored strip.
      2013 (.flat-13) — the gloss comes off: flat windows-8 tiles, thin light type, solid colour, no gradients (xbox, dell).
-   Everything is scoped to body.era-2010. "html body" prefix beats the legibility pass in eras.css. */
+   Everything is scoped to body.era-2010. "html body" prefix beats the legibility pass in early-eras.css. */
 
 :root { --os: 'Open Sans', 'Segoe UI', 'Lucida Grande', Helvetica, Arial, sans-serif; }
 

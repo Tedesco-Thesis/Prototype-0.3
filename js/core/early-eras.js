@@ -1,5 +1,5 @@
 /* =====================================================================
-   eras.js — the era layer. Load AFTER script.js.
+   early-eras.js — the era layer. Load AFTER script.js.
    It extends the existing era system without editing script.js:
      - adds 1991 and 1993 to the timeline
      - builds the 1991 onboarding document

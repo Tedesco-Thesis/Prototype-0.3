@@ -1,5 +1,5 @@
 /* =====================================================================
-   era2016.js — 2016–19, the algorithmic feed. Load AFTER era2014.js, BEFORE guide.js.
+   2016-19.js — 2016–19, the algorithmic feed. Load AFTER 2014.js, BEFORE guide.js.
    Additive, like the other eras: it renames the existing 2016 entry "2016–19" (the guide's 2016 beat,
    pop-ups and cookie bar are unchanged) and adds, to every window:
      - a sticky site header (logo, search, pill sign-up) and a duotone gradient strip

@@ -1,5 +1,5 @@
 /* =====================================================================
-   era2010.js — 2010–13, social & mobile. Load AFTER eras.js / era2006.js / era2004.js, BEFORE guide.js.
+   2010-13.js — 2010–13, social & mobile. Load AFTER early-eras.js / 2005-07.js / 2004.js, BEFORE guide.js.
    Additive, like the other eras (nothing in the base files is edited):
      - renames the 2010 era "2010–13" and gives it two looks: gloss (2010) and flat (2013), switched by body.flat-13
      - gives every window a browser frame: address row, facebook-style top bar, favourites row,

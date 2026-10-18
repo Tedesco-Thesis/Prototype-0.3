@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
-/* era2004.css — 2004, web 2.0: the weblog / design-portfolio web.
+/* 2004.css — 2004, web 2.0: the weblog / design-portfolio web.
    Not a "window" web any more: pale grey pages on a pale grey ground, torn-paper edges
    (deft creative), tiny pixel caps and pink accents (lounge72, flapper), blog columns and
    "best viewed with" lines (depthcore). Everything is scoped to body.era-2004.
-   "html body" prefix beats the legibility pass in eras.css. */
+   "html body" prefix beats the legibility pass in early-eras.css. */
 
 :root { --px: 'Silkscreen', 'Courier New', monospace; --pink: #c8105a; --slate: #5d6872; --ground: #dde3e8; }
 

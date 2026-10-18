@@ -1,6 +1,6 @@
 /* =====================================================================
-   era2008.js — 2008–09, "foundations of web 3.0". Load AFTER era2006.js, BEFORE guide.js.
-   (index.html: script.js, cultures.js, eras.js, era2006.js, era2004.js, era2008.js, guide.js)
+   2008-09.js — 2008–09, "foundations of web 3.0". Load AFTER 2005-07.js, BEFORE guide.js.
+   (index.html: script.js, cultures.js, early-eras.js, 2005-07.js, 2004.js, 2008-09.js, guide.js)
 
    The era's argument: the page stops waiting to be visited. A news feed ranks what you see,
    ratings feed a recommender, "follow" turns people into a stream. The web starts reading you

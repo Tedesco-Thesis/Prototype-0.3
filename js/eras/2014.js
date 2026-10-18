@@ -1,8 +1,8 @@
 /* =====================================================================
-   era2014.js — 2014, "web 3" is coined. Load AFTER era2010.js, BEFORE guide.js.
+   2014.js — 2014, "web 3" is coined. Load AFTER 2010-13.js, BEFORE guide.js.
    Additive, like the other eras:
      - splices a new era in after 2010 (with its button), and registers a guide beat + pop-up copy through
-       window.__era2014 (guide.js picks it up, the same way it does for era2006.js)
+       window.__era2014 (guide.js picks it up, the same way it does for 2005-07.js)
      - every window gets a full-bleed duotone hero with giant condensed caps (the room's name), a hamburger drawer
        that lists the rooms, and a light / dark switch
      - the welcome window gets a sign-up wall (facebook 2014): what it asks for is counted on the receipt

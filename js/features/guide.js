@@ -1,7 +1,7 @@
 /* =====================================================================
    guide.js — the guide (mote), the new pop-ups, and the session log.
-   Load LAST (after eras.js). It wraps existing functions from the outside;
-   script.js and eras.js are not edited.
+   Load LAST (after early-eras.js). It wraps existing functions from the outside;
+   script.js and early-eras.js are not edited.
 
    What lives here
    ---------------
@@ -140,7 +140,7 @@
     },
   };
   const TAGS = { '1999': 'AD', '2004': 'ad', '2010': 'offer', '2016': 'suggested', '2024': 'for you' };
-  // which pop-up copy tier each era uses. a new era file can add its own (see era2006.js)
+  // which pop-up copy tier each era uses. a new era file can add its own (see 2005-07.js)
   const TIER = { 1999: 'early', 2004: 'early', 2010: 'mid', 2016: 'late', 2024: 'late' };
   const tierOf = (y) => TIER[y] || (y >= 2016 ? 'late' : y >= 2010 ? 'mid' : 'early');
   // chance that opening a room is followed, a few seconds later, by a pop-up about that room
@@ -569,29 +569,29 @@
     if (G.stage === 'task' && G.min && Date.now() - G.lastAct > 45000) moteEl.classList.add('ping');
   }, 5000);
 
-  /* extension point: an era file (era2006.js ...) loaded after this one can add its own
+  /* extension point: an era file (2005-07.js ...) loaded after this one can add its own
      guide beat, pop-up copy tier, tag and pop-up odds without editing this file */
   S.guide = { POP, BEATS, TAGS, TIER, CONTEXT_CHANCE };
-  // 2005-07 (era2006.js) registers its beat, tier, tag, odds and copy here
+  // 2005-07 (2005-07.js) registers its beat, tier, tag, odds and copy here
   const E6 = window.__era2006;
   if (E6) {
     BEATS['2006'] = E6.beat; TAGS['2006'] = E6.tag; TIER['2006'] = E6.tier; CONTEXT_CHANCE[2006] = E6.chance;
     Object.keys(E6.copy).forEach((room) => { (POP[room] = POP[room] || {}).social = E6.copy[room]; });
   }
-  // 2008-09 (era2008.js) registers its beat, tier, tag, odds and copy the same way
+  // 2008-09 (2008-09.js) registers its beat, tier, tag, odds and copy the same way
   const E8 = window.__era2008;
   if (E8) {
     BEATS['2008'] = E8.beat; TAGS['2008'] = E8.tag; TIER[2008] = E8.tier; CONTEXT_CHANCE[2008] = E8.chance;
     Object.keys(E8.copy).forEach((room) => { (POP[room] = POP[room] || {})[E8.tier] = E8.copy[room]; });
   }
-  // 2014 (era2014.js) registers its beat, tier, tag, odds and copy the same way
+  // 2014 (2014.js) registers its beat, tier, tag, odds and copy the same way
   const E14 = window.__era2014;
   if (E14) {
     BEATS['2014'] = E14.beat; TAGS['2014'] = E14.tag; TIER[2014] = E14.tier; CONTEXT_CHANCE[2014] = E14.chance;
     Object.keys(E14.copy).forEach((room) => { (POP[room] = POP[room] || {})[E14.tier] = E14.copy[room]; });
   }
 
-  /* boot: eras.js already ran setEra('1991') before we loaded */
+  /* boot: early-eras.js already ran setEra('1991') before we loaded */
   S.syncIcons(yearOf(currentEra));
   enterEra(currentEra);
   window.ThirdSpaceGuide = { G, signal, rec, log: LOG };

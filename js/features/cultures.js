@@ -1,7 +1,7 @@
 /* =====================================================================
    cultures.js — internet subcultures (desktop shortcuts) + "the next web".
 
-   Load AFTER script.js and BEFORE eras.js, so that eras.js wraps these new
+   Load AFTER script.js and BEFORE early-eras.js, so that early-eras.js wraps these new
    windows in each era's browser chrome the same way it does the old rooms.
    Anything that depends on the current era, pop-ups or the guide lives in
    guide.js (loaded last).

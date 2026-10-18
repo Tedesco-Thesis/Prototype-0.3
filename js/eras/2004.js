@@ -1,6 +1,6 @@
 /* =====================================================================
-   era2004.js — 2004, web 2.0, redesigned as the weblog / design-portfolio web.
-   Load AFTER eras.js (and era2006.js), BEFORE guide.js. Additive, like the other eras.
+   2004.js — 2004, web 2.0, redesigned as the weblog / design-portfolio web.
+   Load AFTER early-eras.js (and 2005-07.js), BEFORE guide.js. Additive, like the other eras.
      - rewrites the 2004 era note
      - builds the torn-paper window edge (one clip-path, set as a CSS variable)
      - adds a blog masthead (above) and footer (below) to every window, hidden outside 2004
