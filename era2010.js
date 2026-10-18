@@ -83,7 +83,7 @@
     const title = windowTitles[id] || id;
     state.posts[id] = [];
 
-    const favs = Object.keys(windowTitles).filter((k) => k !== 'win-about')
+    const favs = ['win-home', 'win-data', 'win-mail', 'win-gallery', 'win-receipt', 'win-personal', 'win-maze', 'win-whoknows', 'win-machine', 'win-social']
       .map((k) => '<a data-go="' + k + '" class="' + (k === id ? 'cur' : '') + '">' + esc(windowTitles[k]) + '</a>').join('');
 
     const chrome = document.createElement('div');

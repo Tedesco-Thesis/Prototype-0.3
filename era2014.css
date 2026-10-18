@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Oswald:wght@400;600;700&display=swap');
+/* era2014.css — 2014, the year "web 3" is coined.
+   References: the facebook sign-up wall, full-bleed photo heroes with huge condensed caps (PHOTOGRAPHY, HEART WORK),
+   winamp's grey / orange full-width bands, vox's black + yellow card grid, myspace's dark sidebar, dell's flat blue.
+   Flat, full-bleed, mobile-first: a hero, a hamburger, cards, bands — and a sign-up form in the doorway.
+   Light by default; body.dark-14 flips it. Everything is scoped to body.era-2014. "html body" beats the legibility pass. */
+
+:root { --cond: 'Oswald', 'Arial Narrow', Impact, sans-serif; --lato: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+body.era-2014 {
+  --ink: #111; --paper: #fff; --soft: #f2f2f2; --line: #d9d9d9; --mute: #777; --ground: #e6e6e6; --ghost: rgba(0,0,0,.055);
+  --acc: #f58220; --hot: #e8184d; --yel: #ffe600; --blue: #0b87d0; --grn: #5aa72f; --band: #8c8c8c;
+}
+body.era-2014.dark-14 {
+  --ink: #f1f1f1; --paper: #161616; --soft: #1f1f1f; --line: #333; --mute: #9a9a9a; --ground: #0e0e0e; --ghost: rgba(255,255,255,.05);
+}
+
+.w3-chrome, .w3-foot, .w3-signup { display: none; }
+body.era-2014 .w3-chrome, body.era-2014 .w3-foot { display: block; }
+body.era-2014 .w3-signup { display: flex; }
+
+/* ---------- the ground: flat, with a giant faint WEB 3.0 behind everything ---------- */
+html:has(body.era-2014), html body.era-2014, html body.era-2014 #desktop { background: var(--ground); }
+body.era-2014 #desktop::before {
+  content: 'WEB 3.0'; position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
+  font: 700 clamp(120px, 24vw, 340px)/1 var(--cond); letter-spacing: -4px; color: var(--ghost);
+  translate: var(--mx, 0px) var(--my, 0px);
+}
+body.era-2014 .ghost { color: var(--mute); font-family: var(--lato); text-shadow: none; opacity: .5; }
+
+/* ---------- era bar + note: black strip, vox-yellow note ---------- */
+body.era-2014 #eraBar { background: #111; border-bottom: 3px solid var(--acc); font-family: var(--cond); letter-spacing: 1.5px; text-transform: uppercase; }
+body.era-2014 .era-btn { background: transparent; border: 1px solid #555; border-radius: 0; color: #ccc; font: 400 11px var(--cond); letter-spacing: 1.5px; }
+body.era-2014 .era-btn.active { background: var(--acc); border-color: var(--acc); color: #111; }
+body.era-2014 #eraNote { background: var(--yel); border-bottom: 2px solid #111; color: #111; font: 400 12px var(--lato); }
+
+/* ---------- desktop icons: flat discs, no gloss ---------- */
+body.era-2014 .icon .glyph {
+  width: 58px; height: 58px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 26px; filter: none;
+  background: var(--tile, #111); border-radius: 50%; color: #fff; box-shadow: none; transition: transform .15s;
+}
+body.era-2014 .icon:hover .glyph { transform: scale(1.08); }
+body.era-2014 .icon .label { font: 700 10px var(--cond); letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); text-shadow: none; background: transparent; }
+body.era-2014 .icon:active .label { background: var(--acc); color: #111; }
+.t14-0 { --tile: #e8184d; } .t14-1 { --tile: #f58220; } .t14-2 { --tile: #0b87d0; } .t14-3 { --tile: #111; }
+.t14-4 { --tile: #5aa72f; } .t14-5 { --tile: #8c8c8c; } .t14-6 { --tile: #7a2cc4; } .t14-7 { --tile: #d4b800; }
+
+/* ---------- windows: frameless flat cards ---------- */
+html body.era-2014 .window { background: var(--paper); border: 0; border-radius: 0; box-shadow: 0 0 0 1px rgba(0,0,0,.14), 0 16px 44px rgba(0,0,0,.38); }
+html body.era-2014 .window .titlebar {
+  background: #111; color: #fff; border: 0; text-shadow: none; padding: 7px 8px 7px 12px;
+  font: 400 11px var(--cond); letter-spacing: 2.2px; text-transform: uppercase;
+}
+html body.era-2014 .window .winbtns button { background: transparent; border: 0; border-radius: 0; color: #fff; font: 14px var(--lato); }
+html body.era-2014 .window .winbtns button:hover { background: var(--acc); color: #111; }
+html body.era-2014 .window .winbody {
+  background: var(--paper); color: var(--ink); font-family: var(--lato); font-weight: 300; max-height: max(160px, calc(100vh - 480px));
+}
+html body.era-2014 .window h2.roomtitle {
+  display: inline-block; font: 700 calc(var(--t) + 8px)/1.05 var(--cond); text-transform: uppercase; letter-spacing: .5px;
+  color: var(--ink); border: 0; border-bottom: 6px solid var(--acc); padding-bottom: 3px; margin-bottom: 14px;
+}
+html body.era-2014 .window .winbody a, html body.era-2014 .window a.retro { color: var(--acc); text-decoration: none; font-weight: 700; }
+html body.era-2014 .window .winbody a:hover { text-decoration: underline; }
+html body.era-2014 .window .winbody .btn-95 {
+  background: transparent; border: 2px solid var(--ink); border-radius: 0; color: var(--ink);
+  font: 600 11px var(--cond); letter-spacing: 1.6px; text-transform: uppercase; box-shadow: none;
+}
+html body.era-2014 .window .winbody .btn-95:hover { background: var(--ink); color: var(--paper); }
+html body.era-2014 .window .winbody .field, html body.era-2014 .window .winbody input[type=text], html body.era-2014 .window .winbody textarea {
+  background: var(--soft); color: var(--ink); border: 0; border-bottom: 2px solid var(--line); border-radius: 0; font-family: var(--lato);
+}
+html body.era-2014 .window .winbody .field:focus, html body.era-2014 .window .winbody textarea:focus { outline: none; border-bottom-color: var(--acc); }
+
+/* ---------- hero: full-bleed, duotone "photo", giant condensed caps ---------- */
+.w3-hero { position: relative; height: 128px; overflow: hidden; color: #fff; --hx: 0px; --hy: 0px; }
+.w3-hero::before { content: ''; position: absolute; inset: -20px; transition: transform .25s ease-out; transform: translate(var(--hx), var(--hy)); }
+.w3-hero.t0 { background: #e8184d; } .w3-hero.t1 { background: #151515; } .w3-hero.t2 { background: #f58220; } .w3-hero.t3 { background: #0b87d0; } .w3-hero.t4 { background: #ffe600; color: #111; }
+.w3-hero.t0::before { background: radial-gradient(circle at 74% 38%, rgba(255,255,255,.32) 0, transparent 34%), radial-gradient(circle at 16% 96%, rgba(0,0,0,.55) 0, transparent 52%), linear-gradient(115deg, rgba(0,0,0,.28), transparent 55%); }
+.w3-hero.t1::before { background: radial-gradient(circle at 70% 55%, rgba(255,255,255,.16) 0, transparent 40%), linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.7)); }
+.w3-hero.t2::before { background: radial-gradient(circle at 80% 30%, rgba(255,255,255,.34) 0, transparent 36%), linear-gradient(0deg, rgba(0,0,0,.3), transparent 60%); }
+.w3-hero.t3::before { background: radial-gradient(circle at 78% 42%, rgba(255,255,255,.3) 0, transparent 36%), linear-gradient(120deg, rgba(0,40,90,.4), transparent 60%); }
+.w3-hero.t4::before { background: radial-gradient(circle at 80% 40%, rgba(255,255,255,.55) 0, transparent 34%), linear-gradient(0deg, rgba(0,0,0,.12), transparent 60%); }
+.w3-top { position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 8px 12px; font: 700 10px var(--cond); letter-spacing: 2.4px; text-transform: uppercase; }
+.w3-top button { background: transparent; border: 0; color: inherit; font: 20px/1 var(--lato); cursor: pointer; padding: 0 2px; }
+.w3-brand { margin-right: auto; opacity: .85; }
+.w3-theme { font-size: 15px !important; }
+.w3-hh { position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 10px; transform: translate(calc(var(--hx) * -.5), calc(var(--hy) * -.5)); transition: transform .25s ease-out; }
+.w3-sub { font: 400 10px var(--cond); letter-spacing: 3px; text-transform: uppercase; opacity: .9; margin-bottom: 3px; }
+.w3-h1 { font: 700 clamp(30px, 6.4vw, 46px)/.95 var(--cond); text-transform: uppercase; letter-spacing: -.5px; text-shadow: 0 2px 14px rgba(0,0,0,.25); }
+.w3-hero.t4 .w3-h1 { text-shadow: none; }
+
+/* ---------- hamburger drawer ---------- */
+.w3-drawer { display: none; position: absolute; left: 0; right: 0; bottom: 0; top: 28px; z-index: 20; background: #111; color: #fff; padding: 16px 20px; overflow: auto; }
+.w3-drawer.open { display: block; }
+.w3-drawer .x { position: absolute; right: 14px; top: 8px; background: transparent; border: 0; color: #fff; font: 22px var(--lato); cursor: pointer; }
+.w3-drawer a { display: flex; gap: 12px; align-items: baseline; padding: 3px 0; color: #fff !important; font: 700 clamp(22px, 4.4vw, 30px)/1.15 var(--cond) !important; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; text-decoration: none !important; }
+.w3-drawer a i { font: 400 10px var(--cond); color: var(--acc); font-style: normal; letter-spacing: 2px; }
+.w3-drawer a:hover { color: var(--acc) !important; }
+.w3-drawer p { margin: 14px 0 0; font: 300 12px/1.5 var(--lato); color: #aaa; border-top: 1px solid #333; padding-top: 10px; }
+
+/* ---------- sign-up wall (welcome window): the facebook 2014 landing ---------- */
+.w3-signup { gap: 18px; flex-wrap: wrap; padding: 16px 16px 14px; background: #3b5998; color: #fff; font-family: var(--lato); }
+.w3-signup .l { flex: 1 1 180px; } .w3-signup .r { flex: 1 1 230px; background: #fff; color: #222; padding: 12px 14px; }
+.w3-signup h3 { margin: 0 0 12px; font: 700 20px/1.25 var(--lato); letter-spacing: -.3px; }
+.w3-feat { display: flex; gap: 10px; margin: 0 0 9px; font: 400 12px/1.35 var(--lato); } .w3-feat b { display: block; font-size: 12.5px; }
+.w3-feat i { flex: 0 0 22px; height: 22px; border: 2px solid rgba(255,255,255,.7); border-radius: 3px; }
+.w3-signup .r h4 { margin: 0 0 1px; font: 700 18px var(--lato); } .w3-signup .r small { display: block; color: #666; margin-bottom: 8px; font-size: 11.5px; }
+.w3-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.w3-signup input, .w3-signup select { flex: 1; min-width: 0; padding: 6px 7px; border: 1px solid #bdc7d8; border-radius: 0; font: 12.5px var(--lato); color: #333; background: #fff; }
+.w3-signup input.bad { border-color: #e8184d; background: #fff4f6; }
+.w3-signup .bd { font: 700 11px var(--lato); color: #333; margin: 4px 0 3px; } .w3-signup .bd a { font-weight: 400 !important; color: #3b5998 !important; font-size: 11px; cursor: pointer; }
+.w3-signup .why { display: none; font-size: 11px; color: #666; margin: 0 0 6px; } .w3-signup .why.on { display: block; }
+.w3-go { background: var(--grn); border: 0; border-bottom: 2px solid #3f7d1f; color: #fff; font: 700 14px var(--lato); padding: 7px 22px; cursor: pointer; margin-top: 4px; }
+.w3-done { font: 400 13px/1.5 var(--lato); color: #222; } .w3-done b { color: #3b5998; }
+
+/* ---------- footer: story cards (vox) + two full-width bands (winamp) ---------- */
+.w3-foot { background: var(--paper); border-top: 1px solid var(--line); font-family: var(--lato); }
+.w3-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px; background: var(--soft); }
+.w3-card { background: #111; color: #fff; padding: 9px 10px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 6px; min-height: 118px; transition: transform .15s; }
+.w3-card:hover { transform: translateY(-3px); }
+.w3-card em { align-self: flex-start; background: var(--yel); color: #111; font: 700 8.5px var(--cond); letter-spacing: 1.6px; text-transform: uppercase; padding: 1px 5px; font-style: normal; }
+.w3-card h5 { margin: 0; font: 700 15px/1.1 var(--cond); text-transform: uppercase; color: var(--yel); letter-spacing: .3px; }
+.w3-card p { margin: auto 0 0; font: 300 11px/1.35 var(--lato); color: #ddd; }
+.w3-band { display: flex; align-items: center; gap: 10px; padding: 8px 12px; font: 700 12px var(--cond); letter-spacing: 2.4px; text-transform: uppercase; color: #fff; }
+.w3-band small { font: 300 10px var(--lato); letter-spacing: .4px; text-transform: none; opacity: .9; }
+.w3-band .sp { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.w3-band.o { background: var(--acc); } .w3-band.g { background: var(--band); }
+.w3-band button { background: #111; color: #fff; border: 0; padding: 5px 10px; font: 600 10px var(--cond); letter-spacing: 1.6px; text-transform: uppercase; cursor: pointer; }
+.w3-band button:hover { background: #fff; color: #111; }
+.w3-key { font: 400 10px 'Courier New', monospace; letter-spacing: 0; text-transform: none; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w3-legal { padding: 6px 12px 8px; font: 400 10px var(--lato); color: var(--mute); background: var(--paper); }
+
+/* ---------- pop-ups: flat cards ---------- */
+body.era-2014 .popup-ad { border: 0; border-radius: 0; box-shadow: 0 6px 24px rgba(0,0,0,.45); font-family: var(--lato); background: var(--paper); color: var(--ink); }
+body.era-2014 .popup-head { background: #111; color: #fff; font: 700 9px var(--cond); letter-spacing: 2px; text-transform: uppercase; border-bottom: 3px solid var(--acc); }
+body.era-2014 .popup-x { background: transparent; border: 0; color: #fff; width: auto; font-size: 15px; }
+body.era-2014 .popup-body p { color: var(--mute); }
+body.era-2014 .popup-accept { background: var(--acc); border: 0; border-radius: 0; color: #111; font: 700 11px var(--cond); letter-spacing: 1.8px; text-transform: uppercase; }
+
+/* ---------- taskbar: a flat black strip with an orange underline on the focused tab ---------- */
+body.era-2014 #taskbar { background: #111; border-top: 0; font-family: var(--cond); }
+body.era-2014 #menubtn { background: var(--acc); border: 0; border-radius: 0; color: #111; font: 700 11px var(--cond); letter-spacing: 1.8px; text-transform: uppercase; }
+body.era-2014 .tab { background: #222; border: 0; border-bottom: 3px solid transparent; border-radius: 0; color: #ddd; font: 400 11px var(--cond); letter-spacing: 1px; text-transform: uppercase; }
+body.era-2014 .tab.focused { background: #333; border-bottom-color: var(--acc); color: #fff; }
+body.era-2014 #clock { background: transparent; border: 0; color: #aaa; font: 400 11px var(--cond); letter-spacing: 1px; }
+body.era-2014 #startMenu { background: #111; border: 0; border-radius: 0; }
+body.era-2014 #startMenu button { color: #fff; font: 400 14px var(--cond); letter-spacing: 1px; text-transform: uppercase; }
+body.era-2014 #startMenu button:hover { background: var(--acc); color: #111; }
+body.era-2014 #startMenu hr { border-top-color: #333; border-bottom: 0; }

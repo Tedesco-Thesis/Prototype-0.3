@@ -578,6 +578,12 @@
     BEATS['2006'] = E6.beat; TAGS['2006'] = E6.tag; TIER['2006'] = E6.tier; CONTEXT_CHANCE[2006] = E6.chance;
     Object.keys(E6.copy).forEach((room) => { (POP[room] = POP[room] || {}).social = E6.copy[room]; });
   }
+  // 2014 (era2014.js) registers its beat, tier, tag, odds and copy the same way
+  const E14 = window.__era2014;
+  if (E14) {
+    BEATS['2014'] = E14.beat; TAGS['2014'] = E14.tag; TIER[2014] = E14.tier; CONTEXT_CHANCE[2014] = E14.chance;
+    Object.keys(E14.copy).forEach((room) => { (POP[room] = POP[room] || {})[E14.tier] = E14.copy[room]; });
+  }
 
   /* boot: eras.js already ran setEra('1991') before we loaded */
   S.syncIcons(yearOf(currentEra));
