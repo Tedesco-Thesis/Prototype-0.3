@@ -10,6 +10,7 @@ index.html            the page; lists every stylesheet and script, in load order
 assets/               images (1996, 1999 ...)
 css/
   core/               style.css (base desktop, windows, pop-ups), early-eras.css (1991–2003), layer3.css (guide, forecast)
+  features/           subcultures.css (palettes, ten visual treatments, field guide, interest profile)
   eras/               one stylesheet per later era: 2004, 2005-07, 2008-09, 2010-13, 2014, 2016-19, 2020-26
 js/
   core/               script.js (base: eras, windows, receipt), early-eras.js (1991, 1993, 1999)
@@ -19,7 +20,7 @@ js/
 
 ## Load order matters
 
-`script.js` → `cultures.js` → `early-eras.js` → era scripts, oldest to newest → `guide.js` (last).
+`script.js` → `cultures.js` → `subcultures.js` → `early-eras.js` → era scripts, oldest to newest → `guide.js` (last).
 Era scripts splice themselves into the timeline, so each one must load after the era before it.
 
 ## Adding an era
@@ -27,3 +28,10 @@ Era scripts splice themselves into the timeline, so each one must load after the
 1. `css/eras/<years>.css` scoped to `body.era-<key>`; `js/eras/<years>.js` that adds the era (or edits an existing entry), the per-window chrome, and receipt lines.
 2. To give it a guide task and pop-up copy, set `window.__eraXXXX = { key, beat, tag, tier, chance, copy }` and add one line to the registration block near the bottom of `guide.js`.
 3. Add the `<link>` and `<script>` to `index.html`, after the previous era.
+
+## Subcultures: how an icon is placed
+
+Each entry in `subcultures.js` has `from` / `until` (the era years in which its icon is on the desktop), a family (A–F),
+a palette, a font, assets and a treatment (`fx`). The desktop holds at most 15 icons; everything else stays reachable
+through the field guide icon. Every interaction (take a colour, collect an asset, add a word, apply the look, keep)
+writes a line to the receipt and feeds the interest profile on the receipt window.

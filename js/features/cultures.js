@@ -416,7 +416,7 @@
   function axisKept(axisId) { return CULTURES.some((c) => c.axis === axisId && S.keptBy[c.id]); }
   S.axisKept = axisKept;
 
-  CULTURES.forEach((c) => {
+  function register(c) {
     c.winId = 'win-c-' + c.id;
     const foot = c.noKeep
       ? '<div class="cult-foot"><span class="keepnote">' + esc(c.trait) + '</span></div>'
@@ -433,16 +433,23 @@
       const b = $('.keepbtn', c.win);
       if (b) { b.textContent = on ? 'kept ✓ (undo)' : 'keep this for the next web'; b.classList.toggle('kept', on); }
       c.win.classList.toggle('is-kept', on);
+      if (typeof logReceipt === 'function') logReceipt((on ? 'kept: ' : 'un-kept: ') + c.title, 'what you said \u00b7 saved to your profile');
       if (S.hooks.onKeep) S.hooks.onKeep(c.id, on);
     };
     const api = {
-      act: (name, w) => { S.acts[c.id] = (S.acts[c.id] || 0) + (w == null ? 1 : w); if (S.hooks.onAct) S.hooks.onAct(c.id, name); },
+      act: (name, w, detail) => {
+        S.acts[c.id] = (S.acts[c.id] || 0) + (w == null ? 1 : w);
+        if (typeof logReceipt === 'function') logReceipt(c.title + ': ' + (detail || name), 'catalogued as interest \u00b7 ' + (S.famName ? S.famName(c) : 'unsorted'));
+        if (S.hooks.onAct) S.hooks.onAct(c.id, name);
+        if (S.renderCatalog) S.renderCatalog();
+      },
       flag: (k, v) => { S.flags[k] = v == null ? true : v; },
     };
     c.build($('.cult-stage', c.win), api, { keep: setKept });
     const kb = $('.keepbtn', c.win);
     if (kb) kb.onclick = () => setKept(!S.keptBy[c.id]);
-  });
+  }
+  CULTURES.forEach(register);
 
   const desktopEl = document.getElementById('desktop');
   function addIcon(cid, glyph, label, onclick) {
@@ -459,33 +466,43 @@
   // a 3-column grid on the right edge. grid index g -> row = g / 3, column counted from the left.
   // "the next web" is pinned to the top-right corner (g = 2); the subcultures fill in around it,
   // packed in order so that icons which don't exist yet in an era leave no gaps.
-  const GRID_COLS = 3;
+  const GRID_COLS = 5;
   function place(el, g) {
-    el.style.top = (20 + Math.floor(g / GRID_COLS) * 106) + 'px';
-    el.style.right = (16 + (GRID_COLS - 1 - (g % GRID_COLS)) * 88) + 'px';
+    el.style.top = (12 + Math.floor(g / GRID_COLS) * 94) + 'px';
+    el.style.right = (16 + (GRID_COLS - 1 - (g % GRID_COLS)) * 84) + 'px';
   }
-  CULTURES.forEach((c) => {
-    addIcon(c.id, c.glyph, c.label, () => { S.opened[c.id] = true; openWindow(c.winId); });
-  });
-  addIcon('future', '🔮', 'the next web', () => openWindow('win-future'));
+  const iconFor = (c) => addIcon(c.id, c.glyph, c.label, () => { S.opened[c.id] = true; openWindow(c.winId); });
+  CULTURES.forEach(iconFor);
+  addIcon('future', '\ud83d\udd2e', 'the next web', () => openWindow('win-future'));
+  S.pinned = [{ cid: 'future', from: 1999 }];       // pinned icons take the top-right slots, in this order
+  S.addIcon = addIcon; S.makeWindow = makeWindow;
+  // subcultures.js adds more places through this. same window + icon + receipt logging as the originals.
+  S.addCulture = (c) => { CULTURES.push(c); register(c); iconFor(c); return c; };
 
-  /* ---------- the era decides which shortcuts exist, and which are archived ---------- */
+  /* ---------- the era decides which shortcuts exist, and which are archived ----------
+     visible from c.from through c.until (inclusive; no 'until' = stays). Everything is still reachable
+     through the field guide, which lists every place, whether or not it has an icon in this era. */
   S.syncIcons = function (year) {
     year = Number(year);
+    const pins = S.pinned.length;
     let g = 0;
-    const next = () => { if (g === GRID_COLS - 1) g += 1; return g++; };   // skip only the pinned corner slot
+    const next = () => { while (g >= GRID_COLS - pins && g < GRID_COLS) g += 1; return g++; };   // skip the pinned top-right slots
     CULTURES.forEach((c) => {
       const el = document.querySelector('.culture-icon[data-cid="' + c.id + '"]');
-      const here = year >= c.from;
+      if (!el) return;
+      const here = year >= c.from && (c.until == null || year <= c.until);
       el.style.display = here ? '' : 'none';
       if (here) place(el, next());
       const archived = !!(c.fade && year > c.fade);
       el.classList.toggle('archived', archived);
       c.win.classList.toggle('archived', archived);
     });
-    const fut = document.querySelector('.culture-icon[data-cid="future"]');
-    fut.style.display = year >= 1999 ? '' : 'none';
-    place(fut, GRID_COLS - 1);
+    S.pinned.forEach((p, i) => {
+      const el = document.querySelector('.culture-icon[data-cid="' + p.cid + '"]');
+      if (!el) return;
+      el.style.display = year >= p.from ? '' : 'none';
+      place(el, GRID_COLS - 1 - i);
+    });
   };
   S.syncIcons(1991);
 
