@@ -1,70 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;700&family=Audiowide&family=Bebas+Neue&family=Bodoni+Moda:wght@400;700&family=Bowlby+One+SC&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=DM+Mono&family=DM+Sans:wght@400;700&family=Fraunces:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=IM+Fell+English&family=Karla:wght@400;700&family=Lora:wght@400;700&family=Michroma&family=Nunito+Sans:wght@400;700&family=Orbitron:wght@400;700&family=Oswald:wght@400;700&family=Outfit:wght@400;700&family=Pixelify+Sans&family=Quicksand:wght@400;700&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&family=Source+Serif+4&family=Space+Grotesk:wght@400;700&family=Space+Mono&family=Special+Elite&family=UnifrakturCook:wght@700&family=VT323&display=swap');
-/* subcultures.css — the field guide: ~30 aesthetics / subcultures, one shared window shape, ten treatments.
-   Each window sets its own palette (--p1..--p5, --bg, --ink, --acc) and font on .sc-stage. Own class names (sc-*, no
-   .btn-95) so the era skins that restyle .winbody buttons and links leave these alone. */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Courier+Prime&family=Cinzel&family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono&family=IBM+Plex+Sans&family=Nunito:wght@400;700&family=Patrick+Hand&family=Pirata+One&family=Press+Start+2P&family=Quicksand:wght@400;700&family=Share+Tech+Mono&family=Special+Elite&family=UnifrakturCook:wght@700&family=VT323&family=Pixelify+Sans&family=Major+Mono+Display&family=Space+Mono&family=Lora:ital@0;1&family=Outfit:wght@400;700&family=Source+Serif+4&display=swap');
 
-.sc-stage { background: var(--bg); color: var(--ink); border: 1px solid var(--ink); padding: 10px 12px 12px; position: relative; overflow: hidden; line-height: 1.45; font-size: 14px; }
-.sc-tag { font: 700 10px/1 var(--mono, 'Courier New', monospace); text-transform: uppercase; letter-spacing: 1px; color: var(--acc); margin-bottom: 8px; }
-.sc-page { border-left: 4px solid var(--acc); padding: 2px 0 2px 10px; margin-bottom: 10px; }
-.sc-page b { display: block; font-size: 18px; letter-spacing: .5px; }
-.sc-page span { display: block; font-size: 13px; opacity: .88; }
-.sc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: .7; margin: 8px 0 4px; }
+/* subcultures.css — shared plumbing for the field-guide windows.
+   The LOOK of each page lives in css/features/looks/*.css (one block per culture, scoped to #win-c-<id>).
+   This file: the reset that turns the shared window shell into a blank page (frame, titlebar, buttons, body),
+   hides the era chrome inside these windows (each place is its OWN website, not a page of the era's browser),
+   and primitives (swatch / chip / button / input) that every look then restyles through CSS variables.
+   Own class names (sc-*, no .btn-95) so the era skins that restyle .winbody buttons and links leave these alone.
+
+   Variables a look may set on #win-c-<id>:
+     --bg --ink --acc --font                       page colours + font
+     --w-bd --w-sh --w-r                           window border / shadow / radius
+     --tb-bg --tb-ink --tb-font --tb-ls --tb-pad --tb-bd      titlebar (--tb-bg may be a gradient)
+     --bt-bg --bt-ink --bt-bd --bt-r --bt-font     titlebar buttons
+     --btn-bg --btn-ink --btn-bd --btn-r --btn-font --btn-pad          the .sc-btn buttons
+     --in-bg --in-ink --in-bd --in-r               the glossary input
+     --foot-bg --foot-font                         the "keep this" strip at the bottom */
+
+/* ---- frame ---- */
+html body .window.sc-win[id] { background: var(--bg); color: var(--ink); border: var(--w-bd, 2px solid var(--ink)); border-radius: var(--w-r, 0); box-shadow: var(--w-sh, 4px 4px 0 rgba(0,0,0,.35)); padding: 0; backdrop-filter: none; -webkit-backdrop-filter: none; filter: none; outline: 0; overflow: hidden; }
+html body .window.sc-win[id]::before, html body .window.sc-win[id]::after { content: none; }
+html body .window.sc-win[id] .titlebar { background: var(--tb-bg, var(--ink)); color: var(--tb-ink, var(--bg)); font: var(--tb-font, 700 12px/1.2 var(--font)); letter-spacing: var(--tb-ls, 0); padding: var(--tb-pad, 4px 6px); border: 0; border-bottom: var(--tb-bd, 0); border-radius: 0; height: auto; min-height: 0; text-shadow: none; box-shadow: none; display: flex; align-items: center; justify-content: space-between; text-transform: none; }
+html body .window.sc-win[id] .titlebar::before, html body .window.sc-win[id] .titlebar::after,
+html body .window.sc-win[id] .titlebar .ttl::before, html body .window.sc-win[id] .titlebar .ttl::after { content: none; display: none; }
+html body .window.sc-win[id] .titlebar .ttl { color: inherit; font: inherit; letter-spacing: inherit; text-shadow: none; text-transform: inherit; padding: 0; margin: 0; background: none; background-image: none; border: 0; border-radius: 0; box-shadow: none; position: static; top: auto; max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html body .window.sc-win[id] .winbtns { display: flex; gap: 3px; }
+html body .window.sc-win[id] .winbtns button { background: var(--bt-bg, transparent); color: var(--bt-ink, inherit); border: var(--bt-bd, 1px solid currentColor); border-radius: var(--bt-r, 0); font: var(--bt-font, 700 11px/1 var(--font)); width: auto; height: auto; min-width: 18px; min-height: 16px; padding: 1px 5px; box-shadow: none; text-shadow: none; cursor: pointer; margin: 0; }
+html body .window.sc-win[id] .winbtns button::before, html body .window.sc-win[id] .winbtns button::after { content: none; }
+/* era chrome (url bars, status footers, hero strips, signup cards) does not belong inside a different website */
+.window.sc-win .mos-chrome, .window.sc-win .mos-foot, .window.sc-win .dc-chrome, .window.sc-win .dc-foot, .window.sc-win .wb-chrome, .window.sc-win .wb-foot,
+.window.sc-win .sb-chrome, .window.sc-win .sb-foot, .window.sc-win .fd-chrome, .window.sc-win .fd-foot, .window.sc-win .fb-chrome, .window.sc-win .fb-foot, .window.sc-win .fb-hero,
+.window.sc-win .w3-chrome, .window.sc-win .w3-foot, .window.sc-win .w3-signup, .window.sc-win .fx-chrome, .window.sc-win .fx-foot, .window.sc-win .ai-chrome, .window.sc-win .ai-foot { display: none !important; }
+
+/* ---- body: a blank page, the culture's own template supplies header, body and decoration ---- */
+html body .window.sc-win[id] .winbody { padding: 0; margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font); overflow-x: hidden; border: 0; box-shadow: none; }
+html body .window.sc-win[id] .kicker, html body .window.sc-win[id] .roomtitle, html body .window.sc-win[id] .q, html body .window.sc-win[id] .archived-note { display: none !important; }
+html body .window.sc-win .cult-stage { border: 0; background: transparent; padding: 0; color: inherit; font: inherit; position: relative; display: block; overflow: hidden; }
+html body .window.sc-win[id] .cult-foot { margin: 0; padding: 8px 12px 10px; gap: 10px; position: relative; z-index: 3; background: var(--foot-bg, transparent); display: flex; align-items: center; flex-wrap: wrap; }
+html body .window.sc-win .cult-foot .keepnote { color: inherit; opacity: .8; font: 11px/1.3 var(--foot-font, inherit); font-style: italic; }
+html body .window.sc-win[id] .keepbtn { font: 12px var(--foot-font, inherit); padding: 6px 12px; cursor: pointer; background: var(--ink); color: var(--bg); border: 1px solid var(--ink); border-radius: var(--btn-r, 0); box-shadow: none; text-shadow: none; background-image: none; }
+html body .window.sc-win[id] .keepbtn.kept { background: var(--acc); color: var(--bg); }
+.sc-stage { position: relative; }
+.sc-stage > * { position: relative; }
+.sc-stage h3, .sc-stage h4, .sc-stage p, .sc-stage pre, .sc-stage dl, .sc-stage dd, .sc-stage dt, .sc-stage h1 { margin: 0; padding: 0; border: 0; background: none; font-weight: inherit; font-size: inherit; }
+.sc-stage a { color: inherit; }
+.sc-stage em, .sc-stage i, .sc-stage u, .sc-stage b { font-style: normal; text-decoration: none; }
+
+/* ---- primitives (every look restyles these, mostly through variables) ---- */
 .sc-pal { display: flex; gap: 4px; }
-.sc-sw { flex: 1; height: 34px; border: 1px solid rgba(0,0,0,.35); cursor: pointer; position: relative; padding: 0; }
-.sc-sw span { position: absolute; left: 2px; bottom: 1px; font: 9px 'Courier New', monospace; color: #fff; mix-blend-mode: difference; }
-.sc-sw.got { outline: 2px solid var(--ink); outline-offset: 1px; }
+.sc-sw { flex: 1; height: 34px; background: var(--c); border: 1px solid rgba(0,0,0,.35); cursor: pointer; position: relative; padding: 0; font: inherit; border-radius: var(--sw-r, 0); }
+.sc-sw span { position: absolute; left: 3px; bottom: 1px; font: 9px 'Courier New', monospace; color: #fff; mix-blend-mode: difference; pointer-events: none; }
 .sc-assets { display: flex; flex-wrap: wrap; gap: 5px; }
-.sc-chip { font: inherit; font-size: 12px; background: transparent; color: var(--ink); border: 1px dashed var(--acc); padding: 3px 9px; cursor: pointer; }
-.sc-chip:hover { background: var(--acc); color: var(--bg); }
-.sc-chip.got { background: var(--ink); color: var(--bg); border-style: solid; }
-.sc-row { display: flex; gap: 8px; align-items: center; margin: 8px 0 2px; }
-.sc-btn { font: inherit; font-size: 12px; background: var(--ink); color: var(--bg); border: 0; padding: 5px 12px; cursor: pointer; }
-.sc-btn:hover { background: var(--acc); }
+.sc-chip { font: inherit; font-size: 12px; background: transparent; color: inherit; border: 1px dashed currentColor; padding: 3px 9px; cursor: pointer; text-align: left; opacity: 1; border-radius: var(--chip-r, 0); }
+.sc-chip.got { font-weight: 700; }
+.sc-btn { font: var(--btn-font, inherit); font-size: 12px; background: var(--btn-bg, var(--ink)); color: var(--btn-ink, var(--bg)); border: var(--btn-bd, 0); border-radius: var(--btn-r, 0); padding: var(--btn-pad, 5px 12px); cursor: pointer; box-shadow: none; text-shadow: none; }
 .sc-count { font-size: 11px; opacity: .75; }
-.sc-in { flex: 1; font: inherit; font-size: 13px; background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 4px 8px; }
-.sc-in::placeholder { color: var(--ink); opacity: .45; }
+.sc-addrow { display: flex; gap: 6px; align-items: center; }
+.sc-in { flex: 1; min-width: 0; font: inherit; font-size: 13px; background: var(--in-bg, transparent); color: var(--in-ink, inherit); border: var(--in-bd, 1px solid currentColor); border-radius: var(--in-r, 0); padding: 4px 8px; }
+.sc-in::placeholder { color: inherit; opacity: .5; }
 .sc-terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; font-size: 12px; }
-.sc-terms span { background: var(--acc); color: var(--bg); padding: 1px 8px; }
+.sc-terms:empty { display: none; }
+.sc-terms span { padding: 1px 8px; background: var(--acc); color: var(--bg); }
 .sc-terms i { opacity: .7; font-size: 10px; }
-
-/* ---- treatments (the "apply the look" button toggles .fx-on) ---- */
-.sc-stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; }
-.sc-stage.fx-on::after { opacity: 1; }
-/* chrome: metallic sheen + inflated type */
-[data-fx="chrome"].fx-on { background: linear-gradient(135deg, #fff 0%, var(--p1) 30%, #fff 48%, var(--p2) 72%, #fff 100%); }
-[data-fx="chrome"].fx-on .sc-page b { text-shadow: 0 1px 0 #fff, 0 3px 6px rgba(0,0,0,.35); letter-spacing: 2px; }
-/* glitch: rgb split + jitter */
-[data-fx="glitch"].fx-on .sc-page b, [data-fx="glitch"].fx-on .sc-chip { text-shadow: 2px 0 var(--p2), -2px 0 var(--p3); animation: scJit 1.2s steps(2) infinite; }
-[data-fx="glitch"].fx-on::after { background: repeating-linear-gradient(0deg, rgba(255,0,92,.08) 0 2px, transparent 2px 5px); opacity: 1; }
-@keyframes scJit { 50% { transform: translateX(1.5px); } }
-/* grid: sunset gradient and a perspective floor */
-[data-fx="grid"].fx-on { background: linear-gradient(180deg, var(--p5) 0%, var(--p3) 55%, var(--p1) 100%); color: #fff; }
-[data-fx="grid"].fx-on::after { background: repeating-linear-gradient(0deg, transparent 0 18px, rgba(255,255,255,.28) 18px 19px), repeating-linear-gradient(90deg, transparent 0 28px, rgba(255,255,255,.2) 28px 29px); mask: linear-gradient(transparent 40%, #000); -webkit-mask: linear-gradient(transparent 40%, #000); }
-/* scan: crt scanlines + flicker */
-[data-fx="scan"].fx-on::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px); animation: scFlk 4s infinite; }
-[data-fx="scan"].fx-on .sc-page b { text-shadow: 0 0 6px var(--acc); }
-@keyframes scFlk { 0%, 92%, 100% { opacity: 1; } 94% { opacity: .55; } 96% { opacity: 1; } }
-/* grain: noise + desaturation */
-[data-fx="grain"].fx-on { filter: saturate(.55) contrast(1.05); }
-[data-fx="grain"].fx-on::after { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); mix-blend-mode: multiply; }
-/* soft: blur and bloom */
-[data-fx="soft"].fx-on { filter: saturate(.85) brightness(1.04); }
-[data-fx="soft"].fx-on .sc-page, [data-fx="soft"].fx-on .sc-chip { filter: blur(.55px); text-shadow: 0 0 8px var(--acc); }
-[data-fx="soft"].fx-on::after { background: radial-gradient(ellipse at 50% 20%, rgba(255,255,255,.45), transparent 70%); }
-/* glass: frosted panels over a sky */
-[data-fx="glass"].fx-on { background: linear-gradient(180deg, var(--p3), var(--p1) 60%, var(--p2)); }
-[data-fx="glass"].fx-on .sc-page, [data-fx="glass"].fx-on .sc-chip { background: rgba(255,255,255,.35); backdrop-filter: blur(4px); border-radius: 8px; border: 1px solid rgba(255,255,255,.7); }
-/* neon: dark page, glowing type */
-[data-fx="neon"].fx-on { background: #0b0b16; }
-[data-fx="neon"].fx-on .sc-page b, [data-fx="neon"].fx-on .sc-tag { color: var(--p2); text-shadow: 0 0 8px var(--p2), 0 0 18px var(--p3); }
-[data-fx="neon"].fx-on .sc-chip { border-color: var(--p3); box-shadow: 0 0 6px var(--p3); }
-/* paper: scrapbook, torn edges, slight tilt */
-[data-fx="paper"].fx-on { background: var(--p1) repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0 1px, transparent 1px 24px); }
-[data-fx="paper"].fx-on .sc-chip:nth-child(odd) { transform: rotate(-1.6deg); } [data-fx="paper"].fx-on .sc-chip:nth-child(even) { transform: rotate(1.4deg); }
-[data-fx="paper"].fx-on .sc-page { box-shadow: 3px 3px 0 rgba(0,0,0,.18); background: rgba(255,255,255,.55); padding: 6px 10px; transform: rotate(-.6deg); }
-/* flat: bold colour blocks */
-[data-fx="flat"].fx-on { background: linear-gradient(90deg, var(--p1) 0 25%, var(--p2) 25% 50%, var(--p3) 50% 75%, var(--p4) 75%); }
-[data-fx="flat"].fx-on .sc-page, [data-fx="flat"].fx-on .sc-pal, [data-fx="flat"].fx-on .sc-assets, [data-fx="flat"].fx-on .sc-terms { background: var(--bg); padding: 6px 8px; }
+.sc-sw.got { outline: 2px solid currentColor; outline-offset: 1px; }
+.sc-sw.got::after { content: '✓'; position: absolute; right: 3px; top: 1px; font: 700 11px sans-serif; color: #fff; mix-blend-mode: difference; }
 
 /* ---- the receipt's interest profile ---- */
 .rc-cat { margin: 8px 0; padding: 8px 10px; background: #f3f0e6; border: 1px solid #b9ad84; font-family: 'Courier New', monospace; font-size: 11px; color: #3b3523; }
@@ -82,3 +81,5 @@
 .fg-row.seen .fg-t::after { content: ' ✓'; color: #2a8a3a; }
 .fg-row:hover { background: #fff8dc; opacity: 1; }
 .fg-y, .fg-k { font: 10px 'Courier New', monospace; color: #888; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) { .window.sc-win *, .window.sc-win *::before, .window.sc-win *::after { animation: none !important; transition: none !important; } }

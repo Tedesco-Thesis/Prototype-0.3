@@ -257,51 +257,78 @@
   const handle = () => (S.me && S.me.handle) || 'anon';
   const st = {};   // per culture: { collected:Set, colours:Set, terms:[] }
 
+  /* ---------- the page (each culture has its own template in js/features/pages/) ----------
+     the template decides the layout and markup; this file only wires up the three things to DO
+     (take a colour, collect an asset, add a word) plus the "turn it up" toggle, and logs each to the receipt. */
+  function helpers(c) {
+    const i = c.concept.indexOf(':');
+    const h = {
+      c, e: esc,
+      title: esc(c.title), did: esc(c.did), years: esc(c.years), kind: esc(KIND_WORD[c.kind] || c.kind),
+      cname: esc(i > -1 ? c.concept.slice(0, i) : c.concept), ctext: esc(i > -1 ? c.concept.slice(i + 1).trim() : ''),
+      trait: esc(c.trait),
+    };
+    h.pal = (fn) => '<div class="sc-pal">' + c.pal.map((x, k) =>
+      '<button class="sc-sw" data-h="' + x + '" style="--c:' + x + '" title="' + x + '"><span>' + (fn ? fn(x, k) : x.slice(1)) + '</span></button>').join('') + '</div>';
+    h.assets = (fn) => '<div class="sc-assets">' + c.assets.map((a, k) =>
+      '<button class="sc-chip" data-a="' + esc(a) + '">' + (fn ? fn(esc(a), k) : esc(a)) + '</button>').join('') + '</div>';
+    h.fx = () => '<button class="sc-btn sc-fxbtn"></button>';
+    h.count = () => '<span class="sc-count"></span>';
+    h.gloss = (ph, btn) => '<span class="sc-addrow"><input class="sc-in" maxlength="40" placeholder="' + esc(ph) + '"><button class="sc-btn sc-add">' + esc(btn || 'add') + '</button></span>';
+    h.terms = () => '<div class="sc-terms"></div>';
+    return h;
+  }
+
   function build(c) {
     return function (stage, api, ctx) {
       const me = (st[c.id] = { collected: new Set(), colours: new Set(), terms: [] });
+      const win = stage.closest('.window');
+      const page = (window.SC_PAGES || {})[c.id];
       const sorted = c.pal.slice().sort((a, b) => lum(a) - lum(b));
       const dark = !!c.dark;
-      stage.style.cssText = '--p1:' + c.pal[0] + ';--p2:' + c.pal[1] + ';--p3:' + c.pal[2] + ';--p4:' + c.pal[3] + ';--p5:' + c.pal[4] +
-        ';--bg:' + (dark ? sorted[0] : sorted[4]) + ';--ink:' + (dark ? sorted[4] : sorted[0]) + ';--acc:' + (dark ? sorted[3] : sorted[2]) +
-        ';font-family:' + c.font;
-      stage.dataset.fx = c.fx;
-      stage.innerHTML =
-        '<div class="sc-tag">' + esc(KIND_WORD[c.kind] || c.kind) + ' · ' + esc(c.years) + '</div>' +
-        '<div class="sc-page"><b>' + esc(c.concept.split(':')[0]) + '</b>' + (c.concept.indexOf(':') > -1 ? '<span>' + esc(c.concept.slice(c.concept.indexOf(':') + 1).trim()) + '</span>' : '') + '</div>' +
-        '<div class="sc-lbl">palette — click to take a colour</div><div class="sc-pal">' +
-        c.pal.map((h) => '<button class="sc-sw" data-h="' + h + '" style="background:' + h + '" title="' + h + '"><span>' + h.slice(1) + '</span></button>').join('') + '</div>' +
-        '<div class="sc-lbl">assets — click to collect</div><div class="sc-assets">' +
-        c.assets.map((a) => '<button class="sc-chip" data-a="' + esc(a) + '">' + esc(a) + '</button>').join('') + '</div>' +
-        '<div class="sc-row"><button class="sc-btn sc-fxbtn">apply the look</button><span class="sc-count"></span></div>' +
-        '<div class="sc-lbl">glossary — add a word this community would use</div>' +
-        '<div class="sc-row"><input class="sc-in" maxlength="40" placeholder="a term, a name, a tag"><button class="sc-btn sc-add">add</button></div>' +
-        '<div class="sc-terms"></div>';
-      const count = () => { $('.sc-count', stage).textContent = 'collected ' + me.collected.size + ' · colours ' + me.colours.size + ' · words ' + me.terms.length; };
+      // palette + font are set on the window so the whole page (not just the stage) can use them
+      const set = (k, v) => win.style.setProperty(k, v);
+      c.pal.forEach((x, k) => set('--p' + (k + 1), x));
+      set('--bg', dark ? sorted[0] : sorted[4]); set('--ink', dark ? sorted[4] : sorted[0]); set('--acc', dark ? sorted[3] : sorted[2]);
+      set('--font', c.font);
+      win.classList.add('sc-win'); win.dataset.sc = c.id;
+      stage.classList.add('sc-stage');
+      if (page && page.w) win.style.width = page.w + 'px';
+      const fxLabels = (page && page.fx) || ['turn it up', 'turn it down'];
+      stage.innerHTML = page ? page.html(helpers(c)) : '<p>' + esc(c.did) + '</p>';
+
+      const count = () => stage.querySelectorAll('.sc-count').forEach((el) => { el.textContent = 'collected ' + me.collected.size + ' · colours ' + me.colours.size + ' · words ' + me.terms.length; });
       stage.querySelectorAll('.sc-sw').forEach((b) => {
         b.onclick = () => { const h = b.dataset.h; if (!me.colours.has(h)) { me.colours.add(h); b.classList.add('got'); api.act('colour', 0.5, 'took ' + h.toUpperCase() + ' from the palette'); } count(); };
       });
       stage.querySelectorAll('.sc-chip').forEach((b) => {
         b.onclick = () => {
           const a = b.dataset.a;
-          if (me.collected.has(a)) { me.collected.delete(a); b.classList.remove('got'); } else { me.collected.add(a); b.classList.add('got'); api.act('collect', 1, 'collected “' + a + '”'); }
+          if (me.collected.has(a)) { me.collected.delete(a); b.classList.remove('got'); } else { me.collected.add(a); b.classList.add('got'); api.act('collect', 1, 'collected \u201c' + a + '\u201d'); }
           count();
         };
       });
-      $('.sc-fxbtn', stage).onclick = (e) => {
-        const on = stage.classList.toggle('fx-on');
-        e.target.textContent = on ? 'remove the look' : 'apply the look';
-        if (on) api.act('look', 0.5, 'applied its look to the page');
-      };
+      const fxb = $('.sc-fxbtn', stage);
+      if (fxb) {
+        fxb.textContent = fxLabels[0];
+        fxb.onclick = () => {
+          const on = win.classList.toggle('fx-on');
+          fxb.textContent = fxLabels[on ? 1 : 0];
+          if (on) api.act('look', 0.5, 'turned up its look (' + fxLabels[0] + ')');
+        };
+      }
       const addTerm = () => {
         const inp = $('.sc-in', stage), t = inp.value.trim(); if (!t) return;
         me.terms.unshift(t); inp.value = '';
-        $('.sc-terms', stage).innerHTML = me.terms.slice(0, 4).map((x) => '<span>“' + esc(x) + '” <i>' + esc(handle()) + '</i></span>').join('');
-        api.act('term', 2, 'added “' + t + '” to the shared glossary');
+        const box = $('.sc-terms', stage);
+        if (box) box.innerHTML = me.terms.slice(0, 4).map((x) => '<span>\u201c' + esc(x) + '\u201d <i>' + esc(handle()) + '</i></span>').join('');
+        api.act('term', 2, 'added \u201c' + t + '\u201d to the shared glossary');
         count();
       };
-      $('.sc-add', stage).onclick = addTerm;
-      $('.sc-in', stage).addEventListener('keydown', (e) => { if (e.key === 'Enter') addTerm(); });
+      const addb = $('.sc-add', stage);
+      if (addb) addb.onclick = addTerm;
+      const inp = $('.sc-in', stage);
+      if (inp) inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTerm(); });
       count();
     };
   }
