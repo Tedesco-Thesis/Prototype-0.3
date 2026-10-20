@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* 2014.css — 2014, the year "web 3" is coined.  (redesign: matches js/eras/2014.js)
+
+   What the era looks like: a full-bleed picture behind everything, a quiet black rail, flat white cards, one big headline over a photo.
+   References, and what was taken from each:
+     - Bing home page (2013): the picture is the page; the search box floats on it; an amber button.   -> desktop ground, welcome hero, search
+     - Myspace relaunch (2013): black left rail, headline set over a photo, white cards, dark bar at the bottom.   -> rail, hero headlines, footer cards, taskbar
+     - the jobs map: a white panel floating over a full-bleed map, one big number, a legend with swatches.   -> sign-up result (.w3-done)
+     - the Pirate Bay home page: centred default-blue link soup and a stats line under all of it.   -> the plain link row + stats line in every footer
+   The era's argument: the front door gets simpler (a picture, a menu, a form) and the ledger behind it gets longer.
+   The art itself (a coast at dusk, a lighthouse) is drawn in js/eras/2014.js. To use your own photo, add an asset with id era.2014.wallpaper (js/core/assets.js).
+
+   Light = "afternoon", body.dark-14 = "dusk". Everything is scoped to body.era-2014. "html body" beats the legibility pass in early-eras.css. */
+
+body.era-2014 {
+  --f: 'Inter', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ink: #15171c; --paper: #ffffff; --ground: #f3f4f6; --line: #e1e3e8; --mute: #6b7280; --panel: #ffffff;
+  --acc: #ffb81c; --acc-ink: #1a1400; --link: #1670c9; --bar: rgba(10, 11, 15, .84); --rail: rgba(8, 9, 12, .88);
+  --soft: #eceef2;
+  /* the scene (afternoon) */
+  --s1: #5fa8e6; --s2: #a9d3f0; --s3: #f7e6cb; --w1: #7db6d8; --w2: #3d7ca6;
+  --h1: #7d9fb5; --h2: #55788d; --h3: #2b3d4d; --sunc: #fff2c9; --lamp: #fff6d0; --lh1: #f6f2ea; --lh2: #c9473a;
+  --stars: 0; --beam: .12;
+}
+body.era-2014.dark-14 {
+  --ink: #eef0f4; --paper: #181a20; --ground: #101216; --line: #2a2d36; --mute: #9aa1ae; --panel: #1d2027;
+  --link: #6db0ff; --soft: #232630;
+  /* the scene (dusk) */
+  --s1: #0d1331; --s2: #4a3573; --s3: #f2905f; --w1: #3a3560; --w2: #121838;
+  --h1: #3b3560; --h2: #272642; --h3: #10132a; --sunc: #ffc88c; --lamp: #ffe9a8; --lh1: #ddd6cc; --lh2: #b7392f;
+  --stars: .9; --beam: .85;
+}
+
+.w3-chrome, .w3-foot, .w3-signup, #rail14, #bg14 { display: none; }
+body.era-2014 .w3-chrome, body.era-2014 .w3-foot { display: block; }
+body.era-2014 .w3-signup { display: flex; }
+body.era-2014 #rail14 { display: flex; }
+body.era-2014 #bg14 { display: block; }
+
+/* ---------- the ground: the picture is the page ---------- */
+html:has(body.era-2014), html body.era-2014, html body.era-2014 #desktop { background: #0b1020; background-image: none; }
+body.era-2014 #bg14 { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; --hx: 0px; --hy: 0px; }
+body.era-2014 .bg14img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; }
+body.era-2014 #desktop::after {                       /* a soft vignette so white labels stay readable on any picture */
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.28) 0, transparent 22%, transparent 70%, rgba(0,0,0,.32) 100%);
+}
+body.era-2014 .ghost { display: none; }
+
+/* ---------- era bar + note: thin dark glass, like the black link bar on Bing ---------- */
+body.era-2014 #eraBar {
+  background: var(--bar); backdrop-filter: blur(12px); border: 0; font-family: var(--f); text-transform: none; letter-spacing: 0; color: #fff;
+}
+body.era-2014 #eraBar .eraLbl { font: 600 11px var(--f); letter-spacing: 1.6px; text-transform: uppercase; opacity: .85; }
+body.era-2014 .era-btn { background: transparent; border: 1px solid rgba(255,255,255,.26); border-radius: 2px; color: #d7dae1; font: 500 11px var(--f); letter-spacing: .6px; padding: 3px 9px; }
+body.era-2014 .era-btn:hover { border-color: rgba(255,255,255,.6); color: #fff; }
+body.era-2014 .era-btn.active { background: #fff; border-color: #fff; color: #111; }
+body.era-2014 #eraLabel { font: italic 400 12px var(--f); color: #cfd3da; }
+body.era-2014 #eraNote { background: rgba(10, 11, 15, .6); backdrop-filter: blur(12px); border: 0; color: #e6e8ec; font: 400 12px/1.45 var(--f); }
+
+/* ---------- the rail: black, left, a list of rooms (Myspace) ---------- */
+body.era-2014 #rail14 {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 220px; z-index: 3; flex-direction: column; box-sizing: border-box;
+  padding: 112px 20px 52px; background: var(--rail); backdrop-filter: blur(14px); color: #e9ebef; font-family: var(--f);
+}
+#rail14 .r-brand { display: flex; align-items: center; gap: 9px; font: 700 17px var(--f); letter-spacing: -.3px; color: #fff; margin-bottom: 22px; }
+#rail14 i.mk, .w3-brand i.mk { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--acc); box-shadow: 9px 0 0 -3px rgba(255,255,255,.85); margin-right: 8px; }
+#rail14 .r-brand i.mk { margin-right: 10px; }
+#rail14 .r-search { display: flex; align-items: center; gap: 10px; width: 100%; padding: 7px 2px; margin-bottom: 18px; background: transparent; border: 0; color: #c9ced7; font: 400 15px var(--f); cursor: pointer; text-align: left; }
+#rail14 .r-search:hover { color: #fff; }
+#rail14 .r-h { font: 600 10.5px var(--f); letter-spacing: 1.8px; color: #7f8694; margin: 0 0 6px 2px; }
+#rail14 a { display: flex; align-items: center; gap: 12px; padding: 7px 2px 7px 10px; margin-left: -10px; border-left: 2px solid transparent; color: #aab0bb; font: 400 15px var(--f); cursor: pointer; text-decoration: none; text-transform: capitalize; }
+#rail14 a:hover { color: #fff; }
+#rail14 a.on { color: #fff; border-left-color: var(--acc); }
+#rail14 svg { flex: none; opacity: .9; }
+#rail14 .r-gap { flex: 1; }
+#rail14 .r-signup { width: 100%; padding: 10px 0; background: transparent; border: 2px solid #fff; border-radius: 2px; color: #fff; font: 600 14px var(--f); cursor: pointer; margin-bottom: 14px; }
+#rail14 .r-signup:hover { background: #fff; color: #111; }
+#rail14 .r-foot { font: 400 11.5px/1.9 var(--f); color: #7f8694; }
+#rail14 .r-foot a { display: inline; padding: 0; margin: 0; border: 0; font: inherit; color: #7f8694; }
+#rail14 .r-foot a:hover { color: #fff; }
+
+/* ---------- desktop icons: the rooms live in the rail now; the aesthetics become a strip of frosted thumbnails (Bing's) ---------- */
+body.era-2014 .icon:not(.culture-icon) { display: none; }
+body.era-2014 .culture-icon { width: 78px; }
+body.era-2014 .culture-icon .glyph {
+  width: 52px; height: 52px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 24px; filter: none;
+  background: rgba(14, 16, 24, .38); border: 1px solid rgba(255,255,255,.28); border-radius: 6px; backdrop-filter: blur(8px); transition: transform .15s, background .15s;
+}
+body.era-2014 .culture-icon:hover .glyph { transform: translateY(-2px); background: rgba(14, 16, 24, .6); }
+body.era-2014 .culture-icon .label { display: block; margin-top: 6px; background: transparent; color: #fff; font: 500 10.5px/1.25 var(--f); text-shadow: 0 1px 4px rgba(0,0,0,.7); padding: 0; }
+body.era-2014 .culture-icon:active .label { background: transparent; color: var(--acc); }
+body.era-2014 .culture-icon.archived { opacity: .55; }
+
+/* ---------- windows: flat white cards that scroll like a page ---------- */
+html body.era-2014 .window:not(.sc-win) {
+  background: var(--ground); border: 0; border-radius: 4px; overflow: auto; overflow-x: hidden;
+  width: min(560px, 92vw) !important; max-height: calc(100vh - 178px); font-family: var(--f);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2), 0 24px 64px rgba(0,0,0,.45);
+}
+html body.era-2014 #win-home { width: min(760px, 94vw) !important; }
+html body.era-2014 .window:not(.sc-win) > * { flex-shrink: 0; }
+html body.era-2014 .window:not(.sc-win) .titlebar {
+  position: sticky; top: 0; z-index: 8; background: #0b0c10; color: #c9ced7; border: 0; text-shadow: none; padding: 6px 8px 6px 14px;
+  font: 600 10.5px var(--f); letter-spacing: 1.7px; text-transform: uppercase;
+}
+html body.era-2014 .window:not(.sc-win) .winbtns button { background: transparent; border: 0; border-radius: 2px; color: #c9ced7; font: 15px var(--f); }
+html body.era-2014 .window:not(.sc-win) .winbtns button:hover { background: var(--acc); color: var(--acc-ink); }
+html body.era-2014 .window:not(.sc-win) .winbody {
+  background: var(--ground); color: var(--ink); font: 400 14px/1.55 var(--f); max-height: none; overflow: visible; padding: 20px 24px 24px;
+}
+html body.era-2014 .window:not(.sc-win) h2.roomtitle {
+  display: block; font: 700 23px/1.15 var(--f); letter-spacing: -.4px; text-transform: none; color: var(--ink); border: 0; padding: 0; margin: 4px 0 12px;
+}
+html body.era-2014 .window:not(.sc-win) .winbody a, html body.era-2014 .window:not(.sc-win) a.retro { color: var(--link); text-decoration: none; font-weight: 500; cursor: pointer; }
+html body.era-2014 .window:not(.sc-win) .winbody a:hover { text-decoration: underline; }
+html body.era-2014 .window:not(.sc-win) .winbody p { color: var(--ink); }
+html body.era-2014 .window:not(.sc-win) .kicker { font: 600 10.5px var(--f); letter-spacing: 1.8px; color: var(--mute); text-transform: uppercase; }
+html body.era-2014 .window:not(.sc-win) .q { background: var(--panel); border: 0; border-left: 3px solid var(--acc); border-radius: 2px; padding: 10px 14px; color: var(--ink); font: 400 13.5px/1.5 var(--f); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+html body.era-2014 .window:not(.sc-win) .task { background: var(--panel); border: 0; border-left: 3px solid var(--acc); border-radius: 2px; color: var(--ink); font: 400 13px/1.45 var(--f); }
+html body.era-2014 .window:not(.sc-win) .hint, html body.era-2014 .window:not(.sc-win) .stats, html body.era-2014 .window:not(.sc-win) .tally { color: var(--mute); font-family: var(--f); }
+html body.era-2014 .window:not(.sc-win) .result, html body.era-2014 .window:not(.sc-win) .interceptBox, html body.era-2014 .window:not(.sc-win) .metrics-panel, html body.era-2014 .window:not(.sc-win) .items-optimized .item {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 3px; color: var(--ink); font-family: var(--f);
+}
+html body.era-2014 .window:not(.sc-win) .items-optimized .item:hover { background: var(--soft); }
+html body.era-2014 .window:not(.sc-win) .btn-95, html body.era-2014 .window:not(.sc-win) .winbody button:not(.w3-go):not(.w3-burger):not(.w3-theme):not(.x):not(.mk):not(.and):not(.ios) {
+  background: var(--ink); color: var(--paper); border: 0; border-radius: 2px; font: 600 12px var(--f); letter-spacing: .2px; padding: 7px 14px; box-shadow: none; cursor: pointer;
+}
+html body.era-2014 .window:not(.sc-win) .btn-95:hover, html body.era-2014 .window:not(.sc-win) .winbody button:not(.w3-go):not(.w3-burger):not(.w3-theme):not(.x):not(.mk):not(.and):not(.ios):hover { background: var(--acc); color: var(--acc-ink); }
+html body.era-2014 .window:not(.sc-win) .btn-95:disabled, html body.era-2014 .window:not(.sc-win) .winbody button:disabled { opacity: .4; cursor: default; background: var(--ink); color: var(--paper); }
+html body.era-2014 .window:not(.sc-win) .winbody .field, html body.era-2014 .window:not(.sc-win) .winbody input[type=text], html body.era-2014 .window:not(.sc-win) .winbody textarea {
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 2px; font: 400 14px var(--f); padding: 9px 10px; box-shadow: none;
+}
+html body.era-2014 .window:not(.sc-win) .winbody .field:focus, html body.era-2014 .window:not(.sc-win) .winbody textarea:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(255,184,28,.25); }
+/* segmented controls and tabs inside the rooms */
+html body.era-2014 .window:not(.sc-win) .modeSwitch, html body.era-2014 .window:not(.sc-win) .dual-view { border: 1px solid var(--line); border-radius: 3px; background: var(--panel); gap: 0; overflow: hidden; }
+html body.era-2014 .window:not(.sc-win) .modeSwitch button, html body.era-2014 .window:not(.sc-win) .dual-view button { background: transparent !important; color: var(--mute) !important; border: 0 !important; border-radius: 0; font: 600 11.5px var(--f); letter-spacing: .4px; }
+html body.era-2014 .window:not(.sc-win) .modeSwitch button.active, html body.era-2014 .window:not(.sc-win) .dual-view button.active { background: var(--ink) !important; color: var(--paper) !important; }
+html body.era-2014 .window:not(.sc-win) .pane-tabs { border-bottom: 1px solid var(--line); gap: 18px; margin: -6px 0 16px; }
+html body.era-2014 .window:not(.sc-win) .pane-tabs button { background: transparent !important; color: var(--mute) !important; border: 0 !important; border-bottom: 2px solid transparent !important; border-radius: 0; top: 0; padding: 6px 0 8px; font: 600 12.5px var(--f); }
+html body.era-2014 .window:not(.sc-win) .pane-tabs button.active { color: var(--ink) !important; border-bottom-color: var(--acc) !important; }
+html body.era-2014 .window:not(.sc-win) .testing-footer { color: var(--mute); border-color: var(--line); font-family: var(--f); }
+html body.era-2014 .window:not(.sc-win) hr.dots { border: 0; border-top: 1px solid var(--line); }
+
+/* ---------- hero: a picture, a scrim, one headline (Myspace) ---------- */
+.w3-hero { position: relative; height: 176px; overflow: hidden; color: #fff; --hx: 0px; --hy: 0px; background: #1a2338; }
+.w3-hero.home { height: 340px; }
+.w3-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transform: translate(var(--hx), var(--hy)) scale(1.06); transition: transform .3s ease-out; }
+.w3-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,.42) 0, rgba(0,0,0,0) 36%, rgba(0,0,0,.1) 52%, rgba(0,0,0,.66) 100%); }
+.w3-top { position: relative; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 12px 16px; font: 600 11px var(--f); letter-spacing: 1.7px; text-transform: uppercase; }
+.w3-top button { background: transparent; border: 0; color: #fff; font: 20px/1 var(--f); cursor: pointer; padding: 0 2px; }
+.w3-brand { margin-right: auto; display: flex; align-items: center; opacity: .95; }
+.w3-theme { font-size: 17px !important; opacity: .9; }
+.w3-hh { position: absolute; z-index: 3; left: 24px; right: 24px; bottom: 18px; }
+.w3-sub { font: 600 10.5px var(--f); letter-spacing: 2px; text-transform: uppercase; opacity: .92; margin-bottom: 6px; }
+.w3-h1 { font: 700 clamp(30px, 5.6vw, 44px)/1.04 var(--f); letter-spacing: -1px; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+.w3-hero.home .w3-h1 { font-size: clamp(34px, 6vw, 52px); }
+.w3-dots { position: absolute; z-index: 3; right: 24px; bottom: 22px; display: flex; gap: 7px; }
+.w3-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.4); cursor: pointer; }
+.w3-dots i.on { background: #fff; }
+
+/* the search box floats on the picture (Bing) */
+.w3-search { position: absolute; z-index: 4; left: 24px; top: 78px; width: min(430px, calc(100% - 48px)); display: flex; background: #fff; box-shadow: 0 6px 28px rgba(0,0,0,.35); border-radius: 2px; }
+.w3-search input { flex: 1; min-width: 0; border: 0; outline: 0; padding: 13px 16px; font: 400 16px var(--f); color: #1b1d22; background: transparent; }
+.w3-search button { width: 48px; background: var(--acc); border: 0; color: var(--acc-ink); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 0 2px 2px 0; }
+.w3-search button svg { width: 20px; height: 20px; }
+.w3-sug { display: none; position: absolute; left: 0; right: 0; top: 100%; background: #fff; border-top: 1px solid #e6e8ec; box-shadow: 0 14px 30px rgba(0,0,0,.3); border-radius: 0 0 2px 2px; padding: 4px 0 2px; }
+.w3-sug.on { display: block; }
+.w3-sug a { display: block; padding: 8px 16px; color: #1b1d22 !important; font: 400 14px var(--f) !important; cursor: pointer; text-decoration: none !important; }
+.w3-sug a:hover { background: #f2f4f8; }
+.w3-sug a.res { font-weight: 600 !important; }
+.w3-sug small { display: block; padding: 6px 16px 8px; color: #7a808c; font: 400 11px var(--f); }
+
+/* hamburger drawer */
+.w3-drawer { display: none; position: absolute; left: 0; right: 0; z-index: 20; background: rgba(8, 9, 12, .97); color: #fff; padding: 22px 28px; overflow: auto; box-sizing: border-box; }
+.w3-drawer.open { display: block; }
+.w3-drawer .x { position: absolute; right: 16px; top: 10px; background: transparent; border: 0; color: #fff; font: 22px var(--f); cursor: pointer; }
+.w3-drawer a { display: flex; gap: 14px; align-items: baseline; padding: 5px 0; color: #fff !important; font: 600 clamp(22px, 4.2vw, 28px)/1.2 var(--f) !important; letter-spacing: -.4px; text-transform: capitalize; cursor: pointer; text-decoration: none !important; }
+.w3-drawer a i { font: 500 11px var(--f); color: var(--acc); font-style: normal; letter-spacing: 1.5px; }
+.w3-drawer a:hover { color: var(--acc) !important; }
+.w3-drawer p { margin: 18px 0 0; font: 300 13px/1.55 var(--f); color: #98a0ad; border-top: 1px solid #2a2d36; padding-top: 12px; }
+
+/* ---------- sign-up wall (welcome window) and its result: a panel floating on the page, one big number, a legend (the map) ---------- */
+.w3-signup { gap: 32px; flex-wrap: wrap; padding: 28px 28px 30px; background: var(--ground); color: var(--ink); font-family: var(--f); }
+.w3-signup .l { flex: 1 1 250px; }
+.w3-signup .r { flex: 1 1 290px; background: var(--panel); border-radius: 4px; padding: 18px 20px 20px; box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 14px 36px rgba(0,0,0,.16); }
+.w3-signup h3 { margin: 0 0 18px; font: 700 27px/1.15 var(--f); letter-spacing: -.8px; color: var(--ink); }
+.w3-feat { display: flex; gap: 14px; margin: 0 0 14px; font: 400 13.5px/1.4 var(--f); color: var(--mute); align-items: center; }
+.w3-feat b { display: block; font: 600 14px var(--f); color: var(--ink); }
+.w3-feat .fi { flex: 0 0 38px; height: 38px; border-radius: 50%; background: var(--ink); color: var(--paper); display: flex; align-items: center; justify-content: center; }
+.w3-signup .r h4 { margin: 0 0 2px; font: 700 20px var(--f); letter-spacing: -.3px; color: var(--ink); }
+.w3-signup .r small { display: block; color: var(--mute); margin-bottom: 12px; font-size: 12.5px; }
+.w3-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.w3-signup input, .w3-signup select { flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid var(--line); border-radius: 2px; font: 400 14px var(--f); color: var(--ink); background: var(--paper); }
+.w3-signup input:focus, .w3-signup select:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(255,184,28,.25); }
+.w3-signup input[type=radio] { flex: none; width: auto; padding: 0; margin-right: 4px; }
+.w3-signup input.bad { border-color: #e5484d; background: rgba(229,72,77,.08); }
+.w3-signup .bd { font: 600 12px var(--f); color: var(--ink); margin: 6px 0 5px; }
+.w3-signup .bd a { font-weight: 400 !important; color: var(--link) !important; font-size: 12px; cursor: pointer; }
+.w3-signup .why { display: none; font-size: 12px; color: var(--mute); margin: 0 0 8px; }
+.w3-signup .why.on { display: block; }
+.w3-signup .g label { font: 400 13.5px var(--f); color: var(--ink); display: flex; align-items: center; margin-right: 12px; }
+.w3-go { width: 100%; background: var(--acc); border: 0; border-radius: 2px; color: var(--acc-ink); font: 700 14px var(--f); padding: 11px 22px; cursor: pointer; margin-top: 6px; }
+.w3-go:hover { filter: brightness(.94); }
+.w3-done { font: 400 13px/1.5 var(--f); color: var(--ink); }
+.w3-done .hi { color: var(--mute); font-size: 13px; }
+.w3-done .big { display: flex; align-items: baseline; gap: 10px; margin: 4px 0 6px; color: var(--mute); font-size: 14px; }
+.w3-done .big b { font: 700 52px/1 var(--f); letter-spacing: -2px; color: var(--ink); }
+.w3-done .sub { color: var(--mute); font-size: 12.5px; margin-bottom: 14px; }
+.w3-done .leg { border-top: 1px solid var(--line); }
+.w3-done .lr { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.w3-done .lr i { flex: none; width: 15px; height: 15px; border: 2px solid var(--line); border-radius: 2px; }
+.w3-done .lr span { flex: 1; font: 500 14px var(--f); text-transform: capitalize; }
+.w3-done .lr em { font: 400 12px var(--f); color: var(--mute); font-style: normal; }
+.w3-done .lr.y i { background: var(--c); border-color: var(--c); }
+.w3-done .lr:nth-child(1) { --c: #6b46c1; } .w3-done .lr:nth-child(2) { --c: #1fa463; } .w3-done .lr:nth-child(3) { --c: #1f6fd1; }
+.w3-done .lr:nth-child(4) { --c: #f0646a; } .w3-done .lr:nth-child(5) { --c: #1fb8b8; }
+.w3-done small { display: block; margin-top: 10px; color: var(--mute); font-size: 11px; }
+
+/* ---------- footer: story cards (Myspace), then the plain link soup and stats line (Pirate Bay) ---------- */
+.w3-foot { background: var(--ground); font-family: var(--f); border-top: 1px solid var(--line); }
+.w3-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 20px 24px 8px; }
+.w3-card { background: var(--panel); border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,.08); cursor: pointer; display: flex; flex-direction: column; overflow: hidden; transition: transform .15s, box-shadow .15s; }
+.w3-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+.w3-card .im { position: relative; height: 82px; background: linear-gradient(135deg, hsl(var(--h) 62% 46%), hsl(calc(var(--h) + 42) 70% 28%)); }
+.w3-card .im span { position: absolute; left: 10px; bottom: 7px; color: #fff; font: 600 9.5px var(--f); letter-spacing: 1.6px; text-transform: uppercase; }
+.w3-card h5 { margin: 10px 12px 4px; font: 700 14px/1.25 var(--f); letter-spacing: -.2px; color: var(--ink); }
+.w3-card p { margin: 0 12px 12px; font: 400 12px/1.4 var(--f); color: var(--mute); }
+.w3-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 8px 24px 18px; }
+.w3-acts .a { background: var(--panel); border-radius: 2px; padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.w3-acts b { font: 700 14px var(--f); color: var(--ink); } .w3-acts small { font: 400 12px var(--f); color: var(--mute); }
+.w3-acts span { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+.w3-acts button { background: var(--ink); color: var(--paper); border: 0; border-radius: 2px; padding: 6px 12px; font: 600 11.5px var(--f); cursor: pointer; }
+.w3-acts button:hover { background: var(--acc); color: var(--acc-ink); }
+.w3-key { font: 400 10.5px 'Courier New', monospace; color: var(--mute); max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the ledger: deliberately plain, default-blue, centred (the Pirate Bay) */
+.w3-links { text-align: center; padding: 14px 18px 4px; background: var(--paper); font: 400 13px/1.9 Arial, Helvetica, sans-serif; color: #8a8f99; }
+.w3-links a { color: #2323c8 !important; text-decoration: none !important; border-bottom: 1px dotted #2323c8; font-weight: 400 !important; cursor: pointer; }
+.w3-stats { text-align: center; padding: 2px 18px 6px; background: var(--paper); font: 400 12px Arial, Helvetica, sans-serif; color: #8a8f99; }
+.w3-legal { text-align: center; padding: 2px 12px 14px; font: 400 10.5px Arial, Helvetica, sans-serif; color: #a1a6b0; background: var(--paper); }
+body.era-2014.dark-14 .w3-links a { color: #8fa4ff !important; border-bottom-color: #8fa4ff; }
+
+/* ---------- pop-ups: flat cards ---------- */
+body.era-2014 .popup-ad { border: 0; border-radius: 3px; box-shadow: 0 10px 34px rgba(0,0,0,.5); font-family: var(--f); background: var(--paper); color: var(--ink); overflow: hidden; }
+body.era-2014 .popup-head { background: #0b0c10; color: #c9ced7; font: 600 9.5px var(--f); letter-spacing: 1.8px; text-transform: uppercase; border-bottom: 2px solid var(--acc); }
+body.era-2014 .popup-x { background: transparent; border: 0; color: #fff; width: auto; font-size: 15px; }
+body.era-2014 .popup-body p { color: var(--mute); }
+body.era-2014 .popup-accept { background: var(--acc); border: 0; border-radius: 2px; color: var(--acc-ink); font: 700 11.5px var(--f); letter-spacing: .3px; }
+
+/* ---------- taskbar: the dark player bar along the bottom (Myspace) ---------- */
+body.era-2014 #taskbar { background: var(--bar); backdrop-filter: blur(12px); border-top: 0; font-family: var(--f); }
+body.era-2014 #menubtn { background: transparent; border: 1px solid rgba(255,255,255,.3); border-radius: 2px; color: #fff; font: 600 11px var(--f); letter-spacing: 1.6px; text-transform: uppercase; }
+body.era-2014 #menubtn:hover { background: #fff; color: #111; }
+body.era-2014 .tab { background: rgba(255,255,255,.08); border: 0; border-bottom: 2px solid transparent; border-radius: 2px; color: #d7dae1; font: 500 11.5px var(--f); }
+body.era-2014 .tab.focused { background: rgba(255,255,255,.17); border-bottom-color: var(--acc); color: #fff; }
+body.era-2014 #clock { background: transparent; border: 0; color: #aab0bb; font: 400 11.5px var(--f); }
+body.era-2014 #startMenu { background: #0b0c10; border: 0; border-radius: 3px; box-shadow: 0 12px 36px rgba(0,0,0,.5); }
+body.era-2014 #startMenu button { color: #e6e8ec; font: 400 14px var(--f); text-transform: lowercase; }
+body.era-2014 #startMenu button:hover { background: var(--acc); color: var(--acc-ink); }
+body.era-2014 #startMenu hr { border: 0; border-top: 1px solid #2a2d36; }
+
+@media (prefers-reduced-motion: reduce) { .w3-art, .w3-card, .culture-icon .glyph { transition: none; } }
+@media (max-width: 760px) {
+  body.era-2014 #rail14 { display: none; }
+  .w3-cards, .w3-acts { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,103 @@
+/* 2008-09.css — 2008–09, foundations of web 3.0. Scoped to body.era-2008.
+   References: Windows 7 / Aero sky-blue gradients, glass title bars, glossy buttons (Microsoft, Dell, Xbox);
+   Firefox 3 + Chrome beta download pages; Twitter's pale-yellow "hey there" banner and green join button;
+   Facebook's blue headers and first news feed; Netflix star ratings. "html body" beats the legibility pass. */
+
+:root { --aero: #4a89c8; --aero-d: #1f4f86; --glass: rgba(205,226,246,.88); --ink: #1c2b3a; --fb: #3b5998; --go: #7bb82a; }
+
+.fd-chrome, .fd-foot { display: none; }
+body.era-2008 .fd-chrome, body.era-2008 .fd-foot { display: block; }
+
+/* the ground: a sky-blue gradient with a soft white bloom */
+html:has(body.era-2008), html body.era-2008 { background: #bcd9f2; }
+body.era-2008 #desktop {
+  background:
+    radial-gradient(ellipse 60% 40% at 78% 12%, rgba(255,255,255,.85), transparent 70%),
+    radial-gradient(ellipse 90% 30% at 30% 100%, rgba(255,255,255,.7), transparent 70%),
+    linear-gradient(#8fc0ea 0%, #cfe6f8 45%, #eaf4fc 70%, #9cc6e6 100%);
+}
+body.era-2008 .ghost { color: rgba(30,60,100,.28); }
+body.era-2008 .icon .label { color: var(--ink); text-shadow: 0 0 5px #fff, 0 0 3px #fff; font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif; }
+body.era-2008 .icon:active .label { background: rgba(80,150,220,.4); }
+
+/* timeline bar + note */
+body.era-2008 #eraBar { background: linear-gradient(#6fa6dc, #3d78b8 50%, #2f67a8 52%, #3f7cc0); border-bottom: 1px solid #1f4f86; font-family: "Segoe UI", Tahoma, sans-serif; }
+body.era-2008 .era-btn { background: linear-gradient(#fff, #e4ecf5 50%, #d0dcea 52%, #e6eef7); border: 1px solid #5b7fa6; border-radius: 4px; font-family: "Segoe UI", Tahoma, sans-serif; }
+body.era-2008 .era-btn.active { background: linear-gradient(#b6e069, #7bb82a 50%, #67a31a 52%, #86c23a); color: #fff; border-color: #4f7f12; text-shadow: 0 -1px 0 rgba(0,0,0,.3); }
+body.era-2008 #eraNote { background: #fbfbd0; border-bottom: 1px solid #e3e39a; color: #5a5a20; font-family: "Segoe UI", Tahoma, sans-serif; }
+
+/* windows: Aero glass */
+html body.era-2008 .window {
+  background: linear-gradient(rgba(226,238,250,.92), rgba(176,204,234,.92));
+  border: 1px solid rgba(22,48,86,.75); border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7), 0 10px 26px rgba(10,40,80,.42);
+}
+html body.era-2008 .window .titlebar {
+  background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,0)); color: var(--ink);
+  text-shadow: 0 0 8px #fff, 0 0 4px #fff; border: 0; border-radius: 7px 7px 0 0;
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif; font-weight: 400; padding: 5px 6px 5px 10px;
+}
+html body.era-2008 .window .titlebar button {
+  width: 26px; height: 18px; border-radius: 0 0 4px 4px; border: 1px solid rgba(20,40,70,.6); color: #223; font-size: 11px;
+  background: linear-gradient(#f6fafe, #cfe0f2 48%, #b5cde6 52%, #d6e6f6);
+}
+html body.era-2008 .window .titlebar button:last-child {
+  width: 40px; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,.4);
+  background: linear-gradient(#e9a49a, #cf5a4a 48%, #b3301f 52%, #d8604d);
+}
+html body.era-2008 .window .winbody {
+  background: #fff; color: #222; margin: 0 6px; border: 1px solid #7e9bb8; border-radius: 2px;
+  font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+}
+html body.era-2008 .window h2.roomtitle { color: var(--fb); border-bottom: 1px solid #c8d4e6; font-family: "Segoe UI", Tahoma, sans-serif; }
+html body.era-2008 .window a.retro, html body.era-2008 .window .winbody a { color: #1d5fa6; }
+html body.era-2008 .window .winbody .btn-95 {
+  border: 1px solid #707070; border-radius: 3px; color: #111; background: linear-gradient(#f2f2f2, #ebebeb 48%, #ddd 52%, #cfcfcf);
+}
+html body.era-2008 .window .winbody .btn-95:hover { background: linear-gradient(#eaf6fd, #d9f0fc 48%, #bee6fd 52%, #a7d9f5); border-color: #3c7fb1; }
+html body.era-2008 .window .winbody .field, html body.era-2008 .window .winbody textarea { border: 1px solid #abadb3; border-top-color: #7a7d86; border-radius: 2px; }
+
+/* browser toolbar + news feed (top of every window) */
+.fd-chrome { margin: 0 6px; background: #fff; }
+.fd-bar { display: flex; align-items: center; gap: 8px; padding: 5px 8px; background: linear-gradient(#f4f8fd, #dfe9f5); border: 1px solid #9fb6cf; border-bottom: 0; border-radius: 3px 3px 0 0; font: 11px "Segoe UI", Tahoma, sans-serif; }
+.fd-nav { display: flex; gap: 3px; }
+.fd-nav i { width: 20px; height: 20px; border-radius: 50%; border: 1px solid #6f8fb3; display: grid; place-items: center; font-style: normal; font-size: 8px; color: #3b5b82; background: linear-gradient(#fff, #cfe0f2); }
+.fd-addr { flex: 1; display: flex; justify-content: space-between; background: #fff; border: 1px solid #8fa8c4; border-radius: 10px; padding: 2px 10px; color: #4a5a6a; overflow: hidden; white-space: nowrap; }
+.fd-addr b { color: #e8a020; }
+.fd-find { width: 90px; border: 1px solid #8fa8c4; border-radius: 10px; padding: 2px 10px; color: #9aa; background: #fff; }
+.fd-feedhead { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px; background: var(--fb); color: #fff; font: 11px "Segoe UI", Tahoma, sans-serif; }
+.fd-feedhead a { color: #cfd8ea !important; cursor: pointer; }
+.fd-feedhead a.on { color: #fff !important; font-weight: 700; text-decoration: underline; }
+.fd-feed { list-style: none; margin: 0; padding: 0; border: 1px solid #c8d4e6; border-top: 0; background: #f4f7fb; }
+.fd-feed li { display: flex; gap: 8px; align-items: center; padding: 5px 10px; border-bottom: 1px solid #e1e8f2; font: 11px "Segoe UI", Tahoma, sans-serif; color: #333; }
+.fd-feed li.hot { background: #fffbe0; }
+.fd-feed li em { display: block; color: #8b9ab0; font-style: normal; font-size: 10px; }
+.fd-av { width: 22px; height: 22px; flex: none; display: grid; place-items: center; background: #dfe7f3; border: 1px solid #b4c3da; color: var(--fb); }
+.fd-feed li.hot .fd-av { background: #f7e9a0; border-color: #e0c860; color: #b07a00; }
+
+/* footer: rating, recommendation, follow, links */
+.fd-foot { margin: 0 6px 6px; padding: 6px 10px; background: #f4f8fc; border: 1px solid #b4c3da; border-top: 0; font: 11px "Segoe UI", Tahoma, sans-serif; color: #556; }
+.fd-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.fd-rate a { color: #c7ccd6; font-size: 16px; cursor: pointer; text-decoration: none; }
+.fd-rate a.on { color: #f0a800; }
+.fd-follow { border: 1px solid #4f7f12; border-radius: 3px; background: linear-gradient(#b6e069, #7bb82a 50%, #67a31a 52%, #86c23a); color: #fff; font: 700 11px "Segoe UI", Tahoma, sans-serif; padding: 2px 10px; cursor: pointer; text-shadow: 0 -1px 0 rgba(0,0,0,.3); }
+.fd-follow.on { background: linear-gradient(#f3f3f3, #ddd); color: #555; border-color: #999; text-shadow: none; }
+.fd-recs { margin-top: 3px; color: #334; }
+.fd-dim { color: #98a4b6; }
+.fd-links { margin-top: 4px; font-size: 10px; color: #8b9ab0; }
+.fd-links a { color: #3b5998; margin-right: 6px; cursor: default; }
+
+/* taskbar: Win7 glass */
+body.era-2008 #taskbar { background: linear-gradient(rgba(190,215,240,.95), rgba(105,150,200,.95)); border-top: 1px solid rgba(255,255,255,.8); box-shadow: inset 0 1px 0 rgba(255,255,255,.5); }
+body.era-2008 #taskbar .btn-95, body.era-2008 .tab { background: linear-gradient(rgba(255,255,255,.55), rgba(255,255,255,.15)); border: 1px solid rgba(20,50,90,.5); border-radius: 4px; color: #112; font-family: "Segoe UI", Tahoma, sans-serif; }
+body.era-2008 .tab.focused { background: linear-gradient(rgba(255,255,255,.8), rgba(190,225,250,.5)); }
+body.era-2008 #clock { background: transparent; border: 0; color: #112; font-family: "Segoe UI", Tahoma, sans-serif; }
+
+/* pop-ups, 2008: a "box" that has learned your name */
+body.era-2008 .popup-ad { border: 1px solid #5b74a8; border-radius: 4px; background: #fff; box-shadow: 0 6px 16px rgba(10,40,80,.35); font-family: "Segoe UI", Tahoma, sans-serif; }
+body.era-2008 .popup-head { background: var(--fb); color: #fff; font-family: "Segoe UI", Tahoma, sans-serif; border-radius: 3px 3px 0 0; }
+body.era-2008 .popup-x { background: transparent; border: 0; color: #fff; }
+body.era-2008 .popup-accept { border: 1px solid #4f7f12; border-radius: 3px; background: linear-gradient(#b6e069, #7bb82a 50%, #67a31a 52%, #86c23a); color: #fff; font-family: "Segoe UI", Tahoma, sans-serif; font-weight: 700; }
+
+/* keep the whole window (toolbar + feed + body + footer) on screen */
+html body.era-2008 .window .winbody { max-height: max(180px, calc(100vh - 470px)); }
