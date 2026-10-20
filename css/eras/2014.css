@@ -26,7 +26,7 @@ body.era-2014 #desktop::before {
   font: 700 clamp(120px, 24vw, 340px)/1 var(--cond); letter-spacing: -4px; color: var(--ghost);
   translate: var(--mx, 0px) var(--my, 0px);
 }
-body.era-2014 .ghost { color: var(--mute); font-family: var(--lato); text-shadow: none; opacity: .5; }
+
 
 /* ---------- era bar + note: black strip, vox-yellow note ---------- */
 body.era-2014 #eraBar { background: #111; border-bottom: 3px solid var(--acc); font-family: var(--cond); letter-spacing: 1.5px; text-transform: uppercase; }

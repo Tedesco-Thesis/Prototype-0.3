@@ -16,7 +16,7 @@ body.era-2008 #desktop {
     radial-gradient(ellipse 90% 30% at 30% 100%, rgba(255,255,255,.7), transparent 70%),
     linear-gradient(#8fc0ea 0%, #cfe6f8 45%, #eaf4fc 70%, #9cc6e6 100%);
 }
-body.era-2008 .ghost { color: rgba(30,60,100,.28); }
+
 body.era-2008 .icon .label { color: var(--ink); text-shadow: 0 0 5px #fff, 0 0 3px #fff; font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif; }
 body.era-2008 .icon:active .label { background: rgba(80,150,220,.4); }
 

@@ -22,7 +22,7 @@ body.era-2024 #desktop {
     linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 44px 44px,
     var(--ink2);
 }
-body.era-2024 .ghost { color: rgba(255,255,255,.22); font-family: var(--in); }
+
 body.era-2024 .icon { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; backdrop-filter: blur(8px); padding: 8px 6px 6px; }
 body.era-2024 .icon:hover { background: rgba(255,255,255,.14); }
 body.era-2024 .icon .label { color: #e9e9f4; text-shadow: none; font: 500 11px var(--in); }

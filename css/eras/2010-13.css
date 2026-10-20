@@ -56,7 +56,7 @@ body.era-2010.flat-13 #desktop::before {
     radial-gradient(circle at center, rgba(0,114,198,.12) 0, rgba(0,114,198,0) 62%) no-repeat;
   background-size: 520px 520px, 700px 700px;
 }
-body.era-2010 .ghost { color: rgba(40,70,110,.22); font-family: var(--os); text-shadow: none; }
+
 
 /* ---------- era bar + note ---------- */
 body.era-2010 #eraBar { background: var(--bar-bg); border-bottom: 1px solid var(--fb-d); font-family: var(--os); }

@@ -155,22 +155,9 @@ function setEra(key) {
 /* =====================================================
    THIRD_SPACE: ghost fragments, icons, window manager
 ===================================================== */
-const ghostTexts = [
-  'under construction', 'sign my guestbook', 'you are visitor #',
-  'best viewed at 800x600', 'webring: next site »', 'this page last updated 1999',
-  '🖼 image not found', 'hit counter loading...', 'netscape recommended',
-  'click here to enter', 'add me to your links page',
-];
+
 const desktop = document.getElementById('desktop');
-for (let i = 0; i < 10; i++) {
-  const g = document.createElement('div');
-  g.className = 'ghost';
-  g.textContent = ghostTexts[Math.floor(Math.random() * ghostTexts.length)];
-  g.style.top = Math.random() * 85 + '%';
-  g.style.left = Math.random() * 80 + '%';
-  g.style.animationDelay = (Math.random() * 9) + 's';
-  desktop.appendChild(g);
-}
+
 
 const icons = [
   { id: 'win-home', glyph: '🏠', label: 'welcome.html', top: 20, left: 20 },

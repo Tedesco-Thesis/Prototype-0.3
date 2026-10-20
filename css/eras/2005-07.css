@@ -11,7 +11,7 @@ body.era-2006 { background: #dfe7f2; }
 body.era-2006 #desktop, html body.era-2006 .desktop {
   background: radial-gradient(ellipse at 30% 20%, #ffffff 0%, #dfe7f2 45%, #b9c8e0 100%);
 }
-body.era-2006 .ghost { display: none; }
+
 body.era-2006 .icon .label { color: #1d2f55; text-shadow: 0 1px 0 #fff; }
 
 /* windows: rounded, glossy */

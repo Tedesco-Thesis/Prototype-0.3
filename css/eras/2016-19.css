@@ -19,7 +19,7 @@ body.era-2016 #desktop {
     radial-gradient(ellipse 30% 40% at 62% 100%, rgba(200,245,96,.40), transparent 70%),
     #f6f6f8;
 }
-body.era-2016 .ghost { color: rgba(0,0,0,.18); font-family: var(--geo); }
+
 body.era-2016 .icon { background: #fff; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.10); padding: 8px 6px 6px; }
 body.era-2016 .icon .label { color: #222; text-shadow: none; font: 600 11px var(--geo); }
 body.era-2016 .icon:hover { box-shadow: 0 8px 22px rgba(0,0,0,.18); }
