@@ -1,86 +1,153 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
-/* 2016-19.css — 2016–19, the algorithmic feed. Scoped to body.era-2016.
-   References: spotify's duotone gradients (hot pink, orange, lime) and black footer, flickr's "find your inspiration"
-   photo hero with a centred pill, facebook / dell's clean white cards, winamp's bold diagonal colour blocks,
-   ELLE's long scroll, dexus's thin outlined frames. Soft shadows, rounded cards, geometric sans, pills.
-   (2014 is flat + condensed caps; this era is rounder, softer and more colourful.) "html body" beats the legibility pass. */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+/* 2016-19.css — 2016–19, the algorithmic feed. Scoped to body.era-2016; markup is in js/eras/2016-19.js.
+   Redesign (muted base, neon as accent). What each reference gave the era:
+     - Spotify 2019:  stacked full-width colour blocks (hot pink, orange with big overlapping circles, lime), pill buttons, a black footer in labelled columns.
+     - DOCK (property site): a full-bleed picture with a huge wide-caps headline, thin white grid lines, square outlined frames with tiny caps labels, a white square burger, a vertical "scroll down".
+     - Flickr:        a black top bar with a wide grey search field, "log in" and a white square "sign up"; a dark footer link row.
+     - Neopets:       the dense portal — a "sign up now!" ad button sitting in the same grid as the real content, so it can't be told apart.
+   Palette: DOCK navy + Flickr charcoal + Neopets slate/teal carry the layout; hot pink, orange and lime are only accents (hero bottom bars, the progress bar, the ad tile, one dot on the desktop).
+   The era's argument: ranking replaces browsing. The rooms are laid out as a feed of tiles in someone else's order; one of them is an ad.
+   (2014 is a calm photo + black rail; this era is loud, colour-blocked, caps and circles.) "html body" beats the legibility pass in early-eras.css. */
 
-:root { --geo: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; --pk: #f037a5; --or: #ff6a2b; --lm: #c8f560; --tl: #1ed7b5; --bk: #121212; }
+:root { --geo: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; --pk: #f037a5; --or: #ff6a2b; --yl: #fbbf24; --lm: #cdf564; --tl: #1ed7b5; --bk: #121212; --nv: #0a0c2e; --sl: #5e6ea4; --tq: #4f8f93; --mist: #e9ebf1; --st: #7d8fae; }
 
 .fx-chrome, .fx-foot { display: none; }
 body.era-2016 .fx-chrome, body.era-2016 .fx-foot { display: block; }
 
-/* ground: warm off-white with three big soft colour blobs */
-html:has(body.era-2016), html body.era-2016 { background: #f6f6f8; }
+/* ---------- ground: a pink-to-orange block with big circles (Spotify Free) and a thin white grid (DOCK) ---------- */
+html:has(body.era-2016), html body.era-2016 { background: var(--nv); }
 body.era-2016 #desktop {
   background:
-    radial-gradient(ellipse 38% 46% at 12% 85%, rgba(240,55,165,.28), transparent 70%),
-    radial-gradient(ellipse 34% 44% at 88% 18%, rgba(255,106,43,.26), transparent 70%),
-    radial-gradient(ellipse 30% 40% at 62% 100%, rgba(200,245,96,.40), transparent 70%),
-    #f6f6f8;
+    radial-gradient(circle at 8% 90%, var(--pk) 0 1.3%, transparent 1.4%),
+    radial-gradient(circle at 87% 15%, rgba(255,255,255,.09) 0 15%, transparent 15.2%),
+    radial-gradient(circle at 92% 80%, rgba(255,255,255,.06) 0 24%, transparent 24.2%),
+    linear-gradient(180deg, #34426a 0%, #5d7196 40%, #8f9fb4 62%, #2a3850 62.2%, #172036 100%);
 }
-body.era-2016 .ghost { color: rgba(0,0,0,.18); font-family: var(--geo); }
-body.era-2016 .icon { background: #fff; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.10); padding: 8px 6px 6px; }
-body.era-2016 .icon .label { color: #222; text-shadow: none; font: 600 11px var(--geo); }
-body.era-2016 .icon:hover { box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+body.era-2016 #desktop::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    linear-gradient(90deg, transparent calc(25% - 1px), rgba(255,255,255,.14) calc(25% - 1px) 25%, transparent 25%),
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(255,255,255,.14) calc(50% - 1px) 50%, transparent 50%),
+    linear-gradient(90deg, transparent calc(75% - 1px), rgba(255,255,255,.14) calc(75% - 1px) 75%, transparent 75%),
+    linear-gradient(180deg, transparent 120px, rgba(255,255,255,.14) 120px 121px, transparent 121px);
+}
+body.era-2016 .ghost { display: none; }
 
-/* era bar + note: white, black pill when active */
-body.era-2016 #eraBar { background: #fff; color: #111; border-bottom: 1px solid #e4e4e8; font-family: var(--geo); }
-body.era-2016 .era-btn { background: #f1f1f4; border: 0; border-radius: 999px; color: #333; font: 600 10px var(--geo); padding: 4px 11px; }
-body.era-2016 .era-btn.active { background: var(--bk); color: #fff; }
-body.era-2016 #eraNote { background: linear-gradient(90deg, var(--pk), var(--or)); color: #fff; border: 0; font: 500 12px var(--geo); }
+/* desktop icons: square white-outlined frames with tiny caps labels (DOCK) */
+body.era-2016 .icon { background: rgba(10,12,46,.42); border: 1.5px solid rgba(255,255,255,.8); border-radius: 0; box-shadow: none; padding: 8px 4px 6px; backdrop-filter: blur(6px); }
+body.era-2016 .icon .label { color: #fff; text-shadow: none; background: transparent; font: 700 9.5px/1.25 var(--geo); letter-spacing: .8px; text-transform: uppercase; }
+body.era-2016 .icon:hover { background: #fff; }
+body.era-2016 .icon:hover .label { color: var(--nv); }
+body.era-2016 .icon:active .label { background: transparent; }
 
-/* windows: white cards, big soft shadow */
-html body.era-2016 .window { background: #fff; border: 0; border-radius: 16px; box-shadow: 0 18px 50px rgba(20,20,40,.22), 0 2px 6px rgba(0,0,0,.08); overflow: hidden; }
-html body.era-2016 .window .titlebar { background: #fff; color: #888; text-shadow: none; border: 0; font: 600 10px var(--geo); letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px 4px 16px; }
-html body.era-2016 .window .titlebar button { background: #f1f1f4; border: 0; border-radius: 50%; width: 20px; height: 20px; color: #555; font-size: 10px; }
-html body.era-2016 .window .titlebar button:last-child { background: var(--bk); color: #fff; }
-html body.era-2016 .window .winbody { background: #fff; color: #1a1a1a; font-family: var(--geo); font-weight: 400; }
-html body.era-2016 .window h2.roomtitle { font: 800 calc(var(--t) + 6px) var(--geo); letter-spacing: -.5px; color: #111; border: 0; }
-html body.era-2016 .window a.retro, html body.era-2016 .window .winbody a { color: var(--pk); text-decoration: none; font-weight: 600; }
-html body.era-2016 .window .winbody .btn-95 { background: var(--bk); color: #fff; border: 0; border-radius: 999px; padding: 7px 18px; font: 700 12px var(--geo); }
-html body.era-2016 .window .winbody .btn-95:hover { background: var(--pk); }
-html body.era-2016 .window .winbody .field, html body.era-2016 .window .winbody textarea { border: 1.5px solid #dcdce2; border-radius: 10px; padding: 8px 10px; }
+/* era bar + note: Flickr black */
+body.era-2016 #eraBar { background: #000; color: #fff; border: 0; font-family: var(--geo); }
+body.era-2016 #eraBar .eraLbl { font: 800 10.5px var(--geo); letter-spacing: 1.6px; text-transform: uppercase; }
+body.era-2016 .era-btn { background: transparent; border: 1.5px solid rgba(255,255,255,.4); border-radius: 999px; color: #ddd; font: 700 10px var(--geo); padding: 3px 11px; }
+body.era-2016 .era-btn:hover { border-color: #fff; color: #fff; }
+body.era-2016 .era-btn.active { background: #fff; border-color: #fff; color: #000; }
+body.era-2016 #eraLabel { color: var(--lm); font: 700 italic 12px var(--geo); }
+body.era-2016 #eraNote { background: var(--nv); color: #dfe3ee; border: 0; font: 600 12px/1.45 var(--geo); }
 
-/* header + duotone strip + ranked rail */
-.fx-head { display: flex; align-items: center; gap: 10px; padding: 8px 16px; font: 12px var(--geo); }
-.fx-logo { font-weight: 800; letter-spacing: -.3px; }
-.fx-search { flex: 1; background: #f1f1f4; border-radius: 999px; padding: 6px 14px; color: #8a8a94; }
-.fx-cta { background: var(--bk); color: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 700; }
-.fx-burger { font-style: normal; color: #555; }
-.fx-duo { height: 8px; background: linear-gradient(90deg, var(--pk), var(--or) 55%, var(--lm)); }
-.fx-railhead { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px 4px; font: 800 12px var(--geo); text-transform: uppercase; letter-spacing: 1px; }
-.fx-why { font: 600 10px var(--geo); color: #8a8a94 !important; text-transform: none; letter-spacing: 0; text-decoration: underline; cursor: pointer; }
-.fx-whybox { display: none; margin: 0 16px 6px; padding: 8px 12px; background: #fff7d6; border-radius: 10px; font: 11px/1.5 var(--geo); color: #6b5a10; }
-.fx-whybox em { display: block; font-style: normal; color: #9a8630; }
-.fx-rail { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 16px; }
-.fx-card { flex: 1 1 28%; min-width: 120px; text-align: left; border: 0; border-radius: 12px; padding: 10px 12px; cursor: pointer; font: 700 12px var(--geo); color: #fff;
-  background: linear-gradient(135deg, var(--pk), var(--or)); }
-.fx-card:nth-child(2n) { background: linear-gradient(135deg, var(--tl), #2a7be4); }
-.fx-card:nth-child(3n) { background: linear-gradient(135deg, #7a3cff, var(--pk)); }
-.fx-card:nth-child(4n) { background: linear-gradient(135deg, #f5b800, var(--or)); }
-.fx-card b { display: block; margin-top: 4px; font-size: 13px; }
-.fx-pct { font: 600 9px var(--geo); opacity: .85; text-transform: uppercase; letter-spacing: .6px; }
-.fx-all { display: block; padding: 2px 16px 8px; font: 700 11px var(--geo); color: var(--pk) !important; cursor: pointer; }
+/* ---------- windows: flat colour-block cards, one scroll ---------- */
+html body.era-2016 .window { background: #fff; border: 0; border-radius: 0; overflow: hidden; box-shadow: 0 24px 60px rgba(60,0,40,.38); font-family: var(--geo); }
+html body.era-2016 .window:not(.sc-win) { width: min(600px, 94vw) !important; max-height: calc(100vh - 176px); overflow-y: auto; overflow-x: hidden; }
+html body.era-2016 .window:not(.sc-win) > * { flex-shrink: 0; }
+html body.era-2016 .window .titlebar { position: sticky; top: 0; z-index: 9; background: var(--nv); color: #fff; text-shadow: none; border: 0; font: 700 9.5px var(--geo); letter-spacing: 1.8px; text-transform: uppercase; padding: 7px 8px 7px 14px; }
+html body.era-2016 .window .titlebar button { background: transparent; border: 0; border-radius: 0; color: #fff; font-size: 13px; width: 22px; height: 22px; }
+html body.era-2016 .window .titlebar button:hover { background: #fff; color: var(--nv); }
+html body.era-2016 .window .winbody { background: #fff; color: #161616; font: 400 14px/1.55 var(--geo); max-height: none; overflow: visible; padding: 22px 26px 26px; }
+html body.era-2016 .window:not(.sc-win) h2.roomtitle { display: none; }          /* the hero says it, in caps */
+html body.era-2016 .window a.retro, html body.era-2016 .window .winbody a { color: var(--tq); text-decoration: none; font-weight: 700; cursor: pointer; }
+html body.era-2016 .window .winbody a:hover { text-decoration: underline; }
+html body.era-2016 .window .winbody .kicker { font: 800 10px var(--geo); letter-spacing: 1.8px; text-transform: uppercase; color: #777; }
+html body.era-2016 .window .winbody .q { background: #eef0f6; border: 0; border-left: 5px solid var(--sl); border-radius: 0; color: #222; font: 500 13.5px/1.5 var(--geo); padding: 10px 14px; }
+html body.era-2016 .window .winbody .task { background: #e8f2f1; border: 0; border-left: 5px solid var(--tq); border-radius: 0; color: #222; font: 500 13px/1.45 var(--geo); }
+html body.era-2016 .window .winbody .hint, html body.era-2016 .window .winbody .stats, html body.era-2016 .window .winbody .tally { color: #777; font-family: var(--geo); }
+html body.era-2016 .window .winbody .result, html body.era-2016 .window .winbody .interceptBox, html body.era-2016 .window .winbody .metrics-panel, html body.era-2016 .window .winbody .items-optimized .item { background: #fff; border: 1.5px solid #e3e3ea; border-radius: 0; font-family: var(--geo); color: #161616; }
+html body.era-2016 .window .winbody .items-optimized .item:hover { border-color: var(--sl); background: #f1f3f9; }
+/* pill buttons (Spotify) */
+html body.era-2016 .window .winbody .btn-95, html body.era-2016 .window .winbody button:not(.fx-card):not(.x) { background: var(--bk); color: #fff; border: 0; border-radius: 999px; padding: 9px 22px; font: 800 11px var(--geo); letter-spacing: 1.6px; text-transform: uppercase; box-shadow: none; cursor: pointer; }
+html body.era-2016 .window .winbody .btn-95:hover, html body.era-2016 .window .winbody button:not(.fx-card):not(.x):hover { background: var(--pk); color: #fff; }
+html body.era-2016 .window .winbody button:disabled { opacity: .35; background: var(--bk); }
+html body.era-2016 .window .winbody .field, html body.era-2016 .window .winbody input[type=text], html body.era-2016 .window .winbody textarea { background: #fff; color: #161616; border: 2px solid #e3e3ea; border-radius: 0; padding: 9px 12px; font: 500 14px var(--geo); box-shadow: none; }
+html body.era-2016 .window .winbody .field:focus, html body.era-2016 .window .winbody textarea:focus { outline: none; border-color: var(--sl); }
+html body.era-2016 .window .winbody .modeSwitch, html body.era-2016 .window .winbody .dual-view { border: 2px solid var(--bk); border-radius: 999px; background: #fff; overflow: hidden; gap: 0; }
+html body.era-2016 .window .winbody .modeSwitch button, html body.era-2016 .window .winbody .dual-view button { background: transparent !important; color: var(--bk) !important; border-radius: 0; padding: 7px 14px; }
+html body.era-2016 .window .winbody .modeSwitch button.active, html body.era-2016 .window .winbody .dual-view button.active { background: var(--bk) !important; color: #fff !important; }
+html body.era-2016 .window .winbody .pane-tabs { border-bottom: 2px solid #e3e3ea; gap: 20px; margin: -8px 0 16px; }
+html body.era-2016 .window .winbody .pane-tabs button { background: transparent !important; color: #888 !important; border: 0 !important; border-bottom: 4px solid transparent !important; border-radius: 0; letter-spacing: 1.2px; padding: 8px 0 8px; top: 0; }
+html body.era-2016 .window .winbody .pane-tabs button.active { color: var(--bk) !important; border-bottom-color: var(--pk) !important; }
+html body.era-2016 .window .winbody .testing-footer { color: #888; border-color: #e3e3ea; font-family: var(--geo); }
 
-/* footer: autoplay bar + black link block */
-.fx-next { display: flex; align-items: center; gap: 10px; padding: 8px 16px; background: #f6f6f8; font: 600 11px var(--geo); color: #333; }
-.fx-next.off { opacity: .6; }
-.fx-bar { flex: 1; height: 4px; background: #dcdce2; border-radius: 2px; overflow: hidden; } .fx-bar i { display: block; height: 100%; width: 0; background: var(--pk); transition: width 1s linear; }
-.fx-cancel { color: #111 !important; text-decoration: underline; cursor: pointer; }
-.fx-links { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; padding: 10px 16px; background: var(--bk); color: #aaa; font: 10px var(--geo); }
-.fx-links b { color: #fff; margin-left: 6px; } .fx-links a { color: #aaa !important; font-weight: 400 !important; cursor: default; }
+/* ---------- top bar (Flickr): logo, wide grey search, log in, white square sign up ---------- */
+.fx-top { display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: #000; color: #fff; font: 600 13px var(--geo); }
+.fx-logo { font: 900 18px var(--geo); letter-spacing: -.8px; }
+.fx-search { flex: 1; display: flex; align-items: center; gap: 9px; background: rgba(255,255,255,.82); color: #777; border-radius: 2px; padding: 7px 12px; font: 500 12.5px var(--geo); white-space: nowrap; overflow: hidden; }
+.fx-search svg { flex: none; color: #555; }
+.fx-login { color: #fff !important; font-weight: 600 !important; cursor: default; }
+.fx-cta { background: #fff; color: #000; border-radius: 2px; padding: 8px 16px; font: 700 13px var(--geo); }
 
-/* taskbar + pop-ups */
-body.era-2016 #taskbar { background: #fff; border-top: 1px solid #e4e4e8; box-shadow: 0 -4px 16px rgba(0,0,0,.06); font-family: var(--geo); }
-body.era-2016 #taskbar .btn-95, body.era-2016 .tab { background: #f1f1f4; border: 0; border-radius: 999px; font: 600 10px var(--geo); color: #333; }
-body.era-2016 .tab.focused { background: var(--bk); color: #fff; }
-body.era-2016 #clock { background: transparent; border: 0; font-family: var(--geo); color: #666; }
-body.era-2016 .popup-ad { border: 0; border-radius: 14px; box-shadow: 0 14px 40px rgba(0,0,0,.28); font-family: var(--geo); overflow: hidden; }
-body.era-2016 .popup-head { background: linear-gradient(90deg, var(--pk), var(--or)); color: #fff; font-family: var(--geo); }
-body.era-2016 .popup-x { background: transparent; border: 0; color: #fff; }
-body.era-2016 .popup-accept { background: var(--bk); color: #fff; border: 0; border-radius: 999px; font: 700 11px var(--geo); }
+/* ---------- hero (DOCK): a colour block with circles, a wide-caps headline, a white square burger, vertical "scroll down" ---------- */
+.fx-hero { position: relative; height: 190px; overflow: hidden; color: #fff; background: linear-gradient(160deg, #1f2a55, #5e6ea4); box-shadow: inset 0 -4px 0 var(--pk); }
+.fx-hero::before { content: ''; position: absolute; width: 330px; height: 330px; border-radius: 50%; right: -70px; top: -120px; background: rgba(255,255,255,.09); }
+.fx-hero::after  { content: ''; position: absolute; width: 230px; height: 230px; border-radius: 50%; right: 150px; bottom: -150px; background: rgba(255,255,255,.06); }
+.fx-chrome[data-g="1"] .fx-hero { background: linear-gradient(160deg, #1d3d4a, #4f8f93); box-shadow: inset 0 -4px 0 var(--or); }
+.fx-chrome[data-g="2"] .fx-hero { background: linear-gradient(160deg, #2c2f4f, #7d8fae); box-shadow: inset 0 -4px 0 var(--lm); }
+.fx-chrome[data-g="3"] .fx-hero { background: linear-gradient(160deg, #2f3446, #8c92a3); box-shadow: inset 0 -4px 0 var(--or); }
+.fx-hero > * { position: relative; z-index: 2; }
+.fx-burger { position: absolute !important; right: 0; top: 14px; width: 46px; height: 46px; background: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; cursor: pointer; }
+.fx-burger u { display: block; width: 20px; height: 2px; background: var(--nv); } .fx-burger u:nth-child(2) { width: 15px; align-self: center; margin-left: 5px; }
+.fx-scroll { position: absolute !important; left: 8px; bottom: 16px; writing-mode: vertical-rl; transform: rotate(180deg); font: 700 8.5px var(--geo); letter-spacing: 2px; text-transform: uppercase; opacity: .9; }
+.fx-hh { position: absolute !important; left: 30px; right: 60px; bottom: 20px; }
+.fx-kick::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--lm); margin-right: 8px; }
+.fx-kick { font: 500 10px var(--geo); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; opacity: .95; }
+.fx-h1 { font: 900 clamp(26px, 5.6vw, 40px)/1.02 var(--geo); letter-spacing: .5px; text-transform: uppercase; text-shadow: 0 2px 20px rgba(0,0,0,.28); }
 
-/* keep the whole window on screen */
-html body.era-2016 .window .winbody { max-height: max(160px, calc(100vh - 560px)); }
-.fx-rail { max-height: 132px; overflow-y: auto; }
+/* ---------- the ranked rail: a lime block of outlined square frames (DOCK frames, Spotify lime); one of the frames is an ad ---------- */
+.fx-band { background: var(--mist); color: #161a2e; padding: 0 0 14px; }
+.fx-railhead { display: flex; justify-content: space-between; align-items: center; padding: 7px 18px; margin-bottom: 12px; background: var(--sl); color: #fff; font: 800 10.5px var(--geo); text-transform: uppercase; letter-spacing: 2px; }
+.fx-why { font: 600 10.5px var(--geo); color: #fff !important; text-transform: none; letter-spacing: 0; text-decoration: underline; cursor: pointer; }
+.fx-whybox { display: none; margin: 0 18px 10px; padding: 9px 12px; background: var(--nv); border-radius: 0; font: 500 11.5px/1.5 var(--geo); color: #fff; }
+.fx-whybox em { display: block; font-style: normal; color: var(--lm); margin-top: 3px; }
+.fx-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0 18px; max-height: none; overflow: visible; }
+html body.era-2016 .window .fx-card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 88px; text-align: left; border: 2px solid var(--sl); border-radius: 0; padding: 7px 9px; cursor: pointer; background: #fff !important; color: var(--nv); font: 700 12px var(--geo); letter-spacing: 0; text-transform: none; }
+html body.era-2016 .window .fx-card:hover { background: var(--nv) !important; border-color: var(--nv); color: #fff; }
+.fx-card b { display: block; margin: 0; font: 800 10.5px/1.2 var(--geo); text-transform: uppercase; letter-spacing: .6px; }
+.fx-pct { position: absolute; right: 8px; top: 7px; font: 700 8.5px var(--geo); text-transform: uppercase; letter-spacing: .6px; opacity: .85; }
+html body.era-2016 .window .fx-card.fx-ad { background: linear-gradient(180deg, #ffd54a, #ff9a1f) !important; border-color: #121212; color: #121212; }
+html body.era-2016 .window .fx-card.fx-ad b { font: 900 12px/1.15 var(--geo); letter-spacing: -.1px; }
+.fx-all { display: inline-block; margin: 10px 0 0 18px; padding: 5px 14px; border: 2px solid var(--nv); border-radius: 999px; font: 800 10px var(--geo); letter-spacing: 1.4px; text-transform: uppercase; color: var(--nv) !important; cursor: pointer; text-decoration: none !important; }
+.fx-all:hover { background: var(--nv); color: #fff !important; }
+
+/* ---------- footer: the pink "up next" block, then Spotify's black columns ---------- */
+.fx-next { display: flex; align-items: center; gap: 14px; padding: 16px 24px; background: var(--nv); color: #fff; font: 700 13px var(--geo); }
+.fx-next.off { background: #3b4256; color: #bbb; }
+.fx-nl small { display: block; font: 800 9px var(--geo); letter-spacing: 1.8px; text-transform: uppercase; opacity: .85; }
+.fx-nl span { font: 800 15px/1.2 var(--geo); letter-spacing: -.2px; }
+.fx-bar { flex: 1; height: 4px; background: rgba(255,255,255,.2); border-radius: 2px; overflow: hidden; } .fx-bar i { display: block; height: 100%; width: 0; background: var(--pk); transition: width 1s linear; }
+.fx-cancel { background: #fff; color: var(--nv) !important; border-radius: 999px; padding: 8px 18px; font: 800 10.5px var(--geo); letter-spacing: 1.6px; text-transform: uppercase; text-decoration: none !important; cursor: pointer; }
+.fx-links { display: flex; flex-wrap: wrap; gap: 14px 34px; padding: 22px 24px 8px; background: #000; color: #fff; font: 500 12px var(--geo); }
+.fx-links .fx-brand { flex: 1 1 100%; font: 900 17px var(--geo); letter-spacing: -.6px; }
+.fx-links div { display: flex; flex-direction: column; gap: 8px; }
+.fx-links b { font: 700 9.5px var(--geo); letter-spacing: 1.6px; text-transform: uppercase; color: #8d8d96; margin-bottom: 2px; }
+.fx-links a { color: #fff !important; font-weight: 500 !important; cursor: default; text-decoration: none !important; }
+.fx-legal { padding: 10px 24px 16px; background: #000; color: #77777f; font: 500 9.5px var(--geo); letter-spacing: .3px; }
+
+/* ---------- taskbar + pop-ups ---------- */
+body.era-2016 #taskbar { background: #000; border: 0; font-family: var(--geo); }
+body.era-2016 #menubtn { background: transparent; border: 1.5px solid #fff; border-radius: 999px; color: #fff; font: 800 10px var(--geo); letter-spacing: 1.6px; text-transform: uppercase; }
+body.era-2016 #menubtn:hover { background: #fff; color: #000; }
+body.era-2016 .tab { background: rgba(255,255,255,.1); border: 0; border-bottom: 3px solid transparent; border-radius: 0; color: #ddd; font: 600 10.5px var(--geo); }
+body.era-2016 .tab.focused { background: rgba(255,255,255,.2); border-bottom-color: var(--pk); color: #fff; }
+body.era-2016 #clock { background: transparent; border: 0; font: 500 11px var(--geo); color: #aaa; }
+body.era-2016 #startMenu { background: #000; border: 0; border-radius: 0; box-shadow: 0 12px 36px rgba(0,0,0,.5); }
+body.era-2016 #startMenu button { color: #fff; font: 600 13px var(--geo); }
+body.era-2016 #startMenu button:hover { background: var(--pk); color: #fff; }
+body.era-2016 .popup-ad { border: 0; border-radius: 0; box-shadow: 0 14px 40px rgba(60,0,40,.5); font-family: var(--geo); overflow: hidden; background: #fff; color: #161616; }
+body.era-2016 .popup-head { background: var(--nv); color: #fff; font: 800 9.5px var(--geo); letter-spacing: 1.8px; text-transform: uppercase; border-bottom: 3px solid var(--pk); }
+body.era-2016 .popup-x { background: transparent; border: 0; color: #fff; width: auto; }
+body.era-2016 .popup-body p { color: #555; }
+body.era-2016 .popup-accept { background: var(--bk); color: #fff; border: 0; border-radius: 999px; font: 800 10.5px var(--geo); letter-spacing: 1.2px; text-transform: uppercase; }
+
+@media (max-width: 640px) { .fx-rail { grid-template-columns: repeat(2, 1fr); } }

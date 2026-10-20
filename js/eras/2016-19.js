@@ -49,18 +49,24 @@
     const title = windowTitles[id];
     const chrome = document.createElement('div');
     chrome.className = 'fx-chrome';
+    chrome.dataset.g = String(ids.indexOf(id) % 4);
     chrome.innerHTML =
-      '<div class="fx-head"><b class="fx-logo">third space</b><span class="fx-search">search ' + esc(title) + '</span><span class="fx-cta">sign up</span><i class="fx-burger">☰</i></div>' +
-      '<div class="fx-duo"></div>' +
-      '<div class="fx-railhead"><b>ranked for you</b><a class="fx-why">why am i seeing this?</a></div>' +
-      '<div class="fx-whybox"></div><div class="fx-rail"></div><a class="fx-all"></a>';
+      '<div class="fx-top"><b class="fx-logo">third space</b><span class="fx-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg>search ' + esc(title) + '</span><a class="fx-login">log in</a><span class="fx-cta">sign up</span></div>' +
+      '<div class="fx-hero"><i class="fx-burger"><u></u><u></u><u></u></i><span class="fx-scroll">scroll down</span>' +
+      '<div class="fx-hh"><div class="fx-kick">because it’s what you looked at last</div><div class="fx-h1">' + esc(title) + '</div></div></div>' +
+      '<div class="fx-band"><div class="fx-railhead"><b>ranked for you</b><a class="fx-why">why am i seeing this?</a></div>' +
+      '<div class="fx-whybox"></div><div class="fx-rail"></div><a class="fx-all"></a></div>';
     w.querySelector('.titlebar').after(chrome);
 
     const foot = document.createElement('div');
     foot.className = 'fx-foot';
     foot.innerHTML =
-      '<div class="fx-next"><span class="fx-nextlbl"></span><div class="fx-bar"><i></i></div><a class="fx-cancel">cancel</a></div>' +
-      '<div class="fx-links"><b>company</b><a>about</a><a>jobs</a><b>communities</b><a>for artists</a><a>advertisers</a><b>legal</b><a>cookies</a><a>privacy</a><a>terms</a></div>';
+      '<div class="fx-next"><div class="fx-nl"><small>autoplay</small><span class="fx-nextlbl"></span></div><div class="fx-bar"><i></i></div><a class="fx-cancel">cancel</a></div>' +
+      '<div class="fx-links"><span class="fx-brand">third space</span>' +
+      '<div><b>company</b><a>about</a><a>jobs</a><a>for the record</a></div>' +
+      '<div><b>communities</b><a>for artists</a><a>advertisers</a><a>developers</a></div>' +
+      '<div><b>useful links</b><a>help</a><a>cookies</a><a>privacy</a><a>terms</a></div></div>' +
+      '<div class="fx-legal">hero image chosen for you by ranking · © 2018 third space</div>';
     w.appendChild(foot);
 
     chrome.querySelector('.fx-why').onclick = () => {
@@ -89,8 +95,11 @@
       const w = document.getElementById(id); if (!w || !w.querySelector('.fx-rail')) return;
       const order = ranked(id), shown = st.all ? order : order.slice(0, 3);
       w.querySelector('.fx-rail').innerHTML = shown.map((rid, i) =>
-        '<button class="fx-card" data-id="' + rid + '"><span class="fx-pct">' + pct(rid, i) + '% match</span><b>' + esc(windowTitles[rid]) + '</b></button>').join('');
-      w.querySelectorAll('.fx-card').forEach((c) => { c.onclick = () => { log('opened ' + windowTitles[c.dataset.id] + ' from the rail', 'ranked #' + (order.indexOf(c.dataset.id) + 1)); openWindow(c.dataset.id); }; });
+        '<button class="fx-card" data-id="' + rid + '"><span class="fx-pct">' + pct(rid, i) + '% match</span><b>' + esc(windowTitles[rid]) + '</b></button>').join('') +
+        '<button class="fx-card fx-ad" data-ad="1"><span class="fx-pct">sponsored</span><b>2,500 free points. sign up now!</b></button>';
+      const ad = w.querySelector('.fx-ad');
+      if (ad) ad.onclick = () => { log('clicked a sponsored tile in the rail', 'it was styled like a room'); if (S) S.flags.clickedAd = true; };
+      w.querySelectorAll('.fx-card[data-id]').forEach((c) => { c.onclick = () => { log('opened ' + windowTitles[c.dataset.id] + ' from the rail', 'ranked #' + (order.indexOf(c.dataset.id) + 1)); openWindow(c.dataset.id); }; });
       const hidden = order.length - 3;
       const all = w.querySelector('.fx-all');
       all.textContent = st.all ? 'show fewer' : 'show all (' + hidden + ' more)';
