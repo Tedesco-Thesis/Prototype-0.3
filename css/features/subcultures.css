@@ -83,3 +83,7 @@ html body .window.sc-win[id] .keepbtn.kept { background: var(--acc); color: var(
 .fg-y, .fg-k { font: 10px 'Courier New', monospace; color: #888; white-space: nowrap; }
 
 @media (prefers-reduced-motion: reduce) { .window.sc-win *, .window.sc-win *::before, .window.sc-win *::after { animation: none !important; transition: none !important; } }
+
+/* your own images (declared in js/core/assets.js) */
+.sc-asset { max-width:100%; display:block; }
+.sc-asset-hero { margin:0 auto 10px; max-height:220px; object-fit:contain; }

@@ -1,4 +1,4 @@
-# Third Space — prototype 0.2
+# Third Space — prototype 0.4
 
 An interactive Windows-95-style desktop that moves through the history of the web, era by era.
 Static site: open `index.html` (or serve the folder, e.g. `python3 -m http.server`).
@@ -47,3 +47,24 @@ writes a line to the receipt and feeds the interest profile on the receipt windo
   then styles its own markup. Era chrome (url bars, status footers) is hidden inside these windows: each place is its own website.
 - To change one page: edit its block in `pages/` and its block in `looks/`. To add one: add an entry to `D` in `subcultures.js`,
   a template in `pages/`, and a look in `looks/`.
+
+
+## Rooms (0.4)
+Two rooms were folded into others, because they argued the same axis and had no guide task of their own:
+- **find it** now has two tabs: *find it* (the three friction modes) and *who knows?* (answered by uncertain people, not ranked pages).
+- **the data room** now has two tabs: *the week* (reciprocal trade) and *our data* (a relationship as felt vs. as recorded).
+
+Tabs are plain markup (`.pane-tabs` + `.pane`) switched by `setPane / switchPane / openPane` in `js/core/script.js`.
+Pop-up and receipt copy still use the old room keys (`win-whoknows`, `win-social`): `roomKeyOf(win)` returns the key for the tab that is showing.
+
+## Assets and provenance (0.4)
+`js/core/assets.js` is the manifest (it loads first). Every image the prototype uses is declared there with a *kind*:
+`mine`, `reconstructed`, `referenced` or `unset`. The about window lists everything by kind, the empty slots, and the
+invented/placeholder content, so the prototype says who made what.
+
+- Folders: `assets/eras/<era>/` and `assets/cultures/<id>/` (the 1999 pills stay in `assets/1999/` and are declared in the manifest).
+- Default slots: `era.<era>.wallpaper`, `era.<era>.graphic`, `culture.<id>.hero`, `culture.<id>.graphic`.
+- To add one: drop the file in its folder, add an entry to `assets` in `assets.js`, set `kind`, reload.
+  A `culture.<id>.hero` appears at the top of that aesthetic's window by itself. To place it elsewhere, call `h.asset('hero')` in the page template (`js/features/pages/`).
+- Era wallpapers/graphics: the slots exist, but nothing draws them yet (next step: read `Assets.src('era.<key>.wallpaper')` where each era sets its desktop).
+- Check what is missing from the console: `Assets.todo()`.

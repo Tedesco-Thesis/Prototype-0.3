@@ -521,8 +521,14 @@ h3.cmp { font-family:'Courier New',monospace; font-size:12px; margin:14px 0 6px;
 /* ===================================================== */
 body.era-2010 #win-data .locked-msg { display:none; }
 body.era-2016 #win-maze .modeSwitch button:not(.active) { opacity:.35; pointer-events:none; }
-body.era-2016 #win-whoknows .hint { text-decoration: line-through; opacity:.6; }
+body.era-2016 #pane-whoknows .hint { text-decoration: line-through; opacity:.6; }
 body.era-2024 #win-gallery .not-for-sale::after { content:' \00b7 $4.99 to boost this post'; }
 body.era-2024 #win-home .counter::after { content:' \00b7 trending #12 near you'; }
 body.era-2024 #win-mail .voice { display:none; }
-body.era-2024 #win-whoknows .uncertainty-box { display:none; }
+body.era-2024 #pane-whoknows .uncertainty-box { display:none; }
+
+/* ---------- tabbed rooms: find it + who knows?, the data room + our data ---------- */
+.pane-tabs { display:flex; gap:2px; margin:-4px 0 12px; border-bottom:2px solid #808080; }
+.pane-tabs button { padding:5px 12px 4px; font-family:'Courier New',monospace; font-size:12px; border:2px outset #dcdcdc; border-bottom:none; background:#c8c8c8; cursor:pointer; position:relative; top:2px; }
+.pane-tabs button.active { background:#dcdcdc; font-weight:bold; top:2px; padding-bottom:6px; }
+.pane.off { display:none; }

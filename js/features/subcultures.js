@@ -276,6 +276,8 @@
     h.count = () => '<span class="sc-count"></span>';
     h.gloss = (ph, btn) => '<span class="sc-addrow"><input class="sc-in" maxlength="40" placeholder="' + esc(ph) + '"><button class="sc-btn sc-add">' + esc(btn || 'add') + '</button></span>';
     h.terms = () => '<div class="sc-terms"></div>';
+    // your own image for this aesthetic: h.asset('hero') or h.asset('graphic'). declared in js/core/assets.js; '' if none yet.
+    h.asset = (role, cls) => { h._assetUsed = true; return window.Assets ? Assets.img('culture.' + c.id + '.' + (role || 'hero'), cls || 'sc-asset') : ''; };
     return h;
   }
 
@@ -295,7 +297,10 @@
       stage.classList.add('sc-stage');
       if (page && page.w) win.style.width = page.w + 'px';
       const fxLabels = (page && page.fx) || ['turn it up', 'turn it down'];
-      stage.innerHTML = page ? page.html(helpers(c)) : '<p>' + esc(c.did) + '</p>';
+      const hh = helpers(c);
+      stage.innerHTML = page ? page.html(hh) : '<p>' + esc(c.did) + '</p>';
+      // if the template did not place the hero image itself, put it at the top so a dropped-in file always shows
+      if (!hh._assetUsed && window.Assets && Assets.has('culture.' + c.id + '.hero')) stage.insertAdjacentHTML('afterbegin', Assets.img('culture.' + c.id + '.hero', 'sc-asset sc-asset-hero'));
 
       const count = () => stage.querySelectorAll('.sc-count').forEach((el) => { el.textContent = 'collected ' + me.collected.size + ' · colours ' + me.colours.size + ' · words ' + me.terms.length; });
       stage.querySelectorAll('.sc-sw').forEach((b) => {

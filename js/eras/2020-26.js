@@ -31,8 +31,8 @@
     'win-home': 'the front door of this site', 'win-data': 'where your clicks are turned into a trade',
     'win-mail': 'a place where messages take time to send', 'win-gallery': 'where work is signed by its maker',
     'win-receipt': 'a list of what this site kept about you', 'win-personal': 'a page you build yourself, block by block',
-    'win-maze': 'search, with three different amounts of friction', 'win-whoknows': 'search answered by people instead of rankings',
-    'win-machine': 'an AI that edits a real conversation', 'win-social': 'your data, shown back as a dashboard', 'win-about': 'what this project is about',
+    'win-maze': 'search, with three different amounts of friction, and a version answered by people instead of rankings',
+    'win-machine': 'an AI that edits a real conversation', 'win-about': 'what this project is about',
   };
   const nextOf = (id) => windowTitles[ids[(ids.indexOf(id) + 1) % ids.length]];
   function answer(id, q) {

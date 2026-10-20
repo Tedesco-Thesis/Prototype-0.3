@@ -57,8 +57,8 @@
   const SUBS = {
     'win-home': 'sign up to see more', 'win-data': 'your week, in one chart', 'win-mail': 'short, fast, forgettable',
     'win-gallery': 'photography, full bleed', 'win-receipt': 'what you gave, itemized', 'win-personal': 'one profile, every network',
-    'win-maze': 'results in 0.2 seconds', 'win-whoknows': 'ask the crowd', 'win-machine': 'now with suggestions',
-    'win-social': 'your graph, mapped', 'win-about': 'about this project',
+    'win-maze': 'results in 0.2 seconds', 'win-machine': 'now with suggestions',
+    'win-about': 'about this project',
   };
   const STORIES = [
     ['culture', 'why every site now opens with a photo', 'a full-bleed hero is the new front door.'],
@@ -73,7 +73,7 @@
 
   /* ---------- 5. per-window chrome and footer ---------- */
   const ids = Object.keys(windowTitles);
-  const CORE = ['win-home', 'win-data', 'win-mail', 'win-gallery', 'win-receipt', 'win-personal', 'win-maze', 'win-whoknows', 'win-machine', 'win-social'];
+  const CORE = ['win-home', 'win-data', 'win-mail', 'win-gallery', 'win-receipt', 'win-personal', 'win-maze', 'win-machine'];
   ids.forEach((id) => {
     const w = document.getElementById(id);
     if (!w || w.querySelector('.w3-chrome')) return;

@@ -65,9 +65,7 @@
     'win-receipt':  ['see who viewed your profile', 'upgrade to premium to see the list.', '👁'],
     'win-personal': ['your profile is 55% complete', 'pick a category and we’ll fill in the rest.', '✔'],
     'win-maze':     ['find anything in 0.2 seconds', 'top result: whatever paid for it.', '⌕'],
-    'win-whoknows': ['ask your friends instantly', 'or 4,000 strangers, ranked.', '?'],
     'win-machine':  ['say it better with autotone', 'beta · reads your message before you send it.', '✉'],
-    'win-social':   ['share your life in one click', 'we’ll remember it for you.', '☁'],
     'win-about':    ['learn more about thirdspace', 'built by people who read the terms.', 'i'],
   };
   const adFor = (id) => ADS[id] || ['you might also like this', 'based on your activity on this page.', '★'];
@@ -83,7 +81,7 @@
     const title = windowTitles[id] || id;
     state.posts[id] = [];
 
-    const favs = ['win-home', 'win-data', 'win-mail', 'win-gallery', 'win-receipt', 'win-personal', 'win-maze', 'win-whoknows', 'win-machine', 'win-social']
+    const favs = ['win-home', 'win-data', 'win-mail', 'win-gallery', 'win-receipt', 'win-personal', 'win-maze', 'win-machine']
       .map((k) => '<a data-go="' + k + '" class="' + (k === id ? 'cur' : '') + '">' + esc(windowTitles[k]) + '</a>').join('');
 
     const chrome = document.createElement('div');

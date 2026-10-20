@@ -184,10 +184,10 @@ splash.innerHTML = `
   <div class="s99-mark">third space</div>
   <div class="s99-burst">${[0,45,90,135,180,225,270,315].map(a => `<i style="--a:${a}deg"></i>`).join('')}</div>
   <div class="s99-pills">
-  <img class="s99-pill" src="assets/1999/pill_1.png" alt="" style="--x:10%; --y:34%; --w:var(--u); --rot:-6deg; --d:.3s">
-  <img class="s99-pill" src="assets/1999/pill_2.png" alt="" style="--x:32%; --y:27%; --w:calc(var(--u)*.72); --rot:-4deg; --d:.8s">
-  <img class="s99-pill" src="assets/1999/pill_3.png" alt="" style="--x:47%; --y:20%; --w:calc(var(--u)*.52); --rot:-2deg; --d:1.3s">
-  <img class="s99-pill" src="assets/1999/pill_4.png" alt="" style="--x:58%; --y:16%; --w:calc(var(--u)*.36); --rot:0deg; --d:1.8s">
+  <img class="s99-pill" src="${(window.Assets && Assets.src('era.1999.pill-1')) || 'assets/1999/pill_1.png'}" alt="" style="--x:10%; --y:34%; --w:var(--u); --rot:-6deg; --d:.3s">
+  <img class="s99-pill" src="${(window.Assets && Assets.src('era.1999.pill-2')) || 'assets/1999/pill_2.png'}" alt="" style="--x:32%; --y:27%; --w:calc(var(--u)*.72); --rot:-4deg; --d:.8s">
+  <img class="s99-pill" src="${(window.Assets && Assets.src('era.1999.pill-3')) || 'assets/1999/pill_3.png'}" alt="" style="--x:47%; --y:20%; --w:calc(var(--u)*.52); --rot:-2deg; --d:1.3s">
+  <img class="s99-pill" src="${(window.Assets && Assets.src('era.1999.pill-4')) || 'assets/1999/pill_4.png'}" alt="" style="--x:58%; --y:16%; --w:calc(var(--u)*.36); --rot:0deg; --d:1.8s">
 </div>
   <div class="s99-copy">
     <div class="s99-tag">a website, made with Macromedia Flash\u2122</div>

@@ -180,9 +180,7 @@ const icons = [
   { id: 'win-receipt', glyph: '🧾', label: 'your receipt', top: 444, left: 20 },
   { id: 'win-personal', glyph: '🧑', label: 'your place', top: 20, left: 110 },
   { id: 'win-maze', glyph: '🔍', label: 'find it', top: 126, left: 110 },
-  { id: 'win-whoknows', glyph: '🗣', label: 'who knows?', top: 232, left: 110 },
-  { id: 'win-machine', glyph: '🤖', label: 'machine between us', top: 338, left: 110 },
-  { id: 'win-social', glyph: '🕸', label: 'our data', top: 444, left: 110 },
+  { id: 'win-machine', glyph: '🤖', label: 'machine between us', top: 232, left: 110 },
 ];
 icons.forEach(ic => {
   const div = document.createElement('div');
@@ -204,9 +202,7 @@ const windowTitles = {
   'win-receipt': 'your receipt',
   'win-personal': 'your place',
   'win-maze': 'find it',
-  'win-whoknows': 'who knows?',
   'win-machine': 'machine between us',
-  'win-social': 'our data',
 };
 const openTabsEl = document.getElementById('openTabs');
 
@@ -229,6 +225,49 @@ function openWindow(id) {
   refreshTabs();
   logReceipt('opened ' + (windowTitles[id] || id), 'session data');
 }
+
+/* ---------- rooms with tabs ----------
+   "who knows?" now lives inside find it (both are about discovery: ranked pages vs. introduced by people)
+   and "our data" inside the data room (both are about what gets recorded and what comes back).
+   They used to be separate windows; the pop-up and receipt copy for them is still keyed by the old ids,
+   see roomKeyOf() below. */
+const PANES = {
+  'win-maze': { maze: ['maze.htm — find it', 'find it'], whoknows: ['whoknows.htm — who might know?', 'who knows?'] },
+  'win-data': { data: ['mydata.htm — the data room', 'the data room'], social: ['ourdata.htm — our data', 'our data'] },
+};
+const PANE_KEY = { 'win-maze:whoknows': 'win-whoknows', 'win-data:social': 'win-social' };
+
+function setPane(winId, pane) {
+  const w = document.getElementById(winId);
+  const def = PANES[winId];
+  if (!w || !def || !def[pane]) return false;
+  w.querySelectorAll('.pane').forEach(p => p.classList.toggle('off', p.id !== 'pane-' + pane));
+  w.querySelectorAll('.pane-tabs button').forEach(b => b.classList.toggle('active', b.dataset.pane === pane));
+  const ttl = w.querySelector('.titlebar .ttl');
+  if (ttl) ttl.textContent = def[pane][0];
+  w.dataset.pane = pane;
+  return true;
+}
+// a tab click inside an open window
+function switchPane(winId, pane) {
+  const w = document.getElementById(winId);
+  if (w && w.dataset.pane === pane) return;
+  if (setPane(winId, pane)) logReceipt('opened ' + PANES[winId][pane][1], 'session data');
+}
+// open a window straight onto one of its tabs (used by the welcome list)
+function openPane(winId, pane) {
+  const w = document.getElementById(winId);
+  const wasOpen = w && w.classList.contains('open');
+  setPane(winId, pane);
+  openWindow(winId);
+  if (wasOpen) logReceipt('opened ' + PANES[winId][pane][1], 'session data');
+}
+// which "room" a window is showing right now, for pop-up copy and similar lookups
+function roomKeyOf(w) {
+  if (!w) return null;
+  return PANE_KEY[w.id + ':' + (w.dataset.pane || '')] || w.id;
+}
+
 function closeWindow(id) {
   const w = document.getElementById(id);
   w.classList.remove('open');

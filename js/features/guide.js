@@ -199,7 +199,7 @@
     let key = 'desktop', cname = '';
     if (live) {
       const c = S.cultures.find((x) => x.winId === live.id);
-      if (c) { key = 'culture'; cname = c.title; } else key = POP[live.id] ? live.id : 'desktop';
+      if (c) { key = 'culture'; cname = c.title; } else { const rk = roomKeyOf(live); key = POP[rk] ? rk : (POP[live.id] ? live.id : 'desktop'); }
     }
     // never say the same sentence twice in a row within an era: try this room's line, then the generic one,
     // and if both were just used, stay quiet (silence is part of the pacing)

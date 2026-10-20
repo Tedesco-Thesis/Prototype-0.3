@@ -50,16 +50,14 @@
 <div id="startMenu">
   <button onclick="openWindow('win-home'); toggleStart(false)">🏠 welcome.htm</button>
   <hr>
-  <button onclick="openWindow('win-data'); toggleStart(false)">🗃 the data room</button>
+  <button onclick="openWindow('win-data'); toggleStart(false)">🗃 the data room (and our data)</button>
   <button onclick="openWindow('win-mail'); toggleStart(false)">✉ the correspondence room</button>
   <button onclick="openWindow('win-gallery'); toggleStart(false)">🖌 the signed-work room</button>
   <button onclick="openWindow('win-receipt'); toggleStart(false)">🧾 your receipt</button>
   <hr>
   <button onclick="openWindow('win-personal'); toggleStart(false)">🧑 your place</button>
-  <button onclick="openWindow('win-maze'); toggleStart(false)">🔍 find it (the unoptimized web)</button>
-  <button onclick="openWindow('win-whoknows'); toggleStart(false)">🗣 who knows? (human search)</button>
+  <button onclick="openWindow('win-maze'); toggleStart(false)">🔍 find it (the unoptimized web, and who knows?)</button>
   <button onclick="openWindow('win-machine'); toggleStart(false)">🤖 the machine between us</button>
-  <button onclick="openWindow('win-social'); toggleStart(false)">🕸 our data</button>
   <hr>
   <button onclick="openWindow('win-about'); toggleStart(false)">? about this project</button>
 </div>
@@ -81,14 +79,12 @@
     <hr class="dots">
     <p><b>rooms in this house</b>:</p>
     <ul>
-      <li><a class="retro" onclick="openWindow('win-data')">the data room</a> — trade a piece of your week for a piece of someone else's</li>
+      <li><a class="retro" onclick="openWindow('win-data')">the data room</a> — trade a piece of your week for a piece of someone else's; then see <a class="retro" onclick="openPane('win-data','social')">our data</a>, the same relationship as memory and as a dashboard</li>
       <li><a class="retro" onclick="openWindow('win-mail')">the correspondence room</a> — a message that costs you time to send</li>
       <li><a class="retro" onclick="openWindow('win-gallery')">the signed-work room</a> — what you make is proven by the making, not a price</li>
       <li><a class="retro" onclick="openWindow('win-personal')">your place</a> — build a self-authored page instead of filling out a form</li>
-      <li><a class="retro" onclick="openWindow('win-maze')">find it</a> — the same search, run through three very different amounts of friction</li>
-      <li><a class="retro" onclick="openWindow('win-whoknows')">who knows?</a> — a search engine that answers with uncertain people, not ranked pages</li>
+      <li><a class="retro" onclick="openWindow('win-maze')">find it</a> — the same search, run through three very different amounts of friction; or ask <a class="retro" onclick="openPane('win-maze','whoknows')">who knows?</a> and get uncertain people instead of ranked pages</li>
       <li><a class="retro" onclick="openWindow('win-machine')">the machine between us</a> — watch an AI mediate, and edit, a real conversation</li>
-      <li><a class="retro" onclick="openWindow('win-social')">our data</a> — the same relationship, shown as memory and as a dashboard</li>
       <li><a class="retro" onclick="openWindow('win-receipt')">your receipt</a> — an itemized account of what this whole site has collected from you</li>
     </ul>
     <hr class="dots">
@@ -103,6 +99,8 @@
     <div class="winbtns"><button onclick="minimizeWindow('win-data')">_</button><button onclick="closeWindow('win-data')">×</button></div>
   </div>
   <div class="winbody">
+    <div class="pane-tabs" data-win="win-data"><button class="active" data-pane="data" onclick="switchPane('win-data','data')">the week</button><button data-pane="social" onclick="switchPane('win-data','social')">our data</button></div>
+    <div class="pane" id="pane-data">
     <h2 class="roomtitle">how was your week?</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what if data exchange were reciprocal instead of extracted?</p>
     <p style="font-size:12px; color:#444;">color in the grid — each square is a day, darker means more of whatever you're tracking. when you're done, mail it. you won't see anyone else's until you send your own.</p>
@@ -116,6 +114,41 @@
       <p style="font-size:11px; color:#666; margin-top:6px;">(a stand-in for now — the full version pairs you with a real trade, not a script.)</p>
     </div>
     <div id="lockedMsg" class="locked-msg" style="margin-top:14px;">nothing to see here yet. give something to get something.</div>
+</div>
+    <div class="pane off" id="pane-social">
+    <div class="kicker">PROTOTYPE 05 — THE SOCIAL DATA WEB</div>
+    <h2 class="roomtitle">a relationship, not a dashboard</h2>
+    <div class="q">both representations below describe the exact same relationship. what does each let you see, and what does each make impossible to see?</div>
+    <div class="actionRow">
+      <button onclick="logEvent('shared')">shared a thought</button>
+      <button onclick="logEvent('disagreed')">disagreed</button>
+      <button onclick="logEvent('introduced')">introduced something new</button>
+      <button onclick="logEvent('returned')">returned to an old topic</button>
+    </div>
+    <div class="dual-view">
+      <button class="active" id="btnFelt" onclick="setView('felt')">how it felt</button>
+      <button id="btnSystem" onclick="setView('system')">what the system recorded</button>
+    </div>
+    <div id="feltView">
+      <div class="stage"><svg id="svgStage" viewBox="0 0 400 220"></svg></div>
+      <div class="human-log" id="humanLog"><em>nothing yet.</em></div>
+    </div>
+    <div id="systemView" style="display:none;">
+      <div class="metrics-panel">
+        <div class="stat-row"><span>INTERACTIONS</span><span id="mInteractions">0</span></div>
+        <div class="stat-row"><span>SIMILARITY SCORE</span><span id="mSimilarity">—</span></div>
+        <div class="stat-row"><span>TOPICS</span><span id="mTopics">0</span></div>
+        <div class="stat-row"><span>DISAGREEMENTS</span><span id="mDisagreements">0</span></div>
+        <div class="stat-row"><span>ENGAGEMENT SCORE</span><span id="mEngagement">0</span></div>
+      </div>
+    </div>
+    <div class="findings" id="reflectQuestion" style="margin-top:14px;"></div>
+    <details class="testing-footer">
+      <summary>what this prototype is testing</summary>
+      <div><b>QUESTION:</b> can data represent a relationship without reducing it to a metric — and is the qualitative version automatically better?</div>
+      <div><b>LIMITATION:</b> both views here are equally fabricated by this prototype — a real version has to reckon with which one a platform actually has an incentive to show you by default.</div>
+    </details>
+</div>
   </div>
 </div>
 
@@ -249,6 +282,8 @@
     <div class="winbtns"><button onclick="minimizeWindow('win-maze')">_</button><button onclick="closeWindow('win-maze')">×</button></div>
   </div>
   <div class="winbody">
+    <div class="pane-tabs" data-win="win-maze"><button class="active" data-pane="maze" onclick="switchPane('win-maze','maze')">find it</button><button data-pane="whoknows" onclick="switchPane('win-maze','whoknows')">who knows?</button></div>
+    <div class="pane" id="pane-maze">
     <div class="kicker">PROTOTYPE 02 — THE UNOPTIMIZED WEB</div>
     <h2 class="roomtitle">find the story about the lighthouse</h2>
     <div class="q">not "is friction good" — what kinds of friction are meaningful, and what kinds are merely inconvenient? try all three modes.</div>
@@ -288,16 +323,8 @@
       <div><b>QUESTION:</b> what kinds of friction are meaningful, and what kinds are merely inconvenient?</div>
       <div><b>LIMITATION:</b> a one-time toy search task can't capture what friction does over repeated, long-term use.</div>
     </details>
-  </div>
 </div>
-
-<!-- ===================== WHO KNOWS (human search engine) ===================== -->
-<div class="window" id="win-whoknows" style="width:420px; top:150px; left:340px; z-index:3;">
-  <div class="titlebar" onpointerdown="startDrag(event,'win-whoknows')">
-    <span class="ttl">whoknows.htm — who might know?</span>
-    <div class="winbtns"><button onclick="minimizeWindow('win-whoknows')">_</button><button onclick="closeWindow('win-whoknows')">×</button></div>
-  </div>
-  <div class="winbody">
+    <div class="pane off" id="pane-whoknows">
     <div class="kicker">PROTOTYPE 03 — THE HUMAN SEARCH ENGINE</div>
     <h2 class="roomtitle">who might know?</h2>
     <div class="q">what changes when finding information becomes an encounter with someone else's uncertain, sometimes conflicting experience? try "old websites" or "cooking" — ask both matches, and you'll be asked who you actually believe.</div>
@@ -312,6 +339,7 @@
       <div><b>QUESTION:</b> what changes when finding information becomes an encounter with another person's experience, rather than an extraction of information from a page?</div>
       <div><b>LIMITATION:</b> the "people" here are scripted, not real — a genuine version raises its own consent and labor questions this prototype doesn't address.</div>
     </details>
+</div>
   </div>
 </div>
 
@@ -357,48 +385,6 @@
   </div>
 </div>
 
-<!-- ===================== OUR DATA (social) ===================== -->
-<div class="window" id="win-social" style="width:420px; top:190px; left:260px; z-index:1;">
-  <div class="titlebar" onpointerdown="startDrag(event,'win-social')">
-    <span class="ttl">ourdata.htm — our data</span>
-    <div class="winbtns"><button onclick="minimizeWindow('win-social')">_</button><button onclick="closeWindow('win-social')">×</button></div>
-  </div>
-  <div class="winbody">
-    <div class="kicker">PROTOTYPE 05 — THE SOCIAL DATA WEB</div>
-    <h2 class="roomtitle">a relationship, not a dashboard</h2>
-    <div class="q">both representations below describe the exact same relationship. what does each let you see, and what does each make impossible to see?</div>
-    <div class="actionRow">
-      <button onclick="logEvent('shared')">shared a thought</button>
-      <button onclick="logEvent('disagreed')">disagreed</button>
-      <button onclick="logEvent('introduced')">introduced something new</button>
-      <button onclick="logEvent('returned')">returned to an old topic</button>
-    </div>
-    <div class="dual-view">
-      <button class="active" id="btnFelt" onclick="setView('felt')">how it felt</button>
-      <button id="btnSystem" onclick="setView('system')">what the system recorded</button>
-    </div>
-    <div id="feltView">
-      <div class="stage"><svg id="svgStage" viewBox="0 0 400 220"></svg></div>
-      <div class="human-log" id="humanLog"><em>nothing yet.</em></div>
-    </div>
-    <div id="systemView" style="display:none;">
-      <div class="metrics-panel">
-        <div class="stat-row"><span>INTERACTIONS</span><span id="mInteractions">0</span></div>
-        <div class="stat-row"><span>SIMILARITY SCORE</span><span id="mSimilarity">—</span></div>
-        <div class="stat-row"><span>TOPICS</span><span id="mTopics">0</span></div>
-        <div class="stat-row"><span>DISAGREEMENTS</span><span id="mDisagreements">0</span></div>
-        <div class="stat-row"><span>ENGAGEMENT SCORE</span><span id="mEngagement">0</span></div>
-      </div>
-    </div>
-    <div class="findings" id="reflectQuestion" style="margin-top:14px;"></div>
-    <details class="testing-footer">
-      <summary>what this prototype is testing</summary>
-      <div><b>QUESTION:</b> can data represent a relationship without reducing it to a metric — and is the qualitative version automatically better?</div>
-      <div><b>LIMITATION:</b> both views here are equally fabricated by this prototype — a real version has to reckon with which one a platform actually has an incentive to show you by default.</div>
-    </details>
-  </div>
-</div>
-
 <!-- ===================== ABOUT WINDOW ===================== -->
 <div class="window" id="win-about" style="width:400px; top:200px; left:200px; z-index:0;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-about')">
@@ -409,6 +395,10 @@
     <h2 class="roomtitle">what this is</h2>
     <p>one interface instead of six separate pages, because the thesis is about a single progression, not five unrelated arguments. every room is a different design proposition; the <b>era bar</b> at the top is what actually moves them through time; the <b>pop-ups</b> and the <b>receipt</b> room make the usually-invisible mechanics of tracking and monetization visible instead of ambient.</p>
     <p style="font-size:12px; color:#555;">early web browsing involved almost no visible tracking and almost no moderation — the two were entangled from the start. as the timeline advances, tracking becomes constant and mostly hidden, while moderation and ranking become constant and also mostly hidden. neither trade was ever put to a vote.</p>
+    <details class="testing-footer" id="creditsBox">
+      <summary>who made what (images, and what was invented)</summary>
+      <div id="assetCredits" style="font-size:12px;"></div>
+    </details>
     <details class="testing-footer">
       <summary>what this prototype is testing</summary>
       <div><b>QUESTION:</b> as digital environments optimize interaction for efficiency, prediction, and monetization, what gets removed, concealed, or flattened along the way — and can that removal be made visible again, inside the interface itself, rather than argued about outside it?</div>
@@ -420,6 +410,7 @@
   </div>
 </div>
 
+<script src="js/core/assets.js"></script>
 <script src="js/core/script.js"></script>
 <script src="js/features/cultures.js"></script>
 <script src="js/features/pages/00-registry.js"></script>
@@ -439,5 +430,6 @@
 <script src="js/eras/2016-19.js"></script>
 <script src="js/eras/2020-26.js"></script>
 <script src="js/features/guide.js"></script>
+<script>(function () { var e = document.getElementById('assetCredits'); if (e && window.Assets) e.innerHTML = Assets.credits(); })();</script>
 </body>
 </html>
