@@ -68,3 +68,18 @@ invented/placeholder content, so the prototype says who made what.
   A `culture.<id>.hero` appears at the top of that aesthetic's window by itself. To place it elsewhere, call `h.asset('hero')` in the page template (`js/features/pages/`).
 - Era wallpapers/graphics: the slots exist, but nothing draws them yet (next step: read `Assets.src('era.<key>.wallpaper')` where each era sets its desktop).
 - Check what is missing from the console: `Assets.todo()`.
+
+
+## The next web (speculative era) — js/eras/next.js, css/eras/next.css
+
+A final era, "next ▸", entered after 2020–26 (or via mote). It is not a skin of the past: it builds a world **from the visitor**.
+
+1. **Catalog.** Every receipt line becomes a record (id `TS-0001`, title, type, credited to, time, status: *observed* / *system-initiated* / *inferred*). The `RULES` table in next.js says how each kind of line is classified and what it counts toward.
+2. **Scoring.** Records add weight to four worlds: delegation (yes-to-offers, assistant, autoplay left on, shares), commons (letters, signed work, cancelling, choosing the order), provenance (reading the receipt / cookie list, asking why, and the largest gap between what was *kept* and what was *done*), museum (opening many places, doing little). Too little signal = **delegation, assigned by default**, and the site says so.
+3. **Dispute.** In "your catalog" any record can be disputed ("not what I meant" / "wasn't me"). It stops counting and the world is recomputed. Acting inside a world (revoking an agent permission, tending a memory, rejecting an action) writes new records, so a world can talk you out of itself.
+4. **Four worlds**, each with premise, six conditions (technology, economics, governance, culture, material reality, interface consequences — each tagged *exists today* / *plausible within a few years* / *speculation*), its own design system (type, palette with meanings, layout rules), a critical question, three interface artifacts filled with the visitor's own data, and a path from today ("exists today" / "what would have to change").
+5. **Other futures.** Preview the worlds you did not get, with what would have tipped you there and the (deliberately crude) scoring shown.
+
+Pages: front door · your catalog · the world · artifacts · other futures · footholds & sources. Edit words in `WORLDS`, edit what counts in `RULES`; nothing else needs touching. `ThirdSpaceNext.evalWorld()` returns the live scores for testing. Logging only starts at 1999 (the site's own rule), so a visitor who jumps straight to "next" gets the default world.
+
+Sources are labelled by evidentiary status (theory / industry / portfolio / essay / speculative / lead). The Awwwards AI report and Seesaw AIID 26 are listed as leads only; nothing is attributed to them.

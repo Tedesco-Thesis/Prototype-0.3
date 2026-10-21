@@ -591,6 +591,10 @@
     Object.keys(E14.copy).forEach((room) => { (POP[room] = POP[room] || {})[E14.tier] = E14.copy[room]; });
   }
 
+  // the next web (next.js): the speculative era registers its beat the same way
+  const EN = window.__eraNext;
+  if (EN) { BEATS['2030'] = EN.beat; TAGS['2030'] = EN.tag; CONTEXT_CHANCE[2030] = EN.chance; }
+
   /* boot: early-eras.js already ran setEra('1991') before we loaded */
   S.syncIcons(yearOf(currentEra));
   enterEra(currentEra);
