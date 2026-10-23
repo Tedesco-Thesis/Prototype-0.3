@@ -145,13 +145,7 @@
   ===================================================================== */
 
   function buildWebring(st, api) {
-    const RING = [
-      { site: 'moth-light.net',   by: 'vi',    line: 'notes from a night-shift pharmacist. mostly about the quiet.' },
-      { site: 'kettle & cable',   by: 'oskar', line: 'a repair diary. every post is something that was fixed, badly, then fixed again.' },
-      { site: 'the long wait',    by: 'rufus', line: 'bus timetables i love, with commentary.' },
-      { site: 'pocket weather',   by: 'dee',   line: 'the forecast, but only for my window.' },
-      { site: 'ugly tomatoes',    by: 'ana',   line: 'a garden log. the tomatoes are ugly. the log is honest.' },
-    ];
+    const RING = window.People ? window.People.ring() : [{ site: 'nobody yet', by: 'nobody', line: 'add people in js/features/people.js' }];
     let i = 0;
     st.innerHTML =
       '<div class="wr-site"><div class="wr-name"></div><div class="wr-line"></div><div class="wr-meta"></div></div>' +
@@ -162,7 +156,7 @@
       $('.wr-name', st).textContent = s.site;
       $('.wr-line', st).textContent = s.line;
       $('.wr-meta', st).innerHTML = 'you got here because <b>' + esc(p.by) + '</b> (' + esc(p.site) + ') linked to it. nobody ranked it.';
-      $('.wr-ring', st).textContent = 'the small hours ring · site ' + (i + 1) + ' of ' + RING.length;
+      $('.wr-ring', st).textContent = 'the small hours ring · site ' + (i + 1) + ' of ' + RING.length + (window.People && People.anyPlaceholder ? ' · placeholder names' : '');
     };
     st.querySelectorAll('.wr-bar button').forEach((b) => {
       b.onclick = () => {
@@ -177,9 +171,9 @@
 
   function buildGuestbook(st, api) {
     const entries = [
-      { n: 'rufus (ohio)', t: '3 days ago',  m: 'found you through the small hours ring. your bus page made my whole week.' },
+      { n: People.name(2), t: '3 days ago',  m: 'found you through the small hours ring. your bus page made my whole week.' },
       { n: 'anon',         t: '2 weeks ago', m: 'no reason. i just wanted to be on a list that was made by hand.' },
-      { n: 'dee',          t: 'last month',  m: 'your tomatoes are not ugly. i will fight anyone.' },
+      { n: People.name(3), t: 'last month',  m: 'your tomatoes are not ugly. i will fight anyone.' },
     ];
     st.innerHTML =
       '<div class="gb-title">~ please sign my guestbook ~</div><div class="gb-list"></div>' +
@@ -588,10 +582,10 @@
   /* what each setting looks like as a piece of interface: 'off' is the default web, 'on' is the recovered one.
      (the names are the people in the webring, so the next web is populated by people the visitor has met) */
   const PV = {
-    discovery:  { on: 'you arrived through <b>vi</b> → <b>ana</b>. two people vouch for this page.', off: 'recommended for you · 98% match · 14,302 views' },
+    discovery:  { on: 'you arrived through <b>' + People.name(0) + '</b> → <b>' + People.name(4) + '</b>. two people vouch for this page.', off: 'recommended for you · 98% match · 14,302 views' },
     authorship: { on: '<u>view the making</u> · 6 drafts · the first one was written at 2am', off: 'your profile is 40% complete. pick a template to continue.' },
     provenance: { on: 'signed: <b>a person</b>, with a spell-checker.', off: 'source: unknown. summary: generated.' },
-    visibility: { on: 'seen by <b>rufus</b> and <b>dee</b>, who chose to be named. no other analytics.', off: '1,204 impressions · 38 engagements · audience segment 7' },
+    visibility: { on: 'seen by <b>' + People.name(2) + '</b> and <b>' + People.name(3) + '</b>, who chose to be named. no other analytics.', off: '1,204 impressions · 38 engagements · audience segment 7' },
     pace:       { on: 'your reply is on its way. it will arrive tomorrow.', off: 'delivered · seen 2 min ago · they are typing…' },
     memory:     { on: '3 things tended this month. the rest is allowed to fade.', off: '14,332 items saved · searchable · shared with 41 partners' },
     seams:      { on: 'one line was rewritten by a model. <u>see the first draft</u>.', off: 'everything is working. nothing to see here.' },
@@ -634,7 +628,7 @@
         ? 'the biggest gap: on “' + gap.a.name + '” you said <b>' + gap.a.high + '</b>, but your clicks say <b>' + gap.a.low + '</b>.'
         : 'the biggest gap: you passed on <b>' + gap.a.high + '</b> (“' + gap.a.name + '”), but your clicks lean toward it.';
     } else if (keptN) gapText = 'what you said and what you did mostly agree. that is rarer than it sounds.';
-    else gapText = 'you kept nothing, so this forecast is only what the receipt infers about you. that is how most systems work.';
+    else gapText = 'you kept nothing, so this forecast is only what the recycle bin infers about you. that is how most systems work.';
 
     const extras = [];
     if (shown) extras.push('you said yes to ' + accepted + ' of ' + shown + ' pop-ups. a system reads that as a preference for convenience.');
@@ -672,7 +666,7 @@
 
     root.innerHTML =
       '<div class="fc-conf"><b>confidence: ' + conf + '%</b> · ' + n + ' signals · ' + keptN + ' kept · ' + onN + ' of 7 qualities recovered</div>' +
-      '<div class="q">a forecast, not a promise. it is built from what you kept (what you said) and from the receipt (what you did).</div>' +
+      '<div class="q">a forecast, not a promise. it is built from what you kept (what you said) and from the recycle bin (what you did).</div>' +
       '<div class="fc-bars-wrap">' + bars + '</div>' +
       '<div class="fc-gap">' + gapText + (extras.length ? '<br>' + extras.map(esc).join(' ') : '') + '</div>' +
       '<h3 class="cmp">a page from your next web</h3>' + first + previewHTML(R, name) +
@@ -680,7 +674,7 @@
       '<div class="fc-actions"><button class="btn-95" id="fc-refresh">refresh</button><button class="btn-95" id="fc-save">add mine to this machine’s collective</button></div>' +
       '<div id="fc-collective">' + collectiveHTML() + '</div>' +
       '<details class="fc-how"><summary>how this is computed</summary>' +
-      '<p>"you said" = the places you kept. "your clicks" = time spent and what you did there, plus the receipt: letters sent, work signed, data traded, machine edits accepted, and how often you said yes to pop-ups (which pulls every setting toward the default). the two are averaged. 60 or more counts as recovered.</p>' +
+      '<p>"you said" = the places you kept. "your clicks" = time spent and what you did there, plus the recycle bin: letters sent, work signed, data traded, machine edits accepted, and how often you said yes to pop-ups (which pulls every setting toward the default). the two are averaged. 60 or more counts as recovered.</p>' +
       '<p>the collective only averages forecasts saved in this browser. nothing is sent anywhere.</p>' +
       '<p><button class="btn-95" id="fc-export">export this session (for the researcher)</button> <button class="btn-95" id="fc-clear">clear saved forecasts</button></p></details>';
 

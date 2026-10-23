@@ -1,4 +1,4 @@
-# Third Space — prototype 0.4
+# Third Space — prototype 0.5
 
 An interactive Windows-95-style desktop that moves through the history of the web, era by era.
 Static site: open `index.html` (or serve the folder, e.g. `python3 -m http.server`).
@@ -83,3 +83,21 @@ A final era, "next ▸", entered after 2020–26 (or via mote). It is not a skin
 Pages: front door · your catalog · the world · artifacts · other futures · footholds & sources. Edit words in `WORLDS`, edit what counts in `RULES`; nothing else needs touching. `ThirdSpaceNext.evalWorld()` returns the live scores for testing. Logging only starts at 1999 (the site's own rule), so a visitor who jumps straight to "next" gets the default world.
 
 Sources are labelled by evidentiary status (theory / industry / portfolio / essay / speculative / lead). The Awwwards AI report and Seesaw AIID 26 are listed as leads only; nothing is attributed to them.
+
+
+## What's new in 0.5: the family computer
+
+One metaphor: a shared family computer. Each era is a profile someone left logged in; every file says "last edited by: unknown"; the receipt is the recycle bin.
+
+| file | what it does |
+|------|--------------|
+| `js/core/family.js`, `css/core/family.css` | profile chip, "last edited by", vanishing icons + the ask bar (2024), authors restored in 2030, the recycle bin haunting, time-of-day wallpaper tint, one login ritual per era |
+| `js/core/sound.js` | synthesized system sounds per era (off by default; toggle in the taskbar) |
+| `js/features/people.js`, `contribute.html` | the only place other people's names live; a consent form that produces entries |
+| `js/features/stakes.js` | which aesthetics are mine (`KEEP`) and the first-person notes (`NOTES`) |
+| `js/features/guide.js` | mote's summoning ritual and `knows()` |
+| `VOICE.md` | voice sheet: ten do/don't pairs, the renames, mote's rules |
+
+Review shortcuts: add `#quick` to the url to shrink the rituals; `#hour=22` previews the wallpaper at 22:00 (e.g. `index.html#quick&hour=22`).
+
+`js/core/wallpapers.js` still shows an `era.<scope>.wallpaper` image behind an era when one is registered in `js/core/assets.js`; the time-of-day tint sits on top.

@@ -139,7 +139,7 @@
       'win-data':     { t: 'because you viewed this', b: 'you might also like our data.', a: 'view' },
       'win-mail':     { t: 'share this on your wall', b: 'your friends will see it.', a: 'share' },
       'win-gallery':  { t: '12 people liked your piece', b: 'see what else they liked.', a: 'see' },
-      'win-receipt':  { t: 'rate your receipt', b: 'help us show you better ones.', a: 'rate' },
+      'win-receipt':  { t: 'rate your recycle bin', b: 'help us show you better ones.', a: 'rate' },
       'win-personal': { t: 'your profile is public', b: 'friends of friends can find you.', a: 'ok' },
       'win-maze':     { t: 'top results for you', b: 'ranked by what people click.', a: 'see' },
       'win-whoknows': { t: 'someone asked this before', b: 'the top answer is already here.', a: 'read it' },

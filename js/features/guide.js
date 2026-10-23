@@ -362,37 +362,37 @@
     '1993': {
       say: 'this is a browser, 1993. anyone can read this. no one is counting.',
       miss: 'nothing yet. no ads, no accounts, no tracking. nothing here wants anything from you.',
-      task: { key: 'block', room: 'win-personal', label: 'your place', text: 'build a small page about yourself. add two blocks.' },
+      task: { key: 'block', room: 'win-personal', label: 'my page', text: 'build a small page about yourself. add two blocks.' },
     },
     '1996': {
       say: '1996. people are building their own pages. nobody is moderating them.',
       miss: 'someone deciding what you see next. here you still have to go looking.',
-      task: { key: 'maze', room: 'win-maze', label: 'find it', text: 'find the lighthouse story. take as long as you like.' },
+      task: { key: 'maze', room: 'win-maze', label: 'lost & found', text: 'find the lighthouse story. take as long as you like.' },
     },
     '1999': {
       say: '1999. the portals arrive, and this site starts counting you.',
       miss: 'being unobserved. from here on, every click is a number.',
-      task: { key: 'letter', room: 'win-mail', label: 'correspondence', text: 'write someone a letter. it will make you wait.' },
+      task: { key: 'letter', room: 'win-mail', label: 'letters', text: 'write someone a letter. it will make you wait.' },
     },
     '2004': {
       say: '2004. platforms remember you between visits. the pop-ups still ask politely.',
       miss: 'not much, yet. everything is still easy to close. remember how that feels.',
-      task: { key: 'signed', room: 'win-gallery', label: 'signed-work', text: 'sign something you made.' },
+      task: { key: 'signed', room: 'win-gallery', label: 'the shelf', text: 'sign something you made.' },
     },
     '2010': {
       say: '2010. accounts, feeds, terms nobody reads.',
-      miss: 'the data room stops telling you what looking costs. notice what it asks of you now.',
-      task: { key: 'data', room: 'win-data', label: 'the data room', text: 'mail a week of your data, then look at what comes back.' },
+      miss: 'the ledger stops telling you what looking costs. notice what it asks of you now.',
+      task: { key: 'data', room: 'win-data', label: 'the ledger', text: 'mail a week of your data, then look at what comes back.' },
     },
     '2016': {
       say: '2016. ranking replaces browsing.',
-      miss: 'the other ways to search. “find it” locks to one mode. “who knows” loses its hints.',
+      miss: 'the other ways to search. “lost & found” locks to one mode. “who knows” loses its hints.',
       task: { key: 'machine', room: 'win-machine', label: 'the machine between us', text: 'send someone a message. let the machine help.' },
     },
     '2024': {
       say: '2024. every interaction is a data point. even the slow parts.',
-      miss: 'the slow line in the correspondence room. the “maybe” in who knows. the “not for sale” on your work.',
-      task: { key: 'forecast', room: 'win-future', label: 'the next web', text: 'open the next web. see what your receipt predicts.' },
+      miss: 'the slow line in letters. the “maybe” in who knows. the “not for sale” on your work.',
+      task: { key: 'forecast', room: 'win-future', label: 'the next web', text: 'open the next web. see what the recycle bin predicts.' },
     },
   };
   const SIT_MS = 6000;
@@ -412,7 +412,7 @@
   function newPlaces(key) {
     const i = ERAS.findIndex((e) => e.key === key);
     const prev = i > 0 ? yearOf(ERAS[i - 1].key) : 0, y = yearOf(key);
-    const names = S.cultures.filter((c) => c.from > prev && c.from <= y).map((c) => c.label);
+    const names = S.cultures.filter((c) => c.from > prev && c.from <= y && c.stake !== false).map((c) => c.label);
     if (y >= 1999 && prev < 1999) names.push('the next web');
     return names;
   }
@@ -426,13 +426,14 @@
     guideEl.classList.remove('gone');
 
     if (G.stage === 'intake') {
+      moteEl.classList.toggle('dormant', !G.waking);
       bodyEl.innerHTML =
-        '<p class="g-say">hi. i’m mote. i live in the margin of this site.</p>' +
-        '<label class="g-lab">what should i call you?<input id="gName" maxlength="18" placeholder="a name or a handle"></label>' +
-        '<label class="g-lab">what’s the first thing you remember doing online?<input id="gFirst" maxlength="80" placeholder="a game, a site, a chat room…"></label>' +
-        '<p class="g-small">this stays in this tab. what the project does with it later is part of the project.</p>';
-      btn('start', () => finishIntake(true));
-      btn('skip', () => finishIntake(false), 'quiet');
+        '<p class="g-say g-ritual-line" id="gLine">' + (G.asleep ? 'still asleep.' : '…') + '</p>' +
+        '<label class="g-lab">to call me, type the first thing you remember doing online.<input id="gFirst" maxlength="80" placeholder="a game, a site, a chat room…"></label>' +
+        '<label class="g-lab">a name you used back then (optional)<input id="gName" maxlength="18" placeholder="an old username"></label>' +
+        '<p class="g-small">i only know what you give me, and what you do here. it stays in this tab.</p>';
+      btn('call mote', () => summon(), 'primary');
+      btn('let it sleep', () => finishIntake(false), 'quiet');
       return;
     }
 
@@ -453,21 +454,24 @@
     if (G.stage === 'sit') {
       const nxt = nextEraKey();
       const fresh = newPlaces(era);
+      const knowsNow = knows();
       const last = !nxt;
       bodyEl.innerHTML =
-        '<p class="g-task"><span class="g-box">' + (G.task[era] === 'skipped' ? '☐' : '☑') + '</span> ' + (last ? 'this is what your receipt predicted.' : 'done. now stay a moment.') + '</p>' +
+        '<p class="g-task"><span class="g-box">' + (G.task[era] === 'skipped' ? '☐' : '☑') + '</span> ' + (last ? 'this is what the recycle bin predicted.' : 'done. now stay a moment.') + '</p>' +
         '<p class="g-say">' + (last ? 'what would you keep? what did your clicks keep for you?' : 'what’s different from the era before?') + '</p>' +
         (fresh.length ? '<p class="g-small">new on the desktop: ' + esc(fresh.join(', ')) + '.</p>' : '') +
+        (knowsNow ? '<p class="g-know">' + esc(knowsNow) + '</p>' : '') +
         '<input id="gSaid" class="g-said" maxlength="140" placeholder="what did you notice? (optional)">' +
         '<div class="g-wait"><i></i></div>';
       const fill = $('.g-wait i', bodyEl);
-      const go = btn(last ? 'open the receipt' : 'next era →', () => {
+      const go = btn(last ? 'open the recycle bin' : 'next era →', () => {
         const said = ($('#gSaid') || {}).value || '';
         if (said.trim()) rec('said', { text: said.trim() });
         rec('guide_next');
         if (last) openWindow('win-receipt'); else setEra(nxt);
       }, 'primary');
       go.disabled = true;
+      if (G.asleep) btn('wake mote', () => { G.intake = false; G.asleep = false; G.stage = 'intake'; G.modal = false; renderGuide(); }, 'quiet');
       btn('stay here', () => { G.min = true; layoutGuide(); }, 'quiet');
       const t0 = Date.now();
       G.timer = setInterval(() => {
@@ -479,18 +483,63 @@
     }
 
     // recap: visiting an era you've already been told about
+    const kn = knows();
     bodyEl.innerHTML = '<p class="g-say">' + esc(beat.say) + '</p><p class="g-miss"><b>what’s missing:</b> ' + esc(beat.miss) + '</p>' +
-      '<p class="g-task"><span class="g-box">' + (G.task[era] ? '☑' : '☐') + '</span> ' + esc(t.text) + '</p>';
+      '<p class="g-task"><span class="g-box">' + (G.task[era] ? '☑' : '☐') + '</span> ' + esc(t.text) + '</p>' + (kn ? '<p class="g-know">' + esc(kn) + '</p>' : '');
     btn('open ' + t.label, () => openWindow(t.room));
     const nxt = nextEraKey();
     if (nxt) btn('next era →', () => setEra(nxt), 'quiet');
   }
 
+  // the ritual: you type a first memory, like dialing a number, and mote wakes slowly
+  function summon() {
+    const first = (($('#gFirst') || {}).value || '').trim();
+    const line = $('#gLine');
+    if (!first) { if (line) line.textContent = 'i need something to find you by.'; return; }
+    G.waking = true;
+    const quick = !!(S.family && S.family.QUICK);
+    moteEl.classList.remove('dormant'); moteEl.classList.add('waking');
+    if (window.Sound) Sound.play('wake');
+    const steps = ['…', '“' + first.slice(0, 40) + '”', 'found it.', 'i know you now.'];
+    actsEl.innerHTML = '';
+    let i = 0;
+    (function tick() {
+      if (line) line.textContent = steps[i];
+      i += 1;
+      if (i < steps.length) setTimeout(tick, quick ? 10 : 900); else setTimeout(() => finishIntake(true), quick ? 10 : 1100);
+    })();
+  }
+
+  // what mote can say about you, only from the recycle bin and what you gave it. never invented.
+  const knownUsed = {};
+  function knows() {
+    if (G.asleep || !G.intake) return null;
+    const L = [];
+    const n = (x, w) => x + ' ' + w + (x === 1 ? '' : 's');
+    if (S.pop.accepted >= 2) L.push(['yes', 'you said yes to ' + n(S.pop.accepted, 'offer') + '. i kept every one.']);
+    if (S.pop.closed >= 3 && !S.pop.accepted) L.push(['no', 'you closed ' + n(S.pop.closed, 'pop-up') + ' and accepted none. the closing was counted too.']);
+    if (S.flags.cookie === 'blind') L.push(['ck', 'you accepted the cookies without opening the list. that is in the bin now.']);
+    if (S.flags.remembered === 'default') L.push(['rm', 'you let it remember you. you didn’t choose that. i saw.']);
+    if (Trace.lettersSentCount) L.push(['lt', 'you wrote ' + n(Trace.lettersSentCount, 'letter') + '. the slow ones are the ones i keep.']);
+    if (Trace.worksSignedCount) L.push(['sg', 'you signed ' + n(Trace.worksSignedCount, 'thing') + ' with your own name.']);
+    if (Trace.dataMailed) L.push(['dt', 'you traded a week of your data. i can tell which week.']);
+    if (Trace.entries.length >= 10) L.push(['bn', Trace.entries.length + ' lines are in the recycle bin. i can read all of them.']);
+    if (S.me.first) L.push(['fm', 'you started with “' + S.me.first.slice(0, 40) + '”. nothing since has been as slow.']);
+    const fresh = L.filter((x) => !knownUsed[x[0] + currentEra]);
+    const pick = (fresh.length ? fresh : L)[0];
+    if (!pick) return null;
+    knownUsed[pick[0] + currentEra] = true;
+    return pick[1];
+  }
+  S.knows = knows;
+
   function finishIntake(save) {
     if (save) {
       S.me.handle = (($('#gName') || {}).value || '').trim();
       S.me.first = (($('#gFirst') || {}).value || '').trim();
-    }
+      G.asleep = false;
+    } else { G.asleep = true; G.waking = false; moteEl.classList.add('dormant'); }
+    moteEl.classList.remove('waking');
     rec('intake', { name: !!S.me.handle, memory: !!S.me.first, skipped: !save });
     G.intake = true; G.modal = false;
     enterEra(currentEra, true);

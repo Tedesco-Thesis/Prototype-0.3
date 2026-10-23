@@ -82,6 +82,10 @@ window.ASSET_MANIFEST = {
       {
         "id": "2020-26",
         "name": "optimized & monetized"
+      },
+      {
+        "id": "2030",
+        "name": "the next web"
       }
     ],
     "cultures": [
@@ -333,8 +337,8 @@ window.ASSET_MANIFEST = {
   ],
   "invented": [
     {
-      "where": "js/features/cultures.js",
-      "what": "the webring people (rufus, dee, mina) and their letters. scripted, not real.",
+      "where": "js/features/people.js",
+      "what": "the people named in webrings, guestbooks and next-web authors now come from js/features/people.js: six placeholders until real, consenting people replace them.",
       "status": "placeholder"
     },
     {

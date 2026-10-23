@@ -102,7 +102,7 @@
       w.querySelector('.ai-persona').textContent = W.persona;
       w.querySelector('.ai-stats').innerHTML =
         '<div><b>' + W.clicks + '</b>clicks counted</div><div><b>' + W.opened + '</b>rooms opened</div>' +
-        '<div><b>' + W.said + '</b>pop-ups you said yes to</div><div><b>' + W.kept + '</b>lines on your receipt</div>';
+        '<div><b>' + W.said + '</b>pop-ups you said yes to</div><div><b>' + W.kept + '</b>lines in the recycle bin</div>';
     });
   }
   document.addEventListener('click', () => setTimeout(paint, 0));

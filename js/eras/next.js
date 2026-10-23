@@ -78,7 +78,7 @@
     [/^logged: /, 'making', 'you', 'observed', { t: 1 }, 'logged a relationship'],
     [/^subscribed to |^followed [^:]*$/, 'choice', 'you', 'observed', { t: 1 }, 'chose to hear from someone'],
     [/^traded a week/, 'exchange', 'you', 'observed', { d: 1, p: 1 }, 'traded data for a map'],
-    [/^opened your receipt/, 'reading', 'you', 'observed', { p: 2 }, 'looked at what was kept'],
+    [/^opened (your receipt|recycle bin)/, 'reading', 'you', 'observed', { p: 2 }, 'looked at what was kept'],
     [/^opened (the next web|world\.next)/, 'visit', 'you', 'observed', {}, ''],
     [/^approved agent action/, 'delegation', 'you, via an agent', 'observed', { d: 2 }, 'approved an agent action'],
     [/^rejected agent action|^revoked /, 'choice', 'you', 'observed', { t: 1, p: 1 }, 'declined or revoked a delegation'],
@@ -208,7 +208,7 @@
       research: 'manovich & arielli, artificial aesthetics; the debate on aura and provenance; provenance as a design opportunity.',
       foot: [['c2pa content credentials and ai-disclosure labels', 'exists'], ['readable edit histories in consumer tools', 'near'], ['mandatory, user-visible provenance', 'spec']],
       stretch: 'labelling would have to be required, and the interface would have to make origin the first thing you see.',
-      tip: 'read the receipt, open the cookie list, ask why — or keep one thing and do the opposite.',
+      tip: 'read the recycle bin, open the cookie list, ask why — or keep one thing and do the opposite.',
     },
     museum: {
       name: 'the artificial museum', tag: 'archives · classification · cultural memory',
@@ -268,7 +268,7 @@
       '<button class="nw-btn" data-act="tab" data-p="' + (id === 'delegation' ? 'artifacts' : id === 'commons' ? 'artifacts' : id === 'provenance' ? 'catalog' : 'artifacts') + '">' + esc(W.door[2]) + '</button></section>' +
       '<section class="nw-why"><h3>why this world, and not another</h3>' +
       (E.byDefault && !st.preview
-        ? '<p class="nw-flag">assigned by default. there is not enough on your receipt to tell you apart, so the system gave you the most common future. nobody chose it. that is what a blank looks like to a system.</p>'
+        ? '<p class="nw-flag">assigned by default. there is not enough in the recycle bin to tell you apart, so the system gave you the most common future. nobody chose it. that is what a blank looks like to a system.</p>'
         : '<p>the catalog scored your records toward four worlds. these three lines weighed most recently:</p>') +
       '<ul class="nw-lines">' + (why.length ? why.map((r) => '<li><code>' + r.id + '</code> ' + esc(r.title) + ' <em>→ ' + esc(r.why || 'counted') + '</em></li>').join('') : '<li><em>no records are counting yet.</em></li>') + '</ul>' +
       '<p class="nw-small">you can dispute any record in <a data-act="tab" data-p="catalog">your catalog</a>. the world is recomputed when you do.</p></section>';
@@ -279,7 +279,7 @@
     const rows = E.recs.slice().reverse().filter((r) => f === 'all' || (f === 'disputed' ? r.disputed : r.status === f));
     const cnt = (k) => E.recs.filter((r) => r.status === k).length;
     const wt = (r) => ['d', 't', 'p', 'w'].filter((k) => r.w[k]).map((k) => ({ d: 'delegation', t: 'commons', p: 'provenance', w: 'museum' }[k] + ' +' + r.w[k])).join(' · ');
-    return '<p class="nw-lead">every line on your receipt, kept the way a community database keeps a book: an id, a title, who it is credited to, when, and how sure anyone is. <b>a record you dispute stops counting.</b></p>' +
+    return '<p class="nw-lead">every line in the recycle bin, kept the way a community database keeps a book: an id, a title, who it is credited to, when, and how sure anyone is. <b>a record you dispute stops counting.</b></p>' +
       '<div class="nw-filter">' + [['all', 'all ' + E.recs.length], ['observed', 'you did · ' + cnt('observed')], ['system', 'done to you · ' + cnt('system')], ['inferred', 'concluded about you · ' + cnt('inferred')], ['disputed', 'disputed · ' + E.recs.filter((r) => r.disputed).length]]
         .map((x) => '<button data-act="filter" data-f="' + x[0] + '" class="' + (f === x[0] ? 'on' : '') + '">' + x[1] + '</button>').join('') + '</div>' +
       '<div class="nw-table">' + (rows.length ? rows.map((r) =>
@@ -324,7 +324,7 @@
       A.push(['tending', 'memories fade unless somebody comes back to them. keeping an archive is something you opt into.',
         '<div class="nw-art nw-tend">' + pl.map((p) => '<div class="' + (st.tended[p.id] === 'fade' ? 'faded' : '') + '"><span>' + esc(p.title) + '<small>' + (S.dwell[p.id] || 0) + 's here' + (S.keptBy[p.id] ? ' · you kept this' : '') + '</small></span><button data-act="tend" data-k="' + p.id + '" data-t="' + esc(p.title) + '" data-v="tend">' + (st.tended[p.id] === 'tend' ? 'tended ✓' : 'tend') + '</button><button class="ghost" data-act="tend" data-k="' + p.id + '" data-t="' + esc(p.title) + '" data-v="fade">let it fade</button></div>').join('') + '</div>']);
       A.push(['introduced by', 'you arrive through people, not through a ranking. each page lists who vouches for it.',
-        '<div class="nw-art nw-intro"><div class="chain"><i>vi</i><b>→</b><i>ana</i><b>→</b><i class="me">' + esc(c.handle) + '</i></div><p>' + c.nVouch + ' people vouch for this page. ' + (Wk ? 'you have signed ' + Wk + ' piece' + (Wk > 1 ? 's' : '') + ' of work, in your own hand.' : 'you have not signed anything yet: your page is introduced, but not yet yours.') + '</p><span class="hand">“view the making” →</span></div>']);
+        '<div class="nw-art nw-intro"><div class="chain"><i>' + People.name(0) + '</i><b>→</b><i>' + People.name(4) + '</i><b>→</b><i class="me">' + esc(c.handle) + '</i></div><p>' + c.nVouch + ' people vouch for this page. ' + (Wk ? 'you have signed ' + Wk + ' piece' + (Wk > 1 ? 's' : '') + ' of work, in your own hand.' : 'you have not signed anything yet: your page is introduced, but not yet yours.') + '</p><span class="hand">“view the making” →</span></div>']);
     } else if (id === 'provenance') {
       const tot = Math.max(1, c.nObs + c.nSys + c.nInf);
       A.push(['provenance card: this visit', 'a stack of layers, each with its author. unknown is a layer, drawn hatched.',
@@ -457,7 +457,7 @@
   // the guide beat (guide.js reads window.__eraNext)
   window.__eraNext = {
     beat: {
-      say: 'this is not a year. it is a world made from your receipt. you were sorted. you can disagree with the sorting.',
+      say: 'this is not a year. it is a world made from what the recycle bin kept. you were sorted. you can disagree with the sorting.',
       miss: 'a say in how you were read. everywhere else, the catalog is kept for you, and never shown to you.',
       task: { key: 'world', room: 'win-world', label: 'the next web', text: 'open your catalog. dispute one record, and watch what changes.' },
     },

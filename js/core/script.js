@@ -155,36 +155,22 @@ function setEra(key) {
 /* =====================================================
    THIRD_SPACE: ghost fragments, icons, window manager
 ===================================================== */
-const ghostTexts = [
-  'under construction', 'sign my guestbook', 'you are visitor #',
-  'best viewed at 800x600', 'webring: next site »', 'this page last updated 1999',
-  '🖼 image not found', 'hit counter loading...', 'netscape recommended',
-  'click here to enter', 'add me to your links page',
-];
 const desktop = document.getElementById('desktop');
-for (let i = 0; i < 10; i++) {
-  const g = document.createElement('div');
-  g.className = 'ghost';
-  g.textContent = ghostTexts[Math.floor(Math.random() * ghostTexts.length)];
-  g.style.top = Math.random() * 85 + '%';
-  g.style.left = Math.random() * 80 + '%';
-  g.style.animationDelay = (Math.random() * 9) + 's';
-  desktop.appendChild(g);
-}
 
 const icons = [
-  { id: 'win-home', glyph: '🏠', label: 'welcome.html', top: 20, left: 20 },
-  { id: 'win-data', glyph: '🗃', label: 'the data room', top: 126, left: 20 },
-  { id: 'win-mail', glyph: '✉', label: 'correspondence', top: 232, left: 20 },
-  { id: 'win-gallery', glyph: '🖌', label: 'signed-work', top: 338, left: 20 },
-  { id: 'win-receipt', glyph: '🧾', label: 'your receipt', top: 444, left: 20 },
-  { id: 'win-personal', glyph: '🧑', label: 'your place', top: 20, left: 110 },
-  { id: 'win-maze', glyph: '🔍', label: 'find it', top: 126, left: 110 },
-  { id: 'win-machine', glyph: '🤖', label: 'machine between us', top: 232, left: 110 },
+  { id: 'win-home', glyph: '🏠', label: 'readme', top: 20, left: 20 },
+  { id: 'win-data', glyph: '🗃', label: 'the ledger', top: 126, left: 20 },
+  { id: 'win-mail', glyph: '✉', label: 'letters', top: 232, left: 20 },
+  { id: 'win-gallery', glyph: '🖌', label: 'the shelf', top: 338, left: 20 },
+  { id: 'win-receipt', glyph: '🗑', label: 'recycle bin', top: 444, left: 20 },
+  { id: 'win-personal', glyph: '🧑', label: 'my page', top: 20, left: 110 },
+  { id: 'win-maze', glyph: '🔍', label: 'lost & found', top: 126, left: 110 },
+  { id: 'win-machine', glyph: '🤖', label: 'the machine between us', top: 232, left: 110 },
 ];
 icons.forEach(ic => {
   const div = document.createElement('div');
   div.className = 'icon';
+  div.dataset.room = ic.id;
   div.style.top = ic.top + 'px';
   div.style.left = ic.left + 'px';
   div.innerHTML = `<div class="glyph">${ic.glyph}</div><div class="label">${ic.label}</div>`;
@@ -194,15 +180,15 @@ icons.forEach(ic => {
 
 let zTop = 10;
 const windowTitles = {
-  'win-home': 'welcome.html',
-  'win-data': 'the data room',
-  'win-mail': 'correspondence',
-  'win-gallery': 'signed-work',
-  'win-about': 'about.html',
-  'win-receipt': 'your receipt',
-  'win-personal': 'your place',
-  'win-maze': 'find it',
-  'win-machine': 'machine between us',
+  'win-home': 'readme',
+  'win-data': 'the ledger',
+  'win-mail': 'letters',
+  'win-gallery': 'the shelf',
+  'win-about': 'about this computer',
+  'win-receipt': 'recycle bin',
+  'win-personal': 'my page',
+  'win-maze': 'lost & found',
+  'win-machine': 'the machine between us',
 };
 const openTabsEl = document.getElementById('openTabs');
 
@@ -232,8 +218,8 @@ function openWindow(id) {
    They used to be separate windows; the pop-up and receipt copy for them is still keyed by the old ids,
    see roomKeyOf() below. */
 const PANES = {
-  'win-maze': { maze: ['maze.htm — find it', 'find it'], whoknows: ['whoknows.htm — who might know?', 'who knows?'] },
-  'win-data': { data: ['mydata.htm — the data room', 'the data room'], social: ['ourdata.htm — our data', 'our data'] },
+  'win-maze': { maze: ['lost-and-found.htm', 'lost & found'], whoknows: ['whoknows.htm — who might know?', 'who knows?'] },
+  'win-data': { data: ['ledger.txt — the ledger', 'the ledger'], social: ['ourledger.txt — our ledger', 'our ledger'] },
 };
 const PANE_KEY = { 'win-maze:whoknows': 'win-whoknows', 'win-data:social': 'win-social' };
 
@@ -332,11 +318,11 @@ function updateTrace() {
   if (!el) return;
   const s = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
   const parts = [
-    Trace.dataMailed ? 'You traded a week of data in the data room!' : "You haven't traded anything in the data room yet.",
+    Trace.dataMailed ? 'You traded a week of data in the ledger!' : "You haven't traded anything in the ledger yet.",
     Trace.lettersSentCount > 0 ? `You've sent ${s(Trace.lettersSentCount, 'letter')} that took real time to write.` : "You haven't written a letter yet.",
     Trace.worksSignedCount > 0 ? `You've signed ${s(Trace.worksSignedCount, 'piece')} of visible work.` : "You haven't signed anything in the gallery yet.",
     `The era is set to ${currentEra}, and that alone has changed ${s(Trace.popupsSeen, 'pop-up')} worth of what this page does to you.`,
-    `You've been logged ${s(Trace.totalClicks, 'time')} in the background, and the receipt room only itemizes ${Trace.entries.length} of those.`,
+    `You've been logged ${s(Trace.totalClicks, 'time')} in the background, and the recycle bin only itemizes ${Trace.entries.length} of those.`,
   ];
   const doneCount = [Trace.dataMailed, Trace.lettersSentCount > 0, Trace.worksSignedCount > 0].filter(Boolean).length;
   let closing = '';

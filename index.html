@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THIRD SPACE :: a home on the web</title>
+<title>THIRD SPACE :: the family computer</title>
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="css/core/style.css">
 <link rel="stylesheet" href="css/core/early-eras.css">
@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/eras/2016-19.css">
 <link rel="stylesheet" href="css/eras/2020-26.css">
 <link rel="stylesheet" href="css/eras/next.css">
+<link rel="stylesheet" href="css/core/family.css">
 </head>
 <body>
 
@@ -49,54 +50,54 @@
 </div>
 
 <div id="startMenu">
-  <button onclick="openWindow('win-home'); toggleStart(false)">🏠 welcome.htm</button>
+  <button onclick="openWindow('win-home'); toggleStart(false)">🏠 readme</button>
   <hr>
-  <button onclick="openWindow('win-data'); toggleStart(false)">🗃 the data room (and our data)</button>
-  <button onclick="openWindow('win-mail'); toggleStart(false)">✉ the correspondence room</button>
-  <button onclick="openWindow('win-gallery'); toggleStart(false)">🖌 the signed-work room</button>
-  <button onclick="openWindow('win-receipt'); toggleStart(false)">🧾 your receipt</button>
+  <button onclick="openWindow('win-data'); toggleStart(false)">🗃 the ledger (and our ledger)</button>
+  <button onclick="openWindow('win-mail'); toggleStart(false)">✉ letters</button>
+  <button onclick="openWindow('win-gallery'); toggleStart(false)">🖌 the shelf</button>
+  <button onclick="openWindow('win-receipt'); toggleStart(false)">🗑 recycle bin</button>
   <hr>
-  <button onclick="openWindow('win-personal'); toggleStart(false)">🧑 your place</button>
-  <button onclick="openWindow('win-maze'); toggleStart(false)">🔍 find it (the unoptimized web, and who knows?)</button>
+  <button onclick="openWindow('win-personal'); toggleStart(false)">🧑 my page</button>
+  <button onclick="openWindow('win-maze'); toggleStart(false)">🔍 lost &amp; found (and who knows?)</button>
   <button onclick="openWindow('win-machine'); toggleStart(false)">🤖 the machine between us</button>
   <hr>
-  <button onclick="openWindow('win-about'); toggleStart(false)">? about this project</button>
+  <button onclick="openWindow('win-about'); toggleStart(false)">? about this computer</button>
 </div>
 
 <!-- ===================== HOME WINDOW ===================== -->
 <div class="window open" id="win-home" style=" z-index:10;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-home')">
-    <span class="ttl">welcome.htm — my home</span>
+    <span class="ttl">readme.txt — read this first</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-home')">_</button><button onclick="closeWindow('win-home')">×</button></div>
   </div>
   <div class="winbody">
     <h2 class="roomtitle">hi. you found this place.</h2>
-    <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">thesis: as digital environments optimize interaction for efficiency, prediction, and monetization, integral elements of human connection, expression, and authorship get removed, concealed, or flattened — because optimization has become one of the only values it's measured against.</p>
-    <p>this is one place now, not six separate pages. every room below tests a different piece of that thesis. the <b>era bar at the top</b> moves the whole interface through the internet's history — watch what each room does, and doesn't do, as you drag it forward.</p>
+    <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">this is the family computer. everyone who used it left their profile logged in, and nobody remembers who last touched what. each year on the bar above is one of those profiles. every file says <b>last edited by: unknown</b>.</p>
+    <p>go forward, one profile at a time. watch what is on the desktop, and what isn't.</p>
     <p style="text-align:center;"><span class="counter">you are visitor # 004,812</span></p>
     <hr class="dots">
-    <p><b>your trace so far</b> — updates as you use the other rooms:</p>
-    <div id="traceBox" class="trace-box"><div class="trace-line">nothing yet — every room here asks for something before it gives something back.</div></div>
+    <p><b>what it has noticed so far</b>:</p>
+    <div id="traceBox" class="trace-box"><div class="trace-line">nothing yet. give it a minute.</div></div>
     <hr class="dots">
-    <p><b>rooms in this house</b>:</p>
+    <p><b>what is on this desktop</b>:</p>
     <ul>
-      <li><a class="retro" onclick="openWindow('win-data')">the data room</a> — trade a piece of your week for a piece of someone else's; then see <a class="retro" onclick="openPane('win-data','social')">our data</a>, the same relationship as memory and as a dashboard</li>
-      <li><a class="retro" onclick="openWindow('win-mail')">the correspondence room</a> — a message that costs you time to send</li>
-      <li><a class="retro" onclick="openWindow('win-gallery')">the signed-work room</a> — what you make is proven by the making, not a price</li>
-      <li><a class="retro" onclick="openWindow('win-personal')">your place</a> — build a self-authored page instead of filling out a form</li>
-      <li><a class="retro" onclick="openWindow('win-maze')">find it</a> — the same search, run through three very different amounts of friction; or ask <a class="retro" onclick="openPane('win-maze','whoknows')">who knows?</a> and get uncertain people instead of ranked pages</li>
-      <li><a class="retro" onclick="openWindow('win-machine')">the machine between us</a> — watch an AI mediate, and edit, a real conversation</li>
-      <li><a class="retro" onclick="openWindow('win-receipt')">your receipt</a> — an itemized account of what this whole site has collected from you</li>
+      <li><a class="retro" onclick="openWindow('win-data')">the ledger</a> — trade a piece of your week for someone else's; then see <a class="retro" onclick="openPane('win-data','social')">our data</a>, the same trade, as a memory and as a dashboard</li>
+      <li><a class="retro" onclick="openWindow('win-mail')">letters</a> — a message that takes time to send</li>
+      <li><a class="retro" onclick="openWindow('win-gallery')">the shelf</a> — what you made, with your name on it</li>
+      <li><a class="retro" onclick="openWindow('win-personal')">my page</a> — a page you build, not a form you fill in</li>
+      <li><a class="retro" onclick="openWindow('win-maze')">lost &amp; found</a> — the same search, three speeds; or ask <a class="retro" onclick="openPane('win-maze','whoknows')">who knows?</a> and get uncertain people instead of ranked pages</li>
+      <li><a class="retro" onclick="openWindow('win-machine')">the machine between us</a> — something that edits what you say before they hear it</li>
+      <li><a class="retro" onclick="openWindow('win-receipt')">the recycle bin</a> — everything this computer kept after you let go of it</li>
     </ul>
     <hr class="dots">
-    <p style="font-size:12px; color:#555;">best viewed by a person, not an algorithm &nbsp;·&nbsp; <span class="blinktext">under construction, always</span></p>
+    <p style="font-size:12px; color:#555;">best viewed by a person</p>
   </div>
 </div>
 
 <!-- ===================== DATA ROOM WINDOW ===================== -->
 <div class="window" id="win-data" style=" z-index:9;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-data')">
-    <span class="ttl">mydata.htm — the data room</span>
+    <span class="ttl">ledger.txt — the ledger</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-data')">_</button><button onclick="closeWindow('win-data')">×</button></div>
   </div>
   <div class="winbody">
@@ -156,7 +157,7 @@
 <!-- ===================== CORRESPONDENCE ROOM WINDOW ===================== -->
 <div class="window" id="win-mail" style=" z-index:8;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-mail')">
-    <span class="ttl">letters.htm — the correspondence room</span>
+    <span class="ttl">letters.txt — letters</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-mail')">_</button><button onclick="closeWindow('win-mail')">×</button></div>
   </div>
   <div class="winbody">
@@ -175,7 +176,7 @@
 <!-- ===================== SIGNED-WORK ROOM WINDOW ===================== -->
 <div class="window" id="win-gallery" style="width:420px; top:160px; left:150px; z-index:7;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-gallery')">
-    <span class="ttl">gallery.htm — the signed-work room</span>
+    <span class="ttl">shelf.txt — the shelf</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-gallery')">_</button><button onclick="closeWindow('win-gallery')">×</button></div>
   </div>
   <div class="winbody">
@@ -193,11 +194,11 @@
 <!-- ===================== RECEIPT WINDOW (NEW) ===================== -->
 <div class="window" id="win-receipt" style="width:380px; top:100px; left:200px; z-index:6;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-receipt')">
-    <span class="ttl">receipt.htm — your data, itemized</span>
+    <span class="ttl">recycle bin — what this computer kept</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-receipt')">_</button><button onclick="closeWindow('win-receipt')">×</button></div>
   </div>
   <div class="winbody">
-    <h2 class="roomtitle">your receipt</h2>
+    <h2 class="roomtitle">the recycle bin</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what does the exchange look like if it's itemized instead of hidden?</p>
     <p style="font-size:12px; color:#444;">every room on this site collects something from you. most sites never show you an itemized version of that exchange. this one does — plus a running count of activity logged silently in the background, which is always higher than what's itemized below.</p>
     <div class="receipt-summary">
@@ -214,7 +215,7 @@
 <!-- ===================== YOUR PLACE (personal web) ===================== -->
 <div class="window" id="win-personal" style="width:460px; top:90px; left:250px; z-index:5;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-personal')">
-    <span class="ttl">personal.htm — your place</span>
+    <span class="ttl">mypage.htm — my page</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-personal')">_</button><button onclick="closeWindow('win-personal')">×</button></div>
   </div>
   <div class="winbody">
@@ -279,7 +280,7 @@
 <!-- ===================== FIND IT (unoptimized web) ===================== -->
 <div class="window" id="win-maze" style="width:420px; top:130px; left:300px; z-index:4;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-maze')">
-    <span class="ttl">maze.htm — find it</span>
+    <span class="ttl">lost-and-found.htm</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-maze')">_</button><button onclick="closeWindow('win-maze')">×</button></div>
   </div>
   <div class="winbody">
@@ -389,13 +390,13 @@
 <!-- ===================== ABOUT WINDOW ===================== -->
 <div class="window" id="win-about" style="width:400px; top:200px; left:200px; z-index:0;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-about')">
-    <span class="ttl">about.htm</span>
+    <span class="ttl">about this computer</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-about')">_</button><button onclick="closeWindow('win-about')">×</button></div>
   </div>
   <div class="winbody">
     <h2 class="roomtitle">what this is</h2>
-    <p>one interface instead of six separate pages, because the thesis is about a single progression, not five unrelated arguments. every room is a different design proposition; the <b>era bar</b> at the top is what actually moves them through time; the <b>pop-ups</b> and the <b>receipt</b> room make the usually-invisible mechanics of tracking and monetization visible instead of ambient.</p>
-    <p style="font-size:12px; color:#555;">early web browsing involved almost no visible tracking and almost no moderation — the two were entangled from the start. as the timeline advances, tracking becomes constant and mostly hidden, while moderation and ranking become constant and also mostly hidden. neither trade was ever put to a vote.</p>
+    <p>a thesis, built as a computer. as digital places optimize for efficiency, prediction and money, the parts that let people meet, say something, and be credited for it get removed, hidden or flattened, because optimization is close to the only thing they are measured against. this is my attempt to show that by taking things away, one profile at a time, and then to try giving them back.</p>
+    <p style="font-size:12px; color:#555;">the early web tracked almost nothing and moderated almost nothing. the two came together. later, tracking and ranking both became constant and quiet. nobody voted on the trade.</p>
     <details class="testing-footer" id="creditsBox">
       <summary>who made what (images, and what was invented)</summary>
       <div id="assetCredits" style="font-size:12px;"></div>
@@ -405,7 +406,7 @@
       <div><b>QUESTION:</b> as digital environments optimize interaction for efficiency, prediction, and monetization, what gets removed, concealed, or flattened along the way — and can that removal be made visible again, inside the interface itself, rather than argued about outside it?</div>
       <div><b>INTERVENTION:</b> five prior prototypes plus a data receipt are combined into one inhabitable desktop, driven by a shared era timeline: dragging the timeline forward doesn't just restyle the page, it changes which features are visible, how often pop-ups interrupt you, and what's quietly monetized.</div>
       <div><b>TRADEOFF:</b> a synthesis is more atmospheric and easier to feel as a whole, but harder to isolate — it's less clear which specific proposition is doing the work if someone likes or dislikes the experience.</div>
-      <div><b>OBSERVATION:</b> read the "your trace" panel on the home window after using a few rooms across a few different eras, and compare the itemized receipt to the background click count next to it.</div>
+      <div><b>OBSERVATION:</b> read the "what it has noticed" panel in the readme after using a few rooms across a few different eras, and compare the recycle bin to the background click count next to it.</div>
       <div><b>LIMITATION:</b> this is deliberately the least conclusive prototype in the series — it should not be read as the thesis's final answer, only as one way several propositions, and a timeline, might coexist in a single interface.</div>
     </details>
   </div>
@@ -413,6 +414,7 @@
 
 <script src="js/core/assets.js"></script>
 <script src="js/core/script.js"></script>
+<script src="js/features/people.js"></script>
 <script src="js/features/cultures.js"></script>
 <script src="js/features/pages/00-registry.js"></script>
 <script src="js/features/pages/10-A-oldweb.js"></script>
@@ -431,6 +433,10 @@
 <script src="js/eras/2016-19.js"></script>
 <script src="js/eras/2020-26.js"></script>
 <script src="js/eras/next.js"></script>
+<script src="js/core/wallpapers.js"></script>
+<script src="js/features/stakes.js"></script>
+<script src="js/core/sound.js"></script>
+<script src="js/core/family.js"></script>
 <script src="js/features/guide.js"></script>
 <script>(function () { var e = document.getElementById('assetCredits'); if (e && window.Assets) e.innerHTML = Assets.credits(); })();</script>
 </body>

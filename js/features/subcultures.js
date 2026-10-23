@@ -374,26 +374,33 @@
   document.addEventListener('click', () => setTimeout(S.renderCatalog, 0));
 
   /* ---------- the field guide: every place, with or without an icon ---------- */
-  const fgBody = '<div class="kicker">FIELD GUIDE · INTERNET AESTHETICS & SUBCULTURES</div><h2 class="roomtitle">field guide</h2>' +
-    '<div class="q">an aesthetic is how something looks. a subculture is how a community behaves. a practice is what people make with the network itself. they overlap. this is every place on the desktop, by family.</div><div class="fg-list"></div>' +
+  const fgBody = '<div class="kicker">THE ALBUM · THINGS PEOPLE MADE ONLINE, AND WHO KEPT THEM</div><h2 class="roomtitle">the album</h2>' +
+    '<div class="q">an aesthetic is how something looks. a subculture is how a community behaves. a practice is what people make with the network itself. these are the ones i have a stake in. the rest are folded away below.</div><div class="fg-list"></div>' +
     '<div class="cult-foot"><span class="keepnote">classification is an editorial act: what is included, and how it is named, shapes the collection.</span></div>';
-  const fgWin = S.makeWindow('win-fieldguide', 'field guide', 540, fgBody);
+  const fgWin = S.makeWindow('win-fieldguide', 'the album', 540, fgBody);
   function drawGuide() {
     const y = typeof currentEra !== 'undefined' ? parseInt(currentEra, 10) : 1996;
     const html = Object.keys(FAM).map((k) => {
-      const rows = S.cultures.filter((c) => c.fam === k).sort((a, b) => a.from - b.from);
+      const rows = S.cultures.filter((c) => c.fam === k && c.stake !== false).sort((a, b) => a.from - b.from);
       return '<div class="fg-fam"><h4>' + esc(FAM[k].name) + '</h4>' + rows.map((c) => {
         const here = y >= c.from && (c.until == null || y <= c.until);
         const seen = S.opened[c.id] ? ' seen' : '';
         return '<button class="fg-row' + (here ? ' here' : '') + seen + '" data-id="' + c.id + '"><span class="fg-g">' + c.glyph + '</span><span class="fg-t">' + esc(c.title) + '</span><span class="fg-y">' + esc(c.years) + '</span><span class="fg-k">' + esc(KIND_WORD[c.kind] || c.kind || 'practice') + '</span></button>';
       }).join('') + '</div>';
     }).join('');
-    $('.fg-list', fgWin).innerHTML = html;
+    const row = (c) => {
+      const here = y >= c.from && (c.until == null || y <= c.until) && c.until !== 0;
+      const seen = S.opened[c.id] ? ' seen' : '';
+      return '<button class="fg-row' + (here ? ' here' : '') + seen + '" data-id="' + c.id + '"><span class="fg-g">' + c.glyph + '</span><span class="fg-t">' + esc(c.title) + '</span><span class="fg-y">' + esc(c.years) + '</span></button>';
+    };
+    const theirs = S.cultures.filter((c) => c.stake === false).sort((a, b) => a.from - b.from);
+    const album = theirs.length ? '<details class="fg-album"><summary>the album: not mine (' + theirs.length + ')</summary><p class="fg-albumnote">i keep these so the list is honest. i don’t claim them.</p>' + theirs.map(row).join('') + '</details>' : '';
+    $('.fg-list', fgWin).innerHTML = html + album;
     fgWin.querySelectorAll('.fg-row').forEach((b) => {
       b.onclick = () => { const c = S.cultures.find((x) => x.id === b.dataset.id); S.opened[c.id] = true; log('opened ' + c.title + ' from the field guide', 'interest noted'); openWindow(c.winId); drawGuide(); };
     });
   }
-  const fgIcon = S.addIcon('fieldguide', '🗺', 'field guide', () => { drawGuide(); openWindow('win-fieldguide'); });
+  const fgIcon = S.addIcon('fieldguide', '🗺', 'the album', () => { drawGuide(); openWindow('win-fieldguide'); });
   S.pinned.push({ cid: 'fieldguide', from: 1996 });
   const prevSync = S.syncIcons;
   S.syncIcons = function (year) { prevSync(year); if (fgWin) drawGuide(); };
