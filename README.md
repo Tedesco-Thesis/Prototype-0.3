@@ -1,4 +1,4 @@
-# Third Space — prototype 0.5
+# Third Space — prototype 0.6
 
 An interactive Windows-95-style desktop that moves through the history of the web, era by era.
 Static site: open `index.html` (or serve the folder, e.g. `python3 -m http.server`).
@@ -21,7 +21,7 @@ js/
 
 ## Load order matters
 
-`script.js` → `cultures.js` → `js/features/pages/*.js` (one HTML template per aesthetic) → `subcultures.js` → `early-eras.js` → era scripts, oldest to newest → `guide.js` (last).
+`script.js` → `people.js` → `cultures.js` → `js/features/pages/*.js` (one HTML template per aesthetic) → `subcultures.js` → `early-eras.js` → era scripts, oldest to newest → `guide.js` (last).
 Era scripts splice themselves into the timeline, so each one must load after the era before it.
 
 ## Adding an era
@@ -101,3 +101,21 @@ One metaphor: a shared family computer. Each era is a profile someone left logge
 Review shortcuts: add `#quick` to the url to shrink the rituals; `#hour=22` previews the wallpaper at 22:00 (e.g. `index.html#quick&hour=22`).
 
 `js/core/wallpapers.js` still shows an `era.<scope>.wallpaper` image behind an era when one is registered in `js/core/assets.js`; the time-of-day tint sits on top.
+
+
+## What's new in 0.6: leave a trace
+
+The rooms now share one store, and any thing in it can be met in one window (a **trace**) three ways: 1996 the page, 2024 the record, 2030 yours.
+Read `NOTES-0.6.md` for the journey, change log, data model, deletion, limitations and test report.
+
+| file | what it does |
+|------|--------------|
+| `js/core/store.js` | the only place visitor data lives (localStorage, this browser only); create, revise, bin, restore, destroy, connect, keep |
+| `js/features/samples.js` | read-only fictional artifacts built from `people.js` + invented extras |
+| `js/features/lenses.js` | draws one artifact as page / record / yours; the record's rules are listed in the interface |
+| `js/features/viewer.js` | the trace window: tabs, respond bar, history, connections, controls, back-stack |
+| `js/features/rooms.js` | wires my page, letters, the shelf, the ledger sentence, the stacks and *what you left* to the store |
+| `css/core/traces.css` | styles for all of the above |
+| `tests/` | `node tests/journey.js`, `node tests/eras-sweep.js` (Playwright) |
+
+Load order adds `store → samples → lenses → viewer → rooms` after `stakes.js`, before `sound.js`.

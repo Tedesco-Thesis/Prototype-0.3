@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="css/eras/2020-26.css">
 <link rel="stylesheet" href="css/eras/next.css">
 <link rel="stylesheet" href="css/core/family.css">
+<link rel="stylesheet" href="css/core/traces.css">
 </head>
 <body>
 
@@ -74,6 +75,11 @@
     <h2 class="roomtitle">hi. you found this place.</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">this is the family computer. everyone who used it left their profile logged in, and nobody remembers who last touched what. each year on the bar above is one of those profiles. every file says <b>last edited by: unknown</b>.</p>
     <p>go forward, one profile at a time. watch what is on the desktop, and what isn't.</p>
+    <div class="rm-invite" id="rmInvite">
+      <p><b>someone left something on this computer.</b> you can read it, answer it, or leave it where it is. you do not need a name, an account, or to write anything. opening a trace is not counted or reported.</p>
+      <div class="rm-row"><button class="btn-95" id="rmFind">meet something someone left</button><button class="btn-95" id="rmCalm">just look around</button></div>
+      <p class="rm-small" id="rmSmall">everything you write stays in this browser. the people and letters you will meet are fictional samples, and say so.</p>
+    </div>
     <p style="text-align:center;"><span class="counter">you are visitor # 004,812</span></p>
     <hr class="dots">
     <p><b>what it has noticed so far</b>:</p>
@@ -82,12 +88,12 @@
     <p><b>what is on this desktop</b>:</p>
     <ul>
       <li><a class="retro" onclick="openWindow('win-data')">the ledger</a> — trade a piece of your week for someone else's; then see <a class="retro" onclick="openPane('win-data','social')">our data</a>, the same trade, as a memory and as a dashboard</li>
-      <li><a class="retro" onclick="openWindow('win-mail')">letters</a> — a message that takes time to send</li>
-      <li><a class="retro" onclick="openWindow('win-gallery')">the shelf</a> — what you made, with your name on it</li>
+      <li><a class="retro" onclick="openWindow('win-mail')">letters</a> — write one slowly, leave it for someone you haven't met, or open <a class="retro" onclick="openPane('win-mail','drawer')">the drawer</a></li>
+      <li><a class="retro" onclick="openWindow('win-gallery')">the shelf</a> — what you made, with your name on it, and what you chose to keep from other people</li>
       <li><a class="retro" onclick="openWindow('win-personal')">my page</a> — a page you build, not a form you fill in</li>
-      <li><a class="retro" onclick="openWindow('win-maze')">lost &amp; found</a> — the same search, three speeds; or ask <a class="retro" onclick="openPane('win-maze','whoknows')">who knows?</a> and get uncertain people instead of ranked pages</li>
+      <li><a class="retro" onclick="openWindow('win-maze')">lost &amp; found</a> — find people through what they care about, and see exactly why each thing is there; or try the old <a class="retro" onclick="openPane('win-maze','maze')">three speeds</a> and <a class="retro" onclick="openPane('win-maze','whoknows')">who knows?</a></li>
       <li><a class="retro" onclick="openWindow('win-machine')">the machine between us</a> — something that edits what you say before they hear it</li>
-      <li><a class="retro" onclick="openWindow('win-receipt')">the recycle bin</a> — everything this computer kept after you let go of it</li>
+      <li><a class="retro" onclick="openWindow('win-receipt')">the recycle bin</a> — everything this computer kept after you let go of it; and, on the other tab, <a class="retro" onclick="openPane('win-receipt','mine')">what you left</a>: inspect it, hide it, take it back, delete it</li>
     </ul>
     <hr class="dots">
     <p style="font-size:12px; color:#555;">best viewed by a person</p>
@@ -101,7 +107,7 @@
     <div class="winbtns"><button onclick="minimizeWindow('win-data')">_</button><button onclick="closeWindow('win-data')">×</button></div>
   </div>
   <div class="winbody">
-    <div class="pane-tabs" data-win="win-data"><button class="active" data-pane="data" onclick="switchPane('win-data','data')">the week</button><button data-pane="social" onclick="switchPane('win-data','social')">our data</button></div>
+    <div class="pane-tabs" data-win="win-data"><button class="active" data-pane="data" onclick="switchPane('win-data','data')">the week</button><button data-pane="sentence" onclick="switchPane('win-data','sentence')">one sentence</button><button data-pane="social" onclick="switchPane('win-data','social')">our data</button></div>
     <div class="pane" id="pane-data">
     <h2 class="roomtitle">how was your week?</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what if data exchange were reciprocal instead of extracted?</p>
@@ -117,6 +123,21 @@
     </div>
     <div id="lockedMsg" class="locked-msg" style="margin-top:14px;">nothing to see here yet. give something to get something.</div>
 </div>
+    <div class="pane off" id="pane-sentence">
+      <h2 class="roomtitle">what gets lost when a life becomes data?</h2>
+      <p class="rm-small">write one sentence about something you did. you will see it three ways: as you meant it, as a timeline and a metric, and as a category a system would file you under. you can say no to any category. you can keep the sentence or leave it unsaved.</p>
+      <label class="rm-lab" for="lgText">one sentence (optional) <button class="btn-95" id="lgEx" type="button">use an example</button></label>
+      <textarea class="field" id="lgText" rows="2" maxlength="300" placeholder="e.g. I spent Sunday fixing something that wasn't broken."></textarea>
+      <label class="rm-lab" for="lgTags">words you would use for it (optional, up to three, comma separated)</label>
+      <input class="field" id="lgTags" placeholder="repair, no-reason">
+      <div class="rm-row"><button class="btn-95" id="lgSee" type="button">look at it, without keeping it</button><button class="btn-95" id="lgKeep" type="button">keep it, only for me</button><span class="rm-say" id="lgSay" role="status"></span></div>
+      <div id="lgPreview"></div>
+      <h3 class="cmp">sentences you kept</h3>
+      <div id="lgList"></div>
+      <div id="lgLens"></div>
+      <h3 class="cmp">what a system could say about you from them <span style="font-weight:normal; font-size:10px;">(fictional rules, built only from what you kept)</span></h3>
+      <div id="lgProfile"></div>
+    </div>
     <div class="pane off" id="pane-social">
     <div class="kicker">PROTOTYPE 05 — THE SOCIAL DATA WEB</div>
     <h2 class="roomtitle">a relationship, not a dashboard</h2>
@@ -155,26 +176,51 @@
 </div>
 
 <!-- ===================== CORRESPONDENCE ROOM WINDOW ===================== -->
-<div class="window" id="win-mail" style=" z-index:8;">
+<div class="window" id="win-mail" style="width:440px; z-index:8;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-mail')">
-    <span class="ttl">letters.txt — letters</span>
+    <span class="ttl">letters.txt — write</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-mail')">_</button><button onclick="closeWindow('win-mail')">×</button></div>
   </div>
   <div class="winbody">
-    <h2 class="roomtitle">write to someone</h2>
-    <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what if communication required time and attention instead of neither?</p>
-    <p style="font-size:12px; color:#444;">no autocomplete, no read receipts. once it's sent, it's sent.</p>
-    <textarea class="field" id="mailText" rows="4" placeholder="start writing..." oninput="onMailInput()"></textarea>
-    <div class="voice" id="mailVoice"></div>
-    <button class="btn-95" id="sendBtn" onclick="sendMail()" disabled>send</button>
-    <span id="mailTimer" style="font-size:12px; margin-left:6px; color:#660000;"></span>
-    <hr class="dots">
-    <div id="sentList"></div>
+    <div class="pane-tabs" data-win="win-mail"><button class="active" data-pane="write" onclick="switchPane('win-mail','write')">write</button><button data-pane="drawer" onclick="switchPane('win-mail','drawer')">the drawer</button></div>
+    <div class="pane" id="pane-write">
+      <h2 class="roomtitle">leave something for someone you haven't met</h2>
+      <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what if communication required time and attention instead of neither?</p>
+      <p style="font-size:12px; color:#444;">no autocomplete, no read receipts, no streaks. nobody is notified: this is a local simulation, and nothing is delivered to a real person.</p>
+      <div class="ml-reply" id="mlReply" hidden></div>
+      <label class="rm-lab" for="mlTo">to</label>
+      <select class="field" id="mlTo"></select>
+      <textarea class="field" id="mailText" rows="4" placeholder="start writing..." oninput="onMailInput()" aria-label="your letter"></textarea>
+      <fieldset class="ml-fs"><legend>something to put with it (optional)</legend>
+        <label><input type="radio" name="mlAtt" value="" checked> nothing</label>
+        <label><input type="radio" name="mlAtt" value="link"> a saved link</label>
+        <label><input type="radio" name="mlAtt" value="drawing"> a small drawing</label>
+        <input class="field" id="mlLink" placeholder="a page, or the name of one" aria-label="saved link" hidden>
+        <div id="mlPad" hidden></div>
+      </fieldset>
+      <fieldset class="ml-fs"><legend>where it goes</legend>
+        <label><input type="radio" name="mlDel" value="private" checked> my drawer only</label>
+        <label><input type="radio" name="mlDel" value="recipient"> sealed until my next visit</label>
+        <label><input type="radio" name="mlDel" value="public"> in the shared archive</label>
+      </fieldset>
+      <label class="rm-lab" for="mlTags">words for it (optional, up to three) — so someone could find it through what it is about</label>
+      <input class="field" id="mlTags" placeholder="repair, old-tech">
+      <div class="voice" id="mailVoice" role="status"></div>
+      <button class="btn-95" id="sendBtn" onclick="sendMail()" disabled>send</button>
+      <span id="mailTimer" style="font-size:12px; margin-left:6px; color:#660000;"></span>
+    </div>
+    <div class="pane off" id="pane-drawer">
+      <h2 class="roomtitle">the drawer</h2>
+      <h3 class="cmp">letters other people left <small>(fictional samples)</small></h3>
+      <div id="mlSamples"></div>
+      <h3 class="cmp">yours</h3>
+      <div id="sentList"></div>
+    </div>
   </div>
 </div>
 
 <!-- ===================== SIGNED-WORK ROOM WINDOW ===================== -->
-<div class="window" id="win-gallery" style="width:420px; top:160px; left:150px; z-index:7;">
+<div class="window" id="win-gallery" style="width:440px; top:160px; left:150px; z-index:7;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-gallery')">
     <span class="ttl">shelf.txt — the shelf</span>
     <div class="winbtns"><button onclick="minimizeWindow('win-gallery')">_</button><button onclick="closeWindow('win-gallery')">×</button></div>
@@ -182,12 +228,19 @@
   <div class="winbody">
     <h2 class="roomtitle">make something</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what if authorship were shown through visible process rather than a metric or a market?</p>
-    <p style="font-size:12px; color:#444;">write or revise below. every saved draft stays in the trail — that trail is what proves this is yours.</p>
-    <textarea class="field" id="workText" rows="4" placeholder="a few lines, a sketch in words, anything..."></textarea>
-    <button class="btn-95" onclick="saveDraft()">save draft</button>
-    <button class="btn-95" onclick="signWork()">sign &amp; display</button>
+    <p style="font-size:12px; color:#444;">write or revise below. every saved draft stays in the trail — that trail is what proves this is yours. nothing here is published unless you choose.</p>
+    <textarea class="field" id="workText" rows="4" placeholder="a few lines, a sketch in words, anything..." aria-label="your piece"></textarea>
+    <label class="rm-lab" for="workTags">words for it (optional, up to three)</label>
+    <input class="field" id="workTags" placeholder="unfinished, no-reason">
+    <label class="rm-lab" for="workVis">when signed, who could find it</label>
+    <select class="field" id="workVis"><option value="private">only me</option><option value="public">in the archive</option></select>
+    <div class="rm-row"><button class="btn-95" onclick="saveDraft()">save draft</button><button class="btn-95" onclick="signWork()">sign &amp; display</button><span class="rm-say" id="workMsg" role="status"></span></div>
     <div class="draft-log" id="draftLog"></div>
     <div id="finalPiece"></div>
+    <h3 class="cmp">made by you</h3>
+    <div id="shelfMine"></div>
+    <h3 class="cmp">kept from other people</h3>
+    <div id="shelfKept"></div>
   </div>
 </div>
 
@@ -198,6 +251,8 @@
     <div class="winbtns"><button onclick="minimizeWindow('win-receipt')">_</button><button onclick="closeWindow('win-receipt')">×</button></div>
   </div>
   <div class="winbody">
+    <div class="pane-tabs" data-win="win-receipt"><button class="active" data-pane="receipt" onclick="switchPane('win-receipt','receipt')">what it kept</button><button data-pane="mine" onclick="switchPane('win-receipt','mine')">what you left</button></div>
+    <div class="pane" id="pane-receipt">
     <h2 class="roomtitle">the recycle bin</h2>
     <p style="font-size:11px; color:#000080; font-style:italic; margin-bottom:6px;">design proposition: what does the exchange look like if it's itemized instead of hidden?</p>
     <p style="font-size:12px; color:#444;">every room on this site collects something from you. most sites never show you an itemized version of that exchange. this one does — plus a running count of activity logged silently in the background, which is always higher than what's itemized below.</p>
@@ -209,6 +264,8 @@
     <hr class="dots">
     <div class="receipt-list" id="receiptList"><div class="receipt-line"><span>nothing logged yet</span><span></span></div></div>
     <p style="font-size:11px; color:#666; margin-top:8px;">the "good buyer score" is satire, not a real feature elsewhere on the web — but the underlying math (click volume, form fills, ad engagement → a single number that ranks you) is not.</p>
+    </div>
+    <div class="pane off" id="pane-mine"><div id="mineBody"></div></div>
   </div>
 </div>
 
@@ -233,9 +290,15 @@
         <button class="btn-95" id="tabPreview" onclick="setTab('preview')">preview as a visitor</button>
       </div>
       <div id="buildView">
+        <div class="pg-bar"><span class="rm-small" style="margin:0">background</span><span id="pgBg"></span><button class="btn-95" id="pgPrompt" type="button">an invitation (optional)</button><button class="btn-95" id="pgEmpty" type="button">leave a space empty</button></div>
+        <div class="pg-prompt" id="pgPromptBox" hidden></div>
         <div class="addrow" id="addRow"></div>
         <div id="blocksContainer"></div>
         <div class="findings" id="findings"></div>
+        <label class="rm-lab" for="pgTags">words for this page (optional, up to three) — so someone could find it through them</label>
+        <input class="field" id="pgTags" placeholder="home-site, unfinished">
+        <div class="rm-row"><button class="btn-95" id="pgSave" type="button">keep a version</button><button class="btn-95" id="pgTrace" type="button">open it as a trace</button><button class="btn-95" id="pgBin" type="button">move this page to the bin</button></div>
+        <div class="rm-small" id="pgWhere" role="status"></div><div class="rm-small" id="pgSaved" role="status"></div>
       </div>
       <div id="previewView" style="display:none;">
         <div class="preview" id="previewBody"><em>nothing here yet.</em></div>
@@ -284,8 +347,22 @@
     <div class="winbtns"><button onclick="minimizeWindow('win-maze')">_</button><button onclick="closeWindow('win-maze')">×</button></div>
   </div>
   <div class="winbody">
-    <div class="pane-tabs" data-win="win-maze"><button class="active" data-pane="maze" onclick="switchPane('win-maze','maze')">find it</button><button data-pane="whoknows" onclick="switchPane('win-maze','whoknows')">who knows?</button></div>
-    <div class="pane" id="pane-maze">
+    <div class="pane-tabs" data-win="win-maze"><button class="active" data-pane="stacks" onclick="switchPane('win-maze','stacks')">the stacks</button><button data-pane="maze" onclick="switchPane('win-maze','maze')">find it</button><button data-pane="whoknows" onclick="switchPane('win-maze','whoknows')">who knows?</button></div>
+    <div class="pane" id="pane-stacks">
+      <h2 class="roomtitle">discover people through what they care about</h2>
+      <p class="rm-small">a library of small personal worlds. every result says why it is here. there is no ranking by popularity, no trending, no endless scroll. try a theme, a word, a page someone mentions, or chance.</p>
+      <div class="st-themes" id="stThemes"></div>
+      <div class="search-row" style="margin-top:8px"><input class="field" id="stQ" placeholder="a word: radio, tomato, letters, quiet…" aria-label="search the stacks"><button class="btn-95" id="stGo" type="button">look</button></div>
+      <div class="st-paths" role="group" aria-label="which path through the archive">
+        <label><input type="radio" name="stPath" value="words" checked> by words</label>
+        <label><input type="radio" name="stPath" value="tag"> by what makers declared</label>
+        <label><input type="radio" name="stPath" value="site"> by pages they mention</label>
+        <label><input type="radio" name="stPath" value="chance"> by chance</label>
+      </div>
+      <div class="st-order" id="stOrder"></div>
+      <div id="stRes" aria-live="polite"></div>
+    </div>
+    <div class="pane off" id="pane-maze">
     <div class="kicker">PROTOTYPE 02 — THE UNOPTIMIZED WEB</div>
     <h2 class="roomtitle">find the story about the lighthouse</h2>
     <div class="q">not "is friction good" — what kinds of friction are meaningful, and what kinds are merely inconvenient? try all three modes.</div>
@@ -387,6 +464,26 @@
   </div>
 </div>
 
+<!-- ===================== A TRACE: where any artifact is met ===================== -->
+<div class="window" id="win-trace" role="dialog" aria-labelledby="trTitle" style="width:500px; top:104px; left:330px; z-index:11;">
+  <div class="titlebar" onpointerdown="startDrag(event,'win-trace')">
+    <span class="ttl" id="trTitle">a trace</span>
+    <div class="winbtns"><button onclick="minimizeWindow('win-trace')" aria-label="minimize">_</button><button onclick="Viewer.close()" aria-label="close">×</button></div>
+  </div>
+  <div class="winbody tr-body">
+    <div class="tr-head"><button class="btn-95" id="trBack" type="button" disabled aria-label="back to the previous thing">← back</button><div id="trMeta"></div></div>
+    <div class="tr-tabs" role="tablist" aria-label="the same thing, held three ways">
+      <button class="btn-95" id="trTab-page" role="tab" type="button">1996 · the page</button>
+      <button class="btn-95" id="trTab-record" role="tab" type="button">2024 · the record</button>
+      <button class="btn-95" id="trTab-yours" role="tab" type="button">2030 · yours</button>
+    </div>
+    <div id="trLens"></div>
+    <div class="tr-respond"><div id="trRespond"></div><div class="rm-say" id="trSay" role="status"></div></div>
+  </div>
+</div>
+
+<div id="rmToast" role="status" aria-live="polite"></div>
+
 <!-- ===================== ABOUT WINDOW ===================== -->
 <div class="window" id="win-about" style="width:400px; top:200px; left:200px; z-index:0;">
   <div class="titlebar" onpointerdown="startDrag(event,'win-about')">
@@ -435,6 +532,11 @@
 <script src="js/eras/next.js"></script>
 <script src="js/core/wallpapers.js"></script>
 <script src="js/features/stakes.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/features/samples.js"></script>
+<script src="js/features/lenses.js"></script>
+<script src="js/features/viewer.js"></script>
+<script src="js/features/rooms.js"></script>
 <script src="js/core/sound.js"></script>
 <script src="js/core/family.js"></script>
 <script src="js/features/guide.js"></script>

@@ -189,6 +189,7 @@ const windowTitles = {
   'win-personal': 'my page',
   'win-maze': 'lost & found',
   'win-machine': 'the machine between us',
+  'win-trace': 'a trace',
 };
 const openTabsEl = document.getElementById('openTabs');
 
@@ -218,8 +219,10 @@ function openWindow(id) {
    They used to be separate windows; the pop-up and receipt copy for them is still keyed by the old ids,
    see roomKeyOf() below. */
 const PANES = {
-  'win-maze': { maze: ['lost-and-found.htm', 'lost & found'], whoknows: ['whoknows.htm — who might know?', 'who knows?'] },
-  'win-data': { data: ['ledger.txt — the ledger', 'the ledger'], social: ['ourledger.txt — our ledger', 'our ledger'] },
+  'win-maze': { stacks: ['stacks.htm — the stacks', 'the stacks'], maze: ['lost-and-found.htm', 'lost & found'], whoknows: ['whoknows.htm — who might know?', 'who knows?'] },
+  'win-data': { data: ['ledger.txt — the ledger', 'the ledger'], sentence: ['sentence.txt — one sentence', 'one sentence'], social: ['ourledger.txt — our ledger', 'our ledger'] },
+  'win-mail': { write: ['letters.txt — write', 'write a letter'], drawer: ['drawer.txt — the drawer', 'the drawer'] },
+  'win-receipt': { receipt: ['recycle bin — what this computer kept', 'recycle bin'], mine: ['what you left — recycle bin', 'what you left'] },
 };
 const PANE_KEY = { 'win-maze:whoknows': 'win-whoknows', 'win-data:social': 'win-social' };
 

@@ -337,6 +337,16 @@ window.ASSET_MANIFEST = {
   ],
   "invented": [
     {
+      "where": "js/features/samples.js",
+      "what": "the letters, notes, saved link and 12×12 drawing that sit beside each placeholder person (EXTRAS). Isabella wrote them for this prototype; the people did not. They are shown only while that person is a placeholder, and the viewer labels each one \"fictional sample\".",
+      "status": "placeholder"
+    },
+    {
+      "where": "js/features/lenses.js",
+      "what": "the \"record\" a platform would keep: nine plain keyword rules, a made-up productivity score and made-up confidence numbers. No machine learning, nothing stored; it is drawn again each time and says so.",
+      "status": "fiction, labelled in the interface"
+    },
+    {
       "where": "js/features/people.js",
       "what": "the people named in webrings, guestbooks and next-web authors now come from js/features/people.js: six placeholders until real, consenting people replace them.",
       "status": "placeholder"
